@@ -1,4 +1,4 @@
-## State Machine Diagrams for the application
+# State Machine Diagrams for the application
 
 ## SMD for Posts
 

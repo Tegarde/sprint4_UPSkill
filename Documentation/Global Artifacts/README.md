@@ -6,6 +6,10 @@
 
 ### [Check State Machine Diagrams](SMDs/SMDs.md)
 
+# Sequence Flow Diagrams for the application
+
+### [Check Sequence Flow Diagrams](SequenceFlow/SequenceFlow.md)
+
 # Use Case Diagram (UCD)
 ![Use Case Diagram File](UseCaseDiagramV2.svg)
 
