@@ -1,0 +1,50 @@
+#networks:
+#  cicloweb:
+#    name: cicloweb
+#    driver: bridge
+
+services:
+
+  #data-api:
+  #  build: ./DataAPI
+  #  ports:
+  #    - "5000:5000"
+  #  volumes:
+  #    - ./DataAPI:/app
+  #  command: sh -c "dotnet run --project ./DataAPI --urls=http://0.0.0.0:5000"
+  #  networks:
+  #    - cicloweb
+
+  #operations-api:
+  #  build: ./OperationsAPI
+  #  ports:
+  #    - "8080:8080"
+  #  environment:
+  #    - DATA_API_URL=http://data-api:5000
+  #  volumes:
+  #    - ./OperationsAPI:/app
+  #  depends_on:
+  #    data-api:
+  #      condition: service_started
+  #  command: sh -c "./gradlew bootRun"
+  #  networks:
+  #    - cicloweb
+
+  angular:
+    build: ./ReCiclo
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./ReCiclo:/app
+      - /app/node_modules
+    #depends_on:
+    #  operations-api:
+    #    condition: service_started
+    command: sh -c "ng serve --host 0.0.0.0 --poll 2000"
+    #networks:
+    #  - cicloweb
+
+
+
+  
+
