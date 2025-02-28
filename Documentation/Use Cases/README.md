@@ -5,8 +5,8 @@
 ## Use Cases
 | UC   | Description                                                                                   |
 |------|-----------------------------------------------------------------------------------------------|
-| UC01 | [Criação de Eventos](../../US001/README.md)                                                   |
-| UC02 | [Alterar o estado de uma publicação existente](../../US002/README.md)                         |
+| UC01 | [Criação de Eventos](UC01/README.md)                                                          |
+| UC02 | [Alterar o estado de uma publicação existente](UC02/README.md)                                |
 | UC03 | [Adicionar uma nova publicação](../../US003/README.md)                                        |
 | UC04 | [Receber badges consoante a atividade](../../US004/README.md)                                 |
 | UC05 | [Pesquisar publicações por palavra chave](../../US005/README.md)                              |
@@ -19,4 +19,4 @@
 | UC11 | [Visualizar notificações de interações com os seus posts](../../US012/README.md)              |
 | UC12 | [Ver os favoritos](../../US013/README.md)                                                     |
 
-## [Back to README](../Global%20Artifacts/README.md)
+## [Back to README](../README.md)

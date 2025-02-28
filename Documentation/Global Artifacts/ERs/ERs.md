@@ -9,4 +9,4 @@
 
 ![ER for Spring Application](ER-Spring.svg)
 
-## [Back to README](../README.md)
+## [Back to README](../../README.md)

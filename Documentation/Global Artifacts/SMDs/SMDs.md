@@ -8,4 +8,4 @@
 
 ![SMD for Events](SMD_Events.svg)
 
-## [Back to README](../README.md)
+## [Back to README](../../README.md)

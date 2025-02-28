@@ -2,4 +2,4 @@
 
 ![Domain Model](DomainModel.svg)
 
-## [Back to README](../README.md)
+## [Back to README](../../README.md)
