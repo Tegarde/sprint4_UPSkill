@@ -8,4 +8,10 @@
 
 _As a user, I want to view interaction notifications for my posts, so that I can stay updated with the latest activity_
 
+### Acceptance Criteria
+
+1. The system should display a number of interaction notifications for the user's posts.
+2. These notifications should be displayed when the user logs in, or when he refreshes the page.
+3. The user must be logged in.
+
 ### [Back to Use Cases](../README.md)

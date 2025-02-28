@@ -8,4 +8,9 @@
 
 _As a user, I want to filter posts by category, so that I can find posts that are relevant to my interests_
 
+### Acceptance Criteria
+
+1. The categories to filter for must be provided by the database.
+2. The system should return posts that match the selected categories with pagination and links.
+
 ### [Back to Use Cases](../README.md)

@@ -8,4 +8,9 @@
 
 _As a user, I want to add posts to my favorites, so that I can easily access them later_
 
+### Acceptance Criteria
+
+1. The user must be logged in.
+2. The favorite post should be stored in the database.
+
 ### [Back to Use Cases](../README.md)
