@@ -1,10 +1,15 @@
-# Green'it System
+<h1 style="font-size: 45px; text-align: center; color: #4CAF50">Green'it System</h1>
+<br>
+
 
 >The Green'it system is a Reddit like experience for the green and eco-friendly enthusiasts.  
 > The system allows users to create posts, comments, and interact with other users' posts and comments.  
 > These posts can also be filtered by category, and users can view the most popular posts and comments.  
 > If a moderator disapproves a post, he can deactivate it, and it will be invisible in the system.  
-> The moderator can also create events, for example, a hackathon or a conference, for the users to attend.
+> The moderator can also create events, for example, a hackathon or a conference, for the users to attend.  
+> The users and the moderators can also receive badges based on their interactions and contributions, respectively.  
+> The system also allows users to add posts to their favorites, and view their favorite posts.  
+> Finally, the system also allows users to view interaction notifications for their posts, so they can stay updated with the latest activity.
 
 ## Sequence Flow Diagram for the application
 

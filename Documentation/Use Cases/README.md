@@ -18,5 +18,6 @@
 | UC11 | [Colocar uma publicação nos favoritos](UC11/README.md)                                 |
 | UC12 | [Visualizar notificações de interações com os seus posts](UC12/README.md)              |
 | UC13 | [Ver os favoritos](UC13/README.md)                                                     |
+| UC14 | [Register as User](UC14/README.md)                                                     |
 
 ## [Back to README](../README.md)
