@@ -8,4 +8,11 @@
 
 _As a moderator, I want to change the status of a post, so that it becomes invisible to the public_
 
+### Acceptance Criteria
+
+1. The moderator must be logged in.
+2. The new status must be provided.
+3. The new status must be different from the current status.
+4. The post must be updated in the database.
+
 ### [Back to Use Cases](../README.md)

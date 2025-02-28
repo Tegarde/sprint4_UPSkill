@@ -8,4 +8,11 @@
 
 _As a user, I want to add new posts, so that I can share my knowledge and experience with others_
 
+### Acceptance Criteria
+
+1. The title of the post must be provided.
+2. The content of the post must be provided.
+3. The category of the post must be provided.
+4. The user must be logged in to add a new post.
+
 ### [Back to Use Cases](../README.md)

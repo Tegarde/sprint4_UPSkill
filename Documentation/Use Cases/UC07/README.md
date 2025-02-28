@@ -8,4 +8,10 @@
 
 _As a user, I want to comment on posts or events, so that I can share my thoughts and opinions_
 
+### Acceptance Criteria
+
+1. The user must be logged in.
+2. The content of the comment must be provided.
+3. The comment must be associated with the post, event or comment being commented on.
+
 ### [Back to Use Cases](../README.md)
