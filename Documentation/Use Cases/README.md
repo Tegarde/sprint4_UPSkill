@@ -7,8 +7,8 @@
 |------|-----------------------------------------------------------------------------------------------|
 | UC01 | [Criação de Eventos](UC01/README.md)                                                          |
 | UC02 | [Alterar o estado de uma publicação existente](UC02/README.md)                                |
-| UC03 | [Adicionar uma nova publicação](../../US003/README.md)                                        |
-| UC04 | [Receber badges consoante a atividade](../../US004/README.md)                                 |
+| UC03 | [Adicionar uma nova publicação](UC03/README.md)                                               |
+| UC04 | [Receber badges consoante a atividade](UC04/README.md)                                        |
 | UC05 | [Pesquisar publicações por palavra chave](../../US005/README.md)                              |
 | UC05 | [Aceder a diferentes estatísticas relativas à atividade do utilizador](../../US006/README.md) |
 | UC06 | [Comentar publicações ou eventos](../../US007/README.md)                                      |
