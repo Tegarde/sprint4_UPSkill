@@ -16,4 +16,8 @@ _As a moderator, I want to create events, so that the users can attend them_
 4. The description of the event must be provided.
 5. The moderator must be logged in to create an event.
 
+### Full Sequence Diagram
+
+![Full Sequence Diagram](03.Design/CreateEventSD.svg)
+
 ### [Back to Use Cases](../README.md)
