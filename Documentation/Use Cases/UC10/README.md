@@ -12,4 +12,8 @@ _As a user, I want to view the trending section, so that I can see the most popu
 
 1. The system should display the trending section, with the most popular posts and events.
 
+### Full Sequence Diagrams
+
+![UC10 FSD](03.Design/SD_Full_See_Trending_Section.svg)
+
 ### [Back to Use Cases](../README.md)
