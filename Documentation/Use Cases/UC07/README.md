@@ -6,7 +6,7 @@
 
 ### User Story
 
-_As a user, I want to comment on posts or events, so that I can share my thoughts and opinions_
+_As a user, I want to comment on posts, events or other comments, so that I can share my thoughts and opinions_
 
 ### Acceptance Criteria
 
@@ -15,6 +15,14 @@ _As a user, I want to comment on posts or events, so that I can share my thought
 3. The comment must be associated with the post, event or comment being commented on.
 
 ### Full Sequence Diagrams
+
+#### Sequence Diagram for commenting a post
+
+![UC07 CAP](03.Design/SD_Full_Comment_A_Post.svg)
+
+#### Sequence Diagram for commenting an event
+
+![UC07 FSD](03.Design/SD_Full_Comment_An_Event.svg)
 
 #### Sequence Diagram for commenting on a comment
 
