@@ -15,4 +15,8 @@ _As a moderator, I want to change the status of a post, so that it becomes invis
 3. The new status must be different from the current status.
 4. The post must be updated in the database.
 
+### Full Sequence Diagram
+
+![UC02 FSD](03.Design/DeactivatePostSD.svg)
+
 ### [Back to Use Cases](../README.md)
