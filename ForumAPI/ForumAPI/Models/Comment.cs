@@ -24,11 +24,13 @@ namespace ForumAPI.Models
         /// <summary>
         /// The unique identifier for the parent comment.
         /// </summary>
+        [ForeignKey("Comment")]
         public int? ParentCommentId { get; set; }=null;
 
         /// <summary>
         /// The unique identifier for the event.
         /// </summary>
+        [ForeignKey("Event")]
         public int? EventId { get; set; }=null;
 
         /// <summary>
