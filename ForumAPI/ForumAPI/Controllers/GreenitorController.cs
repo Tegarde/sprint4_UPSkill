@@ -1,4 +1,5 @@
-﻿using ForumAPI.DTOs;
+﻿using ForumAPI.CustomExceptions;
+using ForumAPI.DTOs;
 using ForumAPI.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
