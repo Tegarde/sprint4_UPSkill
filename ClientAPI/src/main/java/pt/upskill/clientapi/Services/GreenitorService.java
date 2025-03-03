@@ -32,7 +32,7 @@ public class GreenitorService implements GreenitorDAO {
 
     @Override
     public Token loginUser(LoginDTO loginDTO) {
-        Greenitor greenitor = userRepository.findByEmail(loginDTO.getEmail());
+        Greenitor greenitor = greenitorRepository.findByEmail(loginDTO.getEmail());
         if (greenitor == null) {
             throw new IllegalArgumentException("User with email " + loginDTO.getEmail() + " does not exist");
         }
