@@ -13,4 +13,8 @@ _As a user, I want to filter posts by category, so that I can find posts that ar
 1. The categories to filter for must be provided by the database.
 2. The system should return posts that match the selected categories with pagination and links.
 
+### Full Sequence Diagram
+
+![UC09 FSD](03.Design/FilterPostByCategory.svg)
+
 ### [Back to Use Cases](../README.md)

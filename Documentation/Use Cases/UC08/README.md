@@ -21,4 +21,8 @@ _As a user, I want to sort posts by date and interactions, so that I can easily 
     - Ascending Number of dislikes
     - Descending Number of dislikes
 
+### Full Sequence Diagram
+
+![UC08 FSD](03.Design/SortPosts-US08.svg)
+
 ### [Back to Use Cases](../README.md)

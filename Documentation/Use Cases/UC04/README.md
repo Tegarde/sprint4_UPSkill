@@ -14,4 +14,8 @@ _As a user, I want to receive badges based on my activity_
 2. The badges are displayed on the user's profile page.
 3. The badges must be a valid badge from the database.
 
+### Full Sequence Diagram
+
+![UC04 FSD](03.Design/AddBadge.png)
+
 ### [Back to Use Cases](../README.md)

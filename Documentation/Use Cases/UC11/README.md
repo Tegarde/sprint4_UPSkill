@@ -13,4 +13,8 @@ _As a user, I want to add posts to my favorites, so that I can easily access the
 1. The user must be logged in.
 2. The favorite post should be stored in the database.
 
+### Full Sequence Diagram
+
+![UC11 FSD](03.Design/SD_Full.svg)
+
 ### [Back to Use Cases](../README.md)
