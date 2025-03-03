@@ -28,5 +28,23 @@ namespace ForumAPI.Services
                 throw new ResponseStatusException(request.StatusCode, message!);
             }
         }
+
+        public async Task<TokenDTO> Login(LoginDTO loginDTO)
+        {
+            var request = await client.PostAsJsonAsync($"{BaseUrl}/login",loginDTO);
+            if(request.IsSuccessStatusCode)
+            {
+                var token = await request.Content.ReadFromJsonAsync<TokenDTO>();
+                return token!;
+            }else
+            {
+                var message = await request.Content.ReadFromJsonAsync<ResponseMessage>();
+                throw new ResponseStatusException(request.StatusCode, message!);
+            }
+
+        }
+
+
+
     }
 }

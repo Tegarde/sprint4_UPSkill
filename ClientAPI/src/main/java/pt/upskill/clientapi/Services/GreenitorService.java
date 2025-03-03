@@ -7,6 +7,8 @@ import pt.upskill.clientapi.JPARepositories.GreenitorRepository;
 import pt.upskill.clientapi.Models.Greenitor;
 import pt.upskill.clientapi.Models.Token;
 
+import javax.security.auth.login.AccountNotFoundException;
+
 @Service
 public class GreenitorService implements GreenitorDAO {
 
@@ -26,21 +28,20 @@ public class GreenitorService implements GreenitorDAO {
         if (greenitorRepository.existsByUsername(greenitor.getUsername())) {
             throw new IllegalArgumentException(String.format("User with username %s already exists", greenitor.getUsername()));
         }
-
         return greenitorRepository.save(greenitor);
     }
 
     @Override
+
     public Token loginUser(LoginDTO loginDTO) {
         Greenitor greenitor = greenitorRepository.findByEmail(loginDTO.getEmail());
-        if (greenitor == null) {
-            throw new IllegalArgumentException("User with email " + loginDTO.getEmail() + " does not exist");
-        }
 
+        if (greenitor == null) {
+            throw new AccountNotFoundException(String.format("User with email %s does not exist", loginDTO.getEmail()));
+        }
         if (!greenitor.getPassword().equals(loginDTO.getPassword())) {
             throw new IllegalArgumentException("Invalid password");
         }
-
         return new Token(greenitor.getUsername(), greenitor.getRole());
     }
 

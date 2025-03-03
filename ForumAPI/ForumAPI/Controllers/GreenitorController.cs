@@ -1,4 +1,4 @@
-﻿using ForumAPI.CustomExceptions;
+﻿
 using ForumAPI.DTOs;
 using ForumAPI.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -26,15 +26,33 @@ namespace ForumAPI.Controllers
                 ResponseMessage message = await service.RegisterUser(greenitor);
                 return CreatedAtAction(nameof(RegisterUser), message);
 
-            } 
+            }
             catch (ResponseStatusException ex)
             {
-                return StatusCode((int) ex.StatusCode, ex.ResponseMessage);
+                return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(400, ex.Message);
             }
+        }
+
+        [HttpPost("/login")]
+        public async Task<ActionResult<TokenDTO>> Login([FromBody] LoginDTO loginDTO)
+        {
+            try
+            {
+                TokenDTO token = await service.Login(loginDTO);
+                return Ok(token);
+            }catch(ResponseStatusException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
+
         }
     }
 }
