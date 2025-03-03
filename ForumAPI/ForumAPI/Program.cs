@@ -1,4 +1,7 @@
 
+using ForumAPI.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace ForumAPI
 {
     public class Program
@@ -6,6 +9,8 @@ namespace ForumAPI
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             // Add services to the container.
 
