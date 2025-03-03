@@ -1,13 +1,12 @@
 package pt.upskill.clientapi.Services;
 
 import org.springframework.stereotype.Service;
+import pt.upskill.clientapi.CustomExceptions.UserNotFoundException;
 import pt.upskill.clientapi.DTOs.LoginDTO;
 import pt.upskill.clientapi.Interfaces.GreenitorDAO;
 import pt.upskill.clientapi.JPARepositories.GreenitorRepository;
 import pt.upskill.clientapi.Models.Greenitor;
 import pt.upskill.clientapi.Models.Token;
-
-import javax.security.auth.login.AccountNotFoundException;
 
 @Service
 public class GreenitorService implements GreenitorDAO {
@@ -37,7 +36,7 @@ public class GreenitorService implements GreenitorDAO {
         Greenitor greenitor = greenitorRepository.findByEmail(loginDTO.getEmail());
 
         if (greenitor == null) {
-            throw new AccountNotFoundException(String.format("User with email %s does not exist", loginDTO.getEmail()));
+            throw new UserNotFoundException(String.format("User with email %s does not exist", loginDTO.getEmail()));
         }
         if (!greenitor.getPassword().equals(loginDTO.getPassword())) {
             throw new IllegalArgumentException("Invalid password");
