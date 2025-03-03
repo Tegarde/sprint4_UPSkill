@@ -1,5 +1,6 @@
 package pt.upskill.clientapi.Mappers;
 
+import pt.upskill.clientapi.DTOs.GreenitorDTO;
 import pt.upskill.clientapi.DTOs.RegisterUserDTO;
 import pt.upskill.clientapi.Models.Greenitor;
 
@@ -9,5 +10,9 @@ import pt.upskill.clientapi.Models.Greenitor;
 public class GreenitorMapper {
     public static Greenitor fromRegisterDTO(RegisterUserDTO dto) {
         return new Greenitor(dto.getUsername(), dto.getEmail(), dto.getPassword());
+    }
+
+    public static GreenitorDTO fromGreenitor(Greenitor greenitor) {
+        return new GreenitorDTO(greenitor.getUsername(), greenitor.getEmail(), greenitor.getInteractions());
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.upskill.clientapi.CustomExceptions.UserNotFoundException;
+import pt.upskill.clientapi.DTOs.GreenitorDTO;
 import pt.upskill.clientapi.DTOs.LoginDTO;
 import pt.upskill.clientapi.DTOs.RegisterUserDTO;
 import pt.upskill.clientapi.DTOs.ResponseMessage;
@@ -51,7 +52,8 @@ public class GreenitorController {
     @GetMapping("/username")
     public ResponseEntity<?> getGreenitorByUsername(@RequestBody String username) {
         try {
-            return new ResponseEntity<>(service.getGreenitorByUsername(username), HttpStatus.OK);
+            GreenitorDTO dto = GreenitorMapper.fromGreenitor(service.getGreenitorByUsername(username));
+            return new ResponseEntity<>(dto, HttpStatus.OK);
         } catch (UserNotFoundException e) {
             return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.NOT_FOUND);
         } catch (Exception e) {
