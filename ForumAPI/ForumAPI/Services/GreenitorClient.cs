@@ -19,12 +19,12 @@ namespace ForumAPI.Services
         public async Task<ResponseMessage> RegisterUser(RegisterUserDTO registerUserDTO)
         {
             var request = await client.PostAsJsonAsync(BaseUrl, registerUserDTO);
+            var message = await request.Content.ReadFromJsonAsync<ResponseMessage>();
             if (request.IsSuccessStatusCode)
             {
-                return await request.Content.ReadFromJsonAsync<ResponseMessage>();
+                return message!;
             } else
-            {
-                var message = await request.Content.ReadFromJsonAsync<ResponseMessage>();
+            { 
                 throw new ResponseStatusException(request.StatusCode, message!);
             }
         }

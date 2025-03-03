@@ -4,6 +4,6 @@ namespace ForumAPI.Interfaces
 {
     public interface GreenitorDAO
     {
-        public ResponseMessage RegisterUser(RegisterUserDTO registerUserDTO);
+        public Task<ResponseMessage> RegisterUser(RegisterUserDTO registerUserDTO);
     }
 }
