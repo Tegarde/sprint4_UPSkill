@@ -3,27 +3,31 @@ package pt.upskill.clientapi.Services;
 import org.springframework.stereotype.Service;
 import pt.upskill.clientapi.DTOs.LoginDTO;
 import pt.upskill.clientapi.Interfaces.GreenitorDAO;
-import pt.upskill.clientapi.JPARepositories.UserRepository;
+import pt.upskill.clientapi.JPARepositories.GreenitorRepository;
 import pt.upskill.clientapi.Models.Greenitor;
 import pt.upskill.clientapi.Models.Token;
 
 @Service
 public class GreenitorService implements GreenitorDAO {
 
-    private final UserRepository userRepository;
+    private final GreenitorRepository greenitorRepository;
 
-    public GreenitorService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public GreenitorService(GreenitorRepository greenitorRepository) {
+        this.greenitorRepository = greenitorRepository;
     }
 
 
     @Override
     public Greenitor registerUser(Greenitor greenitor) {
-        if (userRepository.existsByEmail(greenitor.getEmail()) || userRepository.existsByUsername(greenitor.getUsername())) {
-            throw new IllegalArgumentException("User with email " + greenitor.getEmail() + " already exists");
+        if (greenitorRepository.existsByEmail(greenitor.getEmail())) {
+            throw new IllegalArgumentException(String.format("User with email %s already exists", greenitor.getEmail()));
         }
 
-        return userRepository.save(greenitor);
+        if (greenitorRepository.existsByUsername(greenitor.getUsername())) {
+            throw new IllegalArgumentException(String.format("User with username %s already exists", greenitor.getUsername()));
+        }
+
+        return greenitorRepository.save(greenitor);
     }
 
     @Override
