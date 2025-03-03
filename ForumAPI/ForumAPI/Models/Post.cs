@@ -30,17 +30,24 @@ namespace ForumAPI.Models
         /// The unique identifier for the user who created the post.
         /// </summary>
         [MaxLength(100)]
-        public string CreatedBy { get; set; }   
+        public string CreatedBy { get; set; }
 
         /// <summary>
         /// The date and time the post was created.
         /// </summary>
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         /// <summary>
         /// The status of the post.
         /// </summary>
+        [Required]
         public bool Status { get; set; }
+
+        /// <summary>
+        /// The category of the post.
+        /// </summary>
+        [Required]
+        public string Category {get;set;}
 
         /// <summary>
         /// The unique identifiers for the comments on the post.
@@ -50,17 +57,17 @@ namespace ForumAPI.Models
         /// <summary>
         /// The unique identifiers for the users who liked the post.
         /// </summary>
-        public ICollection<string> LikedBy { get; set; } = new List<string>();
+        public ICollection<PostLike> LikedBy { get; set; } = new List<PostLike>();
 
         /// <summary>
         /// The unique identifiers for the users who disliked the post.
         /// </summary>
-        public ICollection<string> DislikedBy { get; set; } = new List<string>();
+        public ICollection<PostDislike> DislikedBy { get; set; } = new List<PostDislike>();
 
         /// <summary>
         /// The unique identifiers for the users who favorited the post.
         /// </summary>
-        public ICollection<string> FavoritedBy { get; set; } = new List<string>();
+        public ICollection<PostFavorite> FavoritedBy { get; set; } = new List<PostFavorite>();
  
     }
 }

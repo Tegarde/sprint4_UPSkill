@@ -1,0 +1,33 @@
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace ForumAPI.Models
+{   
+    /// <summary>
+    /// Represents an attendance record for an event.
+    /// </summary>
+    public class Attendace
+    {
+        /// <summary>
+        /// The unique identifier for the attendance record.
+        /// </summary>
+        [Key]
+        public int Id { get; set; }
+
+        /// <summary>
+        /// The event associated with the attendance record.
+        /// </summary>
+        [ForeignKey("Event")]
+        public int EventId { get; set; }
+
+        /// <summary>
+        /// The event associated with the attendance record.
+        /// </summary>
+        public Event Event { get; set; }
+
+        /// <summary>
+        /// The user associated with the attendance record.
+        /// </summary>
+        public string User { get; set; }
+    }
+}
