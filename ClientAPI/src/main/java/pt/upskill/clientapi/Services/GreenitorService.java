@@ -17,8 +17,12 @@ public class GreenitorService implements GreenitorDAO {
 
     @Override
     public Greenitor registerUser(Greenitor greenitor) {
-        if (userRepository.existsByEmail(greenitor.getEmail()) || userRepository.existsByUsername(greenitor.getUsername())) {
-            throw new IllegalArgumentException("User with email " + greenitor.getEmail() + " already exists");
+        if (userRepository.existsByEmail(greenitor.getEmail())) {
+            throw new IllegalArgumentException(String.format("User with email %s already exists", greenitor.getEmail()));
+        }
+
+        if (userRepository.existsByUsername(greenitor.getUsername())) {
+            throw new IllegalArgumentException(String.format("User with username %s already exists", greenitor.getUsername()));
         }
 
         return userRepository.save(greenitor);
