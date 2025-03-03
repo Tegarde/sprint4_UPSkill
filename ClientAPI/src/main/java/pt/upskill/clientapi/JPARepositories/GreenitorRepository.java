@@ -11,4 +11,6 @@ public interface GreenitorRepository extends JpaRepository<Greenitor, Integer> {
     boolean existsByUsername(String username);
 
     Greenitor findByEmail(String email);
+
+    Greenitor findByUsername(String username);
 }

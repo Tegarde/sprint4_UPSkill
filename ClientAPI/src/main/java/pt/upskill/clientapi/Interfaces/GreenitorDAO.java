@@ -12,4 +12,5 @@ public interface GreenitorDAO {
 
     public Token loginUser(LoginDTO loginDTO) throws AccountNotFoundException;
 
+    public Greenitor getGreenitorByUsername(String username);
 }

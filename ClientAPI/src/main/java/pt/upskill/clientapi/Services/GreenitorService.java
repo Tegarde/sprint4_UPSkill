@@ -44,5 +44,14 @@ public class GreenitorService implements GreenitorDAO {
         return new Token(greenitor.getUsername(), greenitor.getRole());
     }
 
+    @Override
+    public Greenitor getGreenitorByUsername(String username) {
+        Greenitor greenitor = greenitorRepository.findByUsername(username);
 
+        if (greenitor == null) {
+            throw new UserNotFoundException(String.format("User with username %s does not exist", username));
+        }
+
+        return greenitor;
+    }
 }
