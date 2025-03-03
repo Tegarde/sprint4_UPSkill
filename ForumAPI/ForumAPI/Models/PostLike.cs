@@ -22,6 +22,7 @@ namespace ForumAPI.Models
         /// <summary>
         /// The user associated with the like.
         /// </summary>
+        [MaxLength(100)]
         public string User { get;set; }
 
     }

@@ -9,12 +9,6 @@ namespace ForumAPI.Models
     public class PostFavorite
     {
         /// <summary>
-        /// The unique identifier for the post favorite.
-        /// </summary>
-        [Key]
-        public int Id { get; set; }
-
-        /// <summary>
         /// The post associated with the favorite.
         /// </summary>
         [ForeignKey("Post")]
@@ -28,6 +22,7 @@ namespace ForumAPI.Models
         /// <summary>
         /// The user associated with the favorite.
         /// </summary>
+        [MaxLength(100)]
         public string User { get; set; }
 
     }

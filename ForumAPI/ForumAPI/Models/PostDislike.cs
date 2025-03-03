@@ -8,11 +8,6 @@ namespace ForumAPI.Models
     /// </summary>
     public class PostDislike
     {
-        /// <summary>
-        /// The unique identifier for the post dislike.
-        /// </summary>
-        [Key]
-        public int Id { get; set; }
 
         /// <summary>
         /// The post associated with the dislike.
@@ -28,6 +23,7 @@ namespace ForumAPI.Models
         /// <summary>
         /// The user associated with the dislike.
         /// </summary>
+        [MaxLength(100)]
         public string User { get; set; }
     }
 }

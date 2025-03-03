@@ -47,12 +47,13 @@ namespace ForumAPI.Models
         /// The category of the post.
         /// </summary>
         [Required]
+        [MaxLength(50)]
         public string Category {get;set;}
 
         /// <summary>
         /// The unique identifiers for the comments on the post.
         /// </summary>
-        public ICollection<int> Comments { get; set; } = new List<int>();
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
         /// <summary>
         /// The unique identifiers for the users who liked the post.

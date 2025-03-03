@@ -8,11 +8,6 @@ namespace ForumAPI.Models
     /// </summary>
     public class Attendace
     {
-        /// <summary>
-        /// The unique identifier for the attendance record.
-        /// </summary>
-        [Key]
-        public int Id { get; set; }
 
         /// <summary>
         /// The event associated with the attendance record.
@@ -28,6 +23,7 @@ namespace ForumAPI.Models
         /// <summary>
         /// The user associated with the attendance record.
         /// </summary>
+        [MaxLength(100)]
         public string User { get; set; }
     }
 }

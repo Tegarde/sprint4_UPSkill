@@ -8,11 +8,7 @@ namespace ForumAPI.Models
     /// </summary>
     public class CommentLike
     {
-        /// <summary>
-        /// The unique identifier for the comment like.
-        /// </summary>
-        [Key]
-        public int Id { get; set; }
+       
 
         /// <summary>
         /// The unique identifier for the comment associated with the like.
@@ -28,6 +24,7 @@ namespace ForumAPI.Models
         /// <summary>
         /// The unique identifier for the user associated with the like.
         /// </summary>
+        [MaxLength(100)]
         public string User { get; set; }
     }
 }
