@@ -17,17 +17,19 @@ namespace ForumAPI.Models
         /// <summary>
         /// The title of the post.
         /// </summary>
+        [MaxLength(100)]
         public string Title { get; set; }
-    
+
         /// <summary>
         /// The content of the post.
         /// </summary>
+        [MaxLength(500)]
         public string Content { get; set; }
 
         /// <summary>
         /// The unique identifier for the user who created the post.
         /// </summary>
-        [ForeignKey("User")]
+        [MaxLength(100)]
         public string CreatedBy { get; set; }   
 
         /// <summary>

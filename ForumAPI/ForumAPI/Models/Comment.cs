@@ -34,11 +34,13 @@ namespace ForumAPI.Models
         /// <summary>
         /// The content of the comment.
         /// </summary>
+        [MaxLength(500)]
         public string Content { get; set; }
 
         /// <summary>
         /// The unique identifier for the user who created the comment.
         /// </summary>
+        [MaxLength(100)]
         public string CreatedBy { get;set; }
 
         /// <summary>

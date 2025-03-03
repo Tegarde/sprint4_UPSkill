@@ -17,12 +17,14 @@ namespace ForumAPI.Models
         /// The description of the event.
         /// </summary>
         [Required]
+        [MaxLength(500)]
         public string Description { get; set; }
 
         /// <summary>
         /// The location of the event.
         /// </summary>
         [Required]
+        [MaxLength(100)]
         public string Location { get; set; }
 
         /// <summary>
