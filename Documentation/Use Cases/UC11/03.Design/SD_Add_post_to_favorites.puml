@@ -23,7 +23,7 @@ FES -> BE1C++: putPostAsFavorite(postId, username)
 BE1C -> BE1S++: putPostAsFavorite(postId, username)
 BE1S -> CBE1++: getPost(postId)
 CBE1 -> BE1S--: post
-BE1S -> CBE1++: post.favoritedBy.add(username)
+BE1S -> CBE1++: post.favoritedBy.add(new favoritedBy(username, postId))
 CBE1 -> BE1S--: post
 BE1S -> BE1C--: post
 BE1C -> PM**: PostMapper.toDTO(post)
