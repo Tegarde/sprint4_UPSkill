@@ -28,4 +28,5 @@ public class RegisterUserDTO {
      * Password to be registered
      */
     private String password;
+
 }

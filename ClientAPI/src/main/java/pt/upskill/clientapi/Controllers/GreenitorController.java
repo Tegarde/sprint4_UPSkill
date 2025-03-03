@@ -3,6 +3,7 @@ package pt.upskill.clientapi.Controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pt.upskill.clientapi.DTOs.RegisterUserDTO;
@@ -21,7 +22,7 @@ public class GreenitorController {
     }
 
     @PostMapping
-    public ResponseEntity<ResponseMessage> registerUser(RegisterUserDTO greenitor) {
+    public ResponseEntity<ResponseMessage> registerUser(@RequestBody RegisterUserDTO greenitor) {
         try {
             service.registerUser(GreenitorMapper.fromRegisterDTO(greenitor));
             return new ResponseEntity<>(new ResponseMessage("User registered successfully"), HttpStatus.CREATED);
