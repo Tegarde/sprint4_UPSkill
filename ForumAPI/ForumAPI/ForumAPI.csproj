@@ -24,4 +24,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="7.3.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\CommentModels\" />
+    <Folder Include="Models\PostModels\" />
+  </ItemGroup>
+
 </Project>

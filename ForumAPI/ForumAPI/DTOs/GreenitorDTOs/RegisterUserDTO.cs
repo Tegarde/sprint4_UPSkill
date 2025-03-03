@@ -1,4 +1,4 @@
-﻿namespace ForumAPI.DTOs
+﻿namespace ForumAPI.DTOs.GreenitorDTOs
 {
     /// <summary>
     /// Data transfer object for user registration

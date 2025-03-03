@@ -1,4 +1,5 @@
 ﻿using ForumAPI.DTOs;
+using ForumAPI.DTOs.GreenitorDTOs;
 
 namespace ForumAPI.Interfaces
 {
@@ -7,5 +8,7 @@ namespace ForumAPI.Interfaces
         public Task<TokenDTO> Login(LoginDTO loginDTO);
 
         public Task<ResponseMessage> RegisterUser(RegisterUserDTO registerUserDTO);
+
+        public Task<GreenitorDTO> GetUserByUsername(string username);
     }
 }

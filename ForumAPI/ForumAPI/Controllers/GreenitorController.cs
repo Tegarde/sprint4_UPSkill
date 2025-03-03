@@ -1,9 +1,8 @@
 ﻿
 using ForumAPI.DTOs;
+using ForumAPI.DTOs.GreenitorDTOs;
 using ForumAPI.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace ForumAPI.Controllers
 {
@@ -53,6 +52,30 @@ namespace ForumAPI.Controllers
                 return StatusCode(400, ex.Message);
             }
 
+        }
+
+        [HttpGet("{username}")]
+        public async Task<ActionResult<GreenitorDTO>> GetUserByUsername(string username)
+        {
+            try
+            {
+                var greenitor = await service.GetUserByUsername(username);
+
+                if (greenitor == null)
+                {
+                    return NotFound(new { Message = "User not found" });
+                }
+
+                return Ok(greenitor);
+            }
+            catch (HttpRequestException ex)
+            {
+                return StatusCode(500, new { Message = "Error while retrieving user", Details = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Internal server error", Details = ex.Message });
+            }
         }
     }
 }

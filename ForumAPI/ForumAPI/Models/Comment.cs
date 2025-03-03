@@ -59,9 +59,8 @@ namespace ForumAPI.Models
         /// <summary>
         /// The unique identifier for the users who liked the comment.
         /// </summary>
-        public ICollection<CommentLike> LikedBy { get; set; } = new List<CommentLike>();
+        public ICollection<string> LikedBy { get; set; } = new List<string>();
 
         public ICollection<Comment> Replies { get; set; } = new List<Comment>();
-
     }
 }

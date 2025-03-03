@@ -17,7 +17,7 @@ namespace ForumAPI.Models
         /// <summary>
         /// The post associated with the like.
         /// </summary>
-        public Post Post { get; set; }
+        public Post? Post { get; set; }
 
         /// <summary>
         /// The user associated with the like.

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ForumAPI.DTOs
+namespace ForumAPI.DTOs.GreenitorDTOs
 {
     public class LoginDTO
     {

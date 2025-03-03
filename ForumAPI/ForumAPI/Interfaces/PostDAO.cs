@@ -1,6 +1,9 @@
-﻿namespace ForumAPI.Interfaces
+﻿using ForumAPI.Models;
+
+namespace ForumAPI.Interfaces
 {
-    public class PostDAO
+    public interface PostDAO
     {
+        public Task<Post> CreatePost(Post post);
     }
 }

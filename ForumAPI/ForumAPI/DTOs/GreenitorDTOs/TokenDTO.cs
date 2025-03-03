@@ -1,4 +1,4 @@
-﻿namespace ForumAPI.DTOs
+﻿namespace ForumAPI.DTOs.GreenitorDTOs
 {
     public class TokenDTO
     {

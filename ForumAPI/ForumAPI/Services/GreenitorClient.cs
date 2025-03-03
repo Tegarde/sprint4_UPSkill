@@ -1,7 +1,7 @@
 ﻿using ForumAPI.DTOs;
+using ForumAPI.DTOs.GreenitorDTOs;
 using ForumAPI.Interfaces;
-using System.Runtime.ConstrainedExecution;
-using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace ForumAPI.Services
 {
@@ -41,10 +41,34 @@ namespace ForumAPI.Services
                 var message = await request.Content.ReadFromJsonAsync<ResponseMessage>();
                 throw new ResponseStatusException(request.StatusCode, message!);
             }
-
         }
 
+        public async Task<GreenitorDTO> GetUserByUsername(string username)
+        {
+            try
+            {
+                var request = await client.GetAsync($"{BaseUrl}/user/{username}");
 
+                if (request.IsSuccessStatusCode)
+                {
+                    var content = await request.Content.ReadAsStringAsync();
+                    var user = JsonSerializer.Deserialize<GreenitorDTO>(content, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
 
+                    return user!;
+                }
+                else
+                {
+                    var message = await request.Content.ReadFromJsonAsync<ResponseMessage>();
+                    throw new HttpRequestException($"Error: {request.StatusCode}, {message?.Message}");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new HttpRequestException($"Error when trying to find user: {ex.Message}");
+            }
+        }
     }
 }
