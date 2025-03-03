@@ -21,17 +21,23 @@ namespace ForumAPI.Models
         [ForeignKey("Post")]
         public int? PostId { get; set; }=null;
 
+        public Post? Post { get; set; }
+
         /// <summary>
         /// The unique identifier for the parent comment.
         /// </summary>
         [ForeignKey("Comment")]
         public int? ParentCommentId { get; set; }=null;
 
+        public Comment? ParentComment { get; set; }
+
         /// <summary>
         /// The unique identifier for the event.
         /// </summary>
         [ForeignKey("Event")]
         public int? EventId { get; set; }=null;
+
+        public Event? Event { get; set; }
 
         /// <summary>
         /// The content of the comment.
@@ -54,6 +60,8 @@ namespace ForumAPI.Models
         /// The unique identifier for the users who liked the comment.
         /// </summary>
         public ICollection<string> LikedBy { get; set; } = new List<string>();
+
+        public ICollection<Comment> Replies { get; set; } = new List<Comment>();
 
     }
 }
