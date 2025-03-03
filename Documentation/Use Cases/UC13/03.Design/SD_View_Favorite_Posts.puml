@@ -1,0 +1,33 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+title "View Favorite Posts"
+
+autonumber
+entity "User" as U
+
+box "Front-End" #lightpink
+participant "UI - Application" as UI
+participant "Post Service" as FES
+end box
+
+box "Back-End 1" #lightgreen
+participant "Post Controller" as BE1C
+participant "Post Mapper" as PM
+participant "Post Service" as BE1S
+participant "Context" as CBE1
+end box
+
+U -> UI++: Asks for favorite posts
+UI -> FES++: getFavoritePostsByUser(username)
+FES -> BE1C++: getFavoritePostsByUser(username)
+BE1C -> BE1S++: getFavoritePostsByUser(username)
+BE1S -> CBE1++: getFavoritePostsByUser(username)
+CBE1 -> BE1S--: List<Post> posts
+BE1S -> BE1C--: List<Post> posts
+BE1C -> PM**: PostMapper.ToDTO(posts)
+PM -> BE1C--: return(List<PostDTO> posts)
+BE1C -> FES--: posts
+FES -> UI--: posts
+UI -> U--: Displays favorite posts
+
+@enduml
