@@ -6,4 +6,7 @@ import pt.upskill.clientapi.Models.Greenitor;
 
 @Repository
 public interface UserRepository extends JpaRepository<Greenitor, Integer> {
+    boolean existsByEmail(String email);
+
+    boolean existsByUsername(String username);
 }

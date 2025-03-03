@@ -57,6 +57,11 @@ public class Greenitor {
     private int interactions;
 
     /**
+     * Default role for the greenitor
+     */
+    private static final String DEFAULT_ROLE = "User";
+
+    /**
      * Badges of the user
      */
     @ManyToMany
@@ -66,7 +71,7 @@ public class Greenitor {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.role = "User";
+        this.role = DEFAULT_ROLE;
         this.interactions = 0;
     }
 }

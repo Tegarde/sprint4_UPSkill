@@ -51,6 +51,13 @@ namespace ForumAPI.Models
         public string Category {get;set;}
 
         /// <summary>
+        /// The number of interactions with the post since the user's last visit.
+        /// </summary>
+        [Required]
+        [Range(0, int.MaxValue)]
+        public int Interactions { get; set; }
+
+        /// <summary>
         /// The unique identifiers for the comments on the post.
         /// </summary>
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
