@@ -1,4 +1,7 @@
-﻿namespace ForumAPI.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ForumAPI.Models
 {   
     /// <summary>
     /// Represents a post in the forum.

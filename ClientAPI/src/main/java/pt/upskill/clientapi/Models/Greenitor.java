@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class User {
+public class Greenitor {
 
     /**
      * Id of the user
@@ -41,7 +41,6 @@ public class User {
     /**
      * Password of the user
      */
-    @Check(constraints = "password.length() >= 6")
     @Column(length = 25, nullable = false)
     private String password;
 
@@ -63,7 +62,7 @@ public class User {
     @ManyToMany
     private List<Badge> badges;
 
-    public User(String username, String email, String password) {
+    public Greenitor(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
