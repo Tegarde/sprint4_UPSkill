@@ -76,6 +76,5 @@ namespace ForumAPI.Models
         /// The unique identifiers for the users who favorited the post.
         /// </summary>
         public ICollection<PostFavorite> FavoritedBy { get; set; } = new List<PostFavorite>();
- 
     }
 }

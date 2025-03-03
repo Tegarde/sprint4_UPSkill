@@ -69,10 +69,5 @@ namespace ForumAPI.Data
             modelBuilder.Entity<CommentLike>()
                 .HasKey(cl => new { cl.CommentId, cl.User });
         }
-
-
-
-
-
     }
 }

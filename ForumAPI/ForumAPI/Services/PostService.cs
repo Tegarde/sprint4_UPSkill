@@ -1,21 +1,34 @@
-﻿using ForumAPI.Interfaces;
+﻿using ForumAPI.Data;
+using ForumAPI.DTOs.GreenitorDTOs;
+using ForumAPI.Interfaces;
+using ForumAPI.Models;
 
 namespace ForumAPI.Services
 {
     public class PostService : PostDAO
     {
-        private static HttpClient client;
+        private readonly DataContext context;
+        private readonly GreenitorClient greenitorClient;
 
-        private static readonly string BaseUrl = "http://localhost:8080/api/post";
-
-        public PostService()
+        public PostService(DataContext context, HttpClient httpClient, GreenitorClient greenitorClient)
         {
-            client = new HttpClient();
+            this.context = context;
+            this.greenitorClient = greenitorClient;
         }
 
-        //public async Task<Post> CreatePost(Post post)
-        //{
-        //    var = await client.
-        //}
+        public async Task<Post> CreatePost(Post post)
+        {
+            GreenitorDTO? user = await greenitorClient.GetUserByUsername(post.CreatedBy);
+
+            if (user == null)
+            {
+                throw new Exception("User does not exist. Cannot create post.");
+            }
+
+            context.Posts.Add(post);
+            await context.SaveChangesAsync();
+
+            return post;
+        }
     }
 }
