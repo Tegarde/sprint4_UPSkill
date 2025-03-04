@@ -6,5 +6,7 @@ import pt.upskill.clientapi.Models.Category;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
+    boolean existsByDescription(String description);
 
+    Category findByDescription(String description);
 }
