@@ -4,7 +4,7 @@ namespace ForumAPI.Interfaces
 {
     public interface PostDAO
     {
-        public Post GetPostById(int id);
-        public Post CreatePost(Post post);
+        public Task<Post> GetPostById(int id);
+        public Task<Post> CreatePost(Post post);
     }
 }
