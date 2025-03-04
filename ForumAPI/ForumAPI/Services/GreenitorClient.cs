@@ -45,29 +45,22 @@ namespace ForumAPI.Services
 
         public async Task<GreenitorDTO> GetUserByUsername(string username)
         {
-            try
+            var request = await client.GetAsync($"{BaseUrl}/user/{username}");
+
+            if (request.IsSuccessStatusCode)
             {
-                var request = await client.GetAsync($"{BaseUrl}/user/{username}");
-
-                if (request.IsSuccessStatusCode)
+                var content = await request.Content.ReadAsStringAsync();
+                var user = JsonSerializer.Deserialize<GreenitorDTO>(content, new JsonSerializerOptions
                 {
-                    var content = await request.Content.ReadAsStringAsync();
-                    var user = JsonSerializer.Deserialize<GreenitorDTO>(content, new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    });
+                    PropertyNameCaseInsensitive = true
+                });
 
-                    return user!;
-                }
-                else
-                {
-                    var message = await request.Content.ReadFromJsonAsync<ResponseMessage>();
-                    throw new HttpRequestException($"Error: {request.StatusCode}, {message?.Message}");
-                }
+                return user!;
             }
-            catch (Exception ex)
+            else
             {
-                throw new HttpRequestException($"Error when trying to find user: {ex.Message}");
+                var message = await request.Content.ReadFromJsonAsync<ResponseMessage>();
+                throw new ResponseStatusException(request.StatusCode, message!);
             }
         }
     }
