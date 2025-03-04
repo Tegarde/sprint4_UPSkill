@@ -6,7 +6,7 @@ namespace ForumAPI.Models
     /// <summary>
     /// Represents an attendance record for an event.
     /// </summary>
-    public class Attendace
+    public class Attendance
     {
 
         /// <summary>
