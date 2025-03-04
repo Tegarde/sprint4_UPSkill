@@ -46,7 +46,7 @@ namespace ForumAPI.Data
         /// <summary>
         /// The attendances for events in the database.
         /// </summary>  
-        public DbSet<Attendace> Attendaces { get; set; }
+        public DbSet<Attendance> Attendaces { get; set; }
 
         /// <summary>
         /// Configures the model builder for the database context.
@@ -63,7 +63,7 @@ namespace ForumAPI.Data
             modelBuilder.Entity<PostFavorite>()
                 .HasKey(pf => new { pf.PostId, pf.User });
 
-            modelBuilder.Entity<Attendace>()
+            modelBuilder.Entity<Attendance>()
                 .HasKey(at => new { at.EventId, at.User });
 
             modelBuilder.Entity<CommentLike>()
