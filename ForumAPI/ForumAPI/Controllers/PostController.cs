@@ -31,11 +31,11 @@ namespace ForumAPI.Controllers
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(new { Message = ex.Message });
+                return NotFound(new ResponseMessage { Message = ex.Message });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { Message = "Internal Server Error", Details = ex.Message });
+                return StatusCode(400, new ResponseMessage { Message = ex.Message });
             }
         }
 
@@ -51,15 +51,15 @@ namespace ForumAPI.Controllers
             {
                 var post = PostMapper.FromDTO(postDTO);
                 var createdPost = await service.CreatePost(post);
-                return CreatedAtAction(nameof(GetPostById), new { id = createdPost.Id }, PostMapper.ToDTO(createdPost));
+                return CreatedAtAction(nameof(GetPostById), new ResponseMessage { Message = "Post created successfully." });
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(new { Message = ex.Message });
+                return NotFound(new ResponseMessage { Message = ex.Message });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { Message = "Internal Server Error", Details = ex.Message });
+                return StatusCode(400, new ResponseMessage { Message = ex.Message});
             }
         }
     }

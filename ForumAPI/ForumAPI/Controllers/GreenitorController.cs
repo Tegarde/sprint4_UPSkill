@@ -68,13 +68,13 @@ namespace ForumAPI.Controllers
 
                 return Ok(greenitor);
             }
-            catch (HttpRequestException ex)
+            catch (ResponseStatusException ex)
             {
-                return StatusCode(500, new { Message = "Error while retrieving user", Details = ex.Message });
+                return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { Message = "Internal server error", Details = ex.Message });
+                return StatusCode(400, ex.Message);
             }
         }
     }
