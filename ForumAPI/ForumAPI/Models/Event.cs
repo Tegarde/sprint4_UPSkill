@@ -42,7 +42,7 @@ namespace ForumAPI.Models
         /// <summary>
         /// The attendance of the event.
         /// </summary>
-        public ICollection<Attendace> Attendance { get; set; }
+        public ICollection<Attendance> Attendance { get; set; } = new List<Attendance>();
 
     }
 }
