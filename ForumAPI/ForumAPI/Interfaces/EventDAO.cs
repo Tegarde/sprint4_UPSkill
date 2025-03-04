@@ -13,5 +13,13 @@ namespace ForumAPI.Interfaces
         /// <returns>A response message indicating the success or failure of the operation.</returns>
         
         public Event CreateEvent(Event ev);
+
+        public List<Event> GetAllEvents();
+
+        public Event GetEventById(int id);
+
+        public List<Event> GetEventsByStatus(string Status);
+
+        public string ChangeEventStatus(int id, string status);
     }
 }
