@@ -9,6 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\CommentModels\**" />
+    <Compile Remove="Models\PostModels\**" />
+    <Content Remove="Models\CommentModels\**" />
+    <Content Remove="Models\PostModels\**" />
+    <EmbeddedResource Remove="Models\CommentModels\**" />
+    <EmbeddedResource Remove="Models\PostModels\**" />
+    <None Remove="Models\CommentModels\**" />
+    <None Remove="Models\PostModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.13">
       <PrivateAssets>all</PrivateAssets>
@@ -22,11 +33,6 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="7.3.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\CommentModels\" />
-    <Folder Include="Models\PostModels\" />
   </ItemGroup>
 
 </Project>

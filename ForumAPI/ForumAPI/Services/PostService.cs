@@ -2,6 +2,7 @@
 using ForumAPI.DTOs.GreenitorDTOs;
 using ForumAPI.Interfaces;
 using ForumAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ForumAPI.Services
 {
@@ -14,6 +15,25 @@ namespace ForumAPI.Services
         {
             this.context = context;
             this.greenitorClient = greenitorClient;
+        }
+
+        /// <summary>
+        /// Retrieves a post by its ID and ensures it exists.
+        /// </summary>
+        /// <param name="id">The post ID.</param>
+        /// <returns>The post if found, otherwise throws an exception.</returns>
+        public async Task<Post> GetPostById(int id)
+        {
+            var post = await context.Posts
+                .Include(p => p.Comments)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (post == null)
+            {
+                throw new KeyNotFoundException("Post not found.");
+            }
+
+            return post;
         }
 
         public async Task<Post> CreatePost(Post post)
