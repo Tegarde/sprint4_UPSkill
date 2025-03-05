@@ -2,6 +2,7 @@
 using ForumAPI.DTOs.GreenitorDTOs;
 using ForumAPI.Interfaces;
 using ForumAPI.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ForumAPI.Services
@@ -51,7 +52,7 @@ namespace ForumAPI.Services
             return post;
         }
 
-        public async Task AddPostToFavorites(int postId, string username)
+        public async Task<ActionResult> AddPostToFavorites(int postId, string username)
         {
             var post = await GetPostById(postId);
             if (post == null)
@@ -67,9 +68,10 @@ namespace ForumAPI.Services
 
             context.PostFavorites.Add(favorite);
             await context.SaveChangesAsync();
+            return new OkResult();
         }
 
-        public async Task RemovePostFromFavorites(int postId, string username)
+        public async Task<ActionResult> RemovePostFromFavorites(int postId, string username)
         {
             var favorite = await context.PostFavorites
                 .FirstOrDefaultAsync(pf => pf.PostId == postId && pf.User == username);
@@ -79,6 +81,7 @@ namespace ForumAPI.Services
             }
             context.PostFavorites.Remove(favorite);
             await context.SaveChangesAsync();
+            return new OkResult();
         }
 
         // refazer SD US02
