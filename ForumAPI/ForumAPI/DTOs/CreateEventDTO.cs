@@ -11,7 +11,7 @@ namespace ForumAPI.DTOs
         public string Location { get; set; }
 
 
-        public DateTime Date { get; set; } = DateTime.UtcNow;
+        public DateTime Date { get; set; }
 
 
         public string Status { get; set; }

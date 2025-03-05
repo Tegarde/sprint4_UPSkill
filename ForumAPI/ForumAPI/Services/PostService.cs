@@ -1,7 +1,5 @@
-﻿using ForumAPI.CustomExceptions;
-using ForumAPI.Data;
+﻿using ForumAPI.Data;
 using ForumAPI.DTOs.GreenitorDTOs;
-using ForumAPI.DTOs.PostDTOs;
 using ForumAPI.Interfaces;
 using ForumAPI.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +27,6 @@ namespace ForumAPI.Services
         {
             var post = await context.Posts
                 .Include(p => p.Comments)
-                .Where(p => p.Status)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (post == null)
@@ -114,99 +111,9 @@ namespace ForumAPI.Services
         {
             var posts = await context.Posts
                 .Where(p => (p.Title.Contains(keyword) || p.Content.Contains(keyword)) && p.Status)
-
-
-        public async Task<List<Post>> GetPostsByUser(string username)
-        {
-            
-            GreenitorDTO? user = await greenitorClient.GetUserByUsername(username);
-            if (user == null)
-            {
-                throw new Exception("User does not exist.");
-            }
-
-            
-            var posts = await context.Posts
-                .Where(p => p.CreatedBy == username && p.Status)
-                .Include(p => p.Comments) 
-
                 .ToListAsync();
 
             return posts;
         }
-
-
-        public async Task<List<Post>> GetAllPosts()
-        {
-            var posts = await context.Posts
-                .Include(p => p.Comments)
-                .Where(p => p.Status)
-                .ToListAsync();
-
-            return posts;
-        }
-
-        
-        public async Task<Post> UpdatePost(int postId, Post updatedPost)
-        {   
-
-            if(postId != updatedPost.Id)
-            {
-                throw new ArgumentException("Invalid Post Id");
-            }
-
-            var post = await context.Posts.FirstOrDefaultAsync(p => p.Id == postId);
-            if (post == null)
-            {
-                throw new NotFoundException("Post not found");
-            }
-
-            if (!post.CreatedBy.Equals(updatedPost.CreatedBy))
-            {
-                throw new UnauthorizedAccessException("You are not authorized to update this post.");
-            }
-
-            post.Title = updatedPost.Title;
-            post.Content = updatedPost.Content;
-
-        
-            await context.SaveChangesAsync();
-            return post;
-        }
-
-        public List<Post> GetPostSortedByDate()
-            {
-             return context.Posts
-            .Include(p => p.Comments)
-            .Where(p => p.Status)
-            .OrderByDescending(p => p.CreatedAt)
-            .ToList();
-            }
-
-        public async Task<List<Post>> GetTopPostsByInteractions(int topN)
-        {
-            return await context.Posts
-                .Include(p => p.Comments)
-                .Include(p => p.LikedBy)
-                .Include(p => p.FavoritedBy)
-                .Where(p => p.Status)
-                .OrderByDescending(p => p.LikedBy.Count + p.Comments.Count + p.FavoritedBy.Count)
-                .Take(topN)
-                .ToListAsync();
-        }
-
-        public async Task<List<Post>> GetPostsBetweenDates(DateTime startDate, DateTime endDate)
-        {
-            if (startDate > endDate)
-            {
-                throw new ArgumentException("The start date must be earlier than the end date.");
-            }
-
-            return await context.Posts
-                .Include(p => p.Comments)
-                .Where(p => p.CreatedAt >= startDate && p.CreatedAt <= endDate && p.Status)
-                .ToListAsync();
-        }
-
     }
 }
