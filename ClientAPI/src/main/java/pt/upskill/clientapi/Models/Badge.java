@@ -38,4 +38,9 @@ public class Badge {
      */
     @Check(constraints = "interactions >= 0")
     private int interactions;
+
+    public Badge(String description, int interactions) {
+        this.description = description;
+        this.interactions = interactions;
+    }
 }

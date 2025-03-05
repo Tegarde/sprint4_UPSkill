@@ -17,4 +17,8 @@ public interface BadgeRepository extends JpaRepository<Badge, Integer> {
     @Query("SELECT b FROM Greenitor g JOIN g.badges b WHERE g.id = :greenitorId")
     List<Badge> findBadgesByGreenitorId(@Param("greenitorId") int greenitorId);
 
+    boolean existsByDescription(String description);
+
+    boolean existsByInteractions(int interactions);
+
 }

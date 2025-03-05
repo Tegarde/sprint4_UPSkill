@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * Data Transfer Object for the Greenitor entity
  */
@@ -28,4 +30,9 @@ public class GreenitorDTO {
      * Interactions of the Greenitor
      */
     private int interactions;
+
+    /**
+     * Badges achieved by the Greenitor
+     */
+    private List<BadgeDescriptionDTO> badges;
 }
