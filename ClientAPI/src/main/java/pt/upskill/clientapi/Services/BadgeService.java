@@ -1,6 +1,7 @@
 package pt.upskill.clientapi.Services;
 
 import org.springframework.stereotype.Service;
+import pt.upskill.clientapi.CustomExceptions.BadgeNotFoundException;
 import pt.upskill.clientapi.Interfaces.BadgeDAO;
 import pt.upskill.clientapi.JPARepositories.BadgeRepository;
 import pt.upskill.clientapi.Models.Badge;
@@ -29,5 +30,13 @@ public class BadgeService implements BadgeDAO {
     @Override
     public List<Badge> getAllBadges() {
         return repository.findAll();
+    }
+
+    @Override
+    public void deleteBadgeByDescription(String description) {
+        if (!repository.existsByDescription(description)) {
+            throw new BadgeNotFoundException(String.format("Badge with description %s does not exist", description));
+        }
+        repository.delete(repository.findByDescription(description));
     }
 }

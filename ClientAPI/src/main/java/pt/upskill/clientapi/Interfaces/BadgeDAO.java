@@ -8,4 +8,6 @@ public interface BadgeDAO {
     Badge createBadge(Badge badge);
 
     List<Badge> getAllBadges();
+
+    void deleteBadgeByDescription(String description);
 }

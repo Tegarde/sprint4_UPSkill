@@ -21,4 +21,5 @@ public interface BadgeRepository extends JpaRepository<Badge, Integer> {
 
     boolean existsByInteractions(int interactions);
 
+    Badge findByDescription(String description);
 }
