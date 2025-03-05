@@ -50,5 +50,27 @@ namespace ForumAPI.Services
 
             return post;
         }
+
+        public async Task UpdatePostStatus(int id, bool newStatus, string userRole)
+        {
+            if (userRole != "Moderator")
+            {
+                throw new UnauthorizedAccessException("Only users with the role 'Moderator' can update the post status.");
+            }
+
+            var post = await GetPostById(id);
+            if (post == null)
+            {
+                throw new KeyNotFoundException("Post not found");
+            }
+
+            if (post.Status == newStatus)
+            {
+                throw new InvalidOperationException("New status must be different from the current status");
+            }
+
+            post.Status = newStatus;
+            await context.SaveChangesAsync();
+        }
     }
 }
