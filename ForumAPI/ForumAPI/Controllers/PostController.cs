@@ -59,7 +59,34 @@ namespace ForumAPI.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(400, new ResponseMessage { Message = ex.Message});
+                return StatusCode(400, new ResponseMessage { Message = ex.Message });
+            }
+        }
+
+
+        [HttpPut("{id}/status")]
+        public async Task<ActionResult> UpdatePostStatus(int id, [FromBody] bool newStatus, [FromHeader] string userRole)
+        {
+            try
+            {
+                await service.UpdatePostStatus(id, newStatus, userRole);
+                return Ok(new ResponseMessage { Message = "Post status updated successfully." });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new ResponseMessage { Message = ex.Message });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new ResponseMessage { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = ex.Message });
             }
         }
     }
