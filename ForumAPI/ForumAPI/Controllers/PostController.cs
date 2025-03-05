@@ -2,6 +2,7 @@
 using ForumAPI.Services;
 using ForumAPI.DTOs;
 using ForumAPI.Mapper;
+using ForumAPI.Interfaces;
 
 namespace ForumAPI.Controllers
 {
@@ -9,9 +10,9 @@ namespace ForumAPI.Controllers
     [Route("api/posts")]
     public class PostController : ControllerBase
     {
-        private readonly PostService service;
+        private readonly PostDAO service;
 
-        public PostController(PostService service)
+        public PostController(PostDAO service)
         {
             this.service = service;
         }
@@ -51,7 +52,7 @@ namespace ForumAPI.Controllers
             {
                 var post = PostMapper.FromDTO(postDTO);
                 var createdPost = await service.CreatePost(post);
-                return CreatedAtAction(nameof(GetPostById), new ResponseMessage { Message = "Post created successfully." });
+                return CreatedAtAction(nameof(CreatePost), new ResponseMessage { Message = "Post created successfully." });
             }
             catch (KeyNotFoundException ex)
             {
@@ -83,6 +84,24 @@ namespace ForumAPI.Controllers
             catch (InvalidOperationException ex)
             {
                 return BadRequest(new ResponseMessage { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = ex.Message });
+            }
+        }
+
+        [HttpGet("/search/{keyword}")]
+        public async Task<ActionResult<List<PostDTO>>> GetPostsByKeyword(string keyword)
+        {
+            try
+            {
+                var posts = await service.SearchPostsByKeyword(keyword);
+                if (!posts.Any())
+                {
+                    return NoContent();
+                }
+                return Ok(posts.Select(post => PostMapper.ToDTO(post)).ToList());
             }
             catch (Exception ex)
             {

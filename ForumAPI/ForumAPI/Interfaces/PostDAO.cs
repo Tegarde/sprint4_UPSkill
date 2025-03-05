@@ -7,5 +7,7 @@ namespace ForumAPI.Interfaces
         Task<Post> GetPostById(int id);
         Task<Post> CreatePost(Post post);
         Task UpdatePostStatus(int id, bool newStatus, string userRole);
+
+        Task<List<Post>> SearchPostsByKeyword(string keyword);
     }
 }

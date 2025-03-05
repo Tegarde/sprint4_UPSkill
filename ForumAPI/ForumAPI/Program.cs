@@ -22,6 +22,9 @@ namespace ForumAPI
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddScoped<GreenitorDAO, GreenitorClient>();
+            builder.Services.AddScoped<PostDAO, PostService>();
+            builder.Services.AddScoped<EventDAO, EventService>();
+            builder.Services.AddScoped<CommentDAO, CommentService>();
 
             var app = builder.Build();
 
