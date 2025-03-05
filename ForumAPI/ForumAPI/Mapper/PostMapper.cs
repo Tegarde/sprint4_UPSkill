@@ -39,7 +39,7 @@ namespace ForumAPI.Mapper
                 Title = postDTO.Title,
                 Content = postDTO.Content,
                 CreatedBy = postDTO.CreatedBy,
-                CreatedAt = postDTO.CreatedAt,
+                CreatedAt = DateTime.UtcNow,
                 Status = postDTO.Status,
                 Category = postDTO.Category,
                 Interactions = postDTO.Interactions

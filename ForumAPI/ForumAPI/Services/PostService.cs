@@ -45,8 +45,6 @@ namespace ForumAPI.Services
                 throw new Exception("User does not exist. Cannot create post.");
             }
 
-            post.CreatedAt = DateTime.UtcNow;
-
             context.Posts.Add(post);
             await context.SaveChangesAsync();
 
