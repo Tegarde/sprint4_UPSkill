@@ -27,6 +27,11 @@ public class GreenitorDTO {
     private String email;
 
     /**
+     * Role of the Greenitor
+     */
+    private String role;
+
+    /**
      * Interactions of the Greenitor
      */
     private int interactions;

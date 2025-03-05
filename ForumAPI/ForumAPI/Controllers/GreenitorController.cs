@@ -2,6 +2,7 @@
 using ForumAPI.DTOs;
 using ForumAPI.DTOs.GreenitorDTOs;
 using ForumAPI.Interfaces;
+using ForumAPI.Mapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForumAPI.Controllers
@@ -55,7 +56,7 @@ namespace ForumAPI.Controllers
         }
 
         [HttpGet("{username}")]
-        public async Task<ActionResult<GreenitorDTO>> GetUserByUsername(string username)
+        public async Task<ActionResult<GreenitorWithoutRoleDTO>> GetUserByUsername(string username)
         {
             try
             {
@@ -66,7 +67,7 @@ namespace ForumAPI.Controllers
                     return NotFound(new { Message = "User not found" });
                 }
 
-                return Ok(greenitor);
+                return Ok(GreenitorMapper.toGreenitorWithoutRoleDTO(greenitor));
             }
             catch (ResponseStatusException ex)
             {
