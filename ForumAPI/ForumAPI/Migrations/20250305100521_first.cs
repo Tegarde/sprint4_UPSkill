@@ -39,7 +39,8 @@ namespace ForumAPI.Migrations
                     CreatedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Status = table.Column<bool>(type: "boolean", nullable: false),
-                    Category = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false)
+                    Category = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Interactions = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -47,17 +48,17 @@ namespace ForumAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Attendaces",
+                name: "Attendances",
                 columns: table => new
                 {
                     EventId = table.Column<int>(type: "integer", nullable: false),
-                    User = table.Column<string>(type: "text", nullable: false)
+                    User = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Attendaces", x => new { x.EventId, x.User });
+                    table.PrimaryKey("PK_Attendances", x => new { x.EventId, x.User });
                     table.ForeignKey(
-                        name: "FK_Attendaces_Events_EventId",
+                        name: "FK_Attendances_Events_EventId",
                         column: x => x.EventId,
                         principalTable: "Events",
                         principalColumn: "Id",
@@ -75,7 +76,8 @@ namespace ForumAPI.Migrations
                     EventId = table.Column<int>(type: "integer", nullable: true),
                     Content = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     CreatedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    LikedBy = table.Column<string[]>(type: "text[]", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -102,7 +104,7 @@ namespace ForumAPI.Migrations
                 columns: table => new
                 {
                     PostId = table.Column<int>(type: "integer", nullable: false),
-                    User = table.Column<string>(type: "text", nullable: false)
+                    User = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -120,7 +122,7 @@ namespace ForumAPI.Migrations
                 columns: table => new
                 {
                     PostId = table.Column<int>(type: "integer", nullable: false),
-                    User = table.Column<string>(type: "text", nullable: false)
+                    User = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -138,7 +140,7 @@ namespace ForumAPI.Migrations
                 columns: table => new
                 {
                     PostId = table.Column<int>(type: "integer", nullable: false),
-                    User = table.Column<string>(type: "text", nullable: false)
+                    User = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -156,7 +158,7 @@ namespace ForumAPI.Migrations
                 columns: table => new
                 {
                     CommentId = table.Column<int>(type: "integer", nullable: false),
-                    User = table.Column<string>(type: "text", nullable: false)
+                    User = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -189,7 +191,7 @@ namespace ForumAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Attendaces");
+                name: "Attendances");
 
             migrationBuilder.DropTable(
                 name: "CommentLikes");

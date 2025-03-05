@@ -46,7 +46,7 @@ namespace ForumAPI.Data
         /// <summary>
         /// The attendances for events in the database.
         /// </summary>  
-        public DbSet<Attendance> Attendaces { get; set; }
+        public DbSet<Attendance> Attendances { get; set; }
 
         /// <summary>
         /// Configures the model builder for the database context.

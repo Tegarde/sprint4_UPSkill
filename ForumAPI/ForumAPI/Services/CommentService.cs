@@ -3,6 +3,7 @@ using ForumAPI.Data;
 using ForumAPI.DTOs.GreenitorDTOs;
 using ForumAPI.Interfaces;
 using ForumAPI.Models;
+using System.Threading.Tasks;
 
 namespace ForumAPI.Services
 {
@@ -19,7 +20,7 @@ namespace ForumAPI.Services
             this.greenitorDAO = greenitorDAO;
         }
 
-        public Comment CommentAComment(Comment comment)
+        public async Task<Comment> CommentAComment(Comment comment)
         {   
             //Check if parent comment exists
             var parentComment = context.Comments.FirstOrDefault(c => c.Id == comment.ParentCommentId);
@@ -30,13 +31,15 @@ namespace ForumAPI.Services
                 throw new NotFoundException("Parent comment not found.");
             }
 
+            GreenitorDTO user = await greenitorDAO.GetUserByUsername(comment.CreatedBy);
+
             // Set parent comment
             comment.ParentComment = parentComment;
 
             // Set created at
             comment.CreatedAt = DateTime.UtcNow;
 
-            // TODO Check if user exists
+      
 
             context.Comments.Add(comment);
             context.SaveChanges();
@@ -44,8 +47,8 @@ namespace ForumAPI.Services
             return comment;
         }
 
-        public async Task<Comment> CommentAnEventAsync(Comment comment, int eventId){
-            var ev = context.Events.FirstOrDefault(e => e.Id == eventId);
+        public async Task<Comment> CommentAnEvent(Comment comment){
+            var ev = context.Events.FirstOrDefault(e => e.Id == comment.EventId);
             if(ev == null)
             {
                 throw new NotFoundException("Event not found");
@@ -60,7 +63,7 @@ namespace ForumAPI.Services
             
             comment.Event = ev;
             context.Comments.Add(comment);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return comment;
         }
 
