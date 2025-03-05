@@ -39,11 +39,11 @@ namespace ForumAPI.Controllers
         }
 
         [HttpPost("event/comment")]
-        public ActionResult CommentAnEvent([FromBody] CommentAnEventDTO commentDTO)
+        public async Task<ActionResult> CommentAnEvent([FromBody] CommentAnEventDTO commentDTO)
         {
             try 
             {
-                Comment comment = service.CommentAnEvent(CommentMapper.FromCommentAnEventDTO(commentDTO));
+                Comment comment = await service.CommentAnEvent(CommentMapper.FromCommentAnEventDTO(commentDTO));
                 return CreatedAtAction(nameof(CommentAnEvent), new ResponseMessage{ Message = "Comment successfully created" });
             }
             catch (NotFoundException ex)
