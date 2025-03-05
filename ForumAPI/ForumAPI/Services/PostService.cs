@@ -51,6 +51,7 @@ namespace ForumAPI.Services
             return post;
         }
 
+        // refazer SD US02
         public async Task UpdatePostStatus(int id, bool newStatus, string userRole)
         {
             if (userRole != "Moderator")
