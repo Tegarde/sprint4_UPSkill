@@ -14,5 +14,15 @@ namespace ForumAPI.Mapper
                 CreatedBy = commentACommentDTO.CreatedBy,
             };
         }
+
+        public static Comment FromCommentAnEventDTO(CommentAnEventDTO commentAnEventDTO)
+        {
+            return new Comment
+            {   
+                EventId = commentAnEventDTO.EventId,
+                Content = commentAnEventDTO.Content,
+                CreatedBy = commentAnEventDTO.CreatedBy,
+            };
+        }
     }
 }

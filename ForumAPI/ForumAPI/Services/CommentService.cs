@@ -1,5 +1,6 @@
 ﻿using ForumAPI.CustomExceptions;
 using ForumAPI.Data;
+using ForumAPI.DTOs.GreenitorDTOs;
 using ForumAPI.Interfaces;
 using ForumAPI.Models;
 
@@ -42,5 +43,26 @@ namespace ForumAPI.Services
 
             return comment;
         }
+
+        public async Task<Comment> CommentAnEventAsync(Comment comment, int eventId){
+            var ev = context.Events.FirstOrDefault(e => e.Id == eventId);
+            if(ev == null)
+            {
+                throw new NotFoundException("Event not found");
+            }
+
+            //Get user from greenitorDAO
+            GreenitorDTO user = await greenitorDAO.GetUserByUsername(comment.CreatedBy);
+            if(user == null)
+            {
+                throw new UserNotFoundException("User not found");
+            }
+            
+            comment.Event = ev;
+            context.Comments.Add(comment);
+            context.SaveChanges();
+            return comment;
+        }
+
     }
 }

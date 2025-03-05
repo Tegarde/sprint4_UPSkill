@@ -37,5 +37,27 @@ namespace ForumAPI.Controllers
                 return StatusCode(400, new ResponseMessage { Message = ex.Message });
             }
         }
+
+        [HttpPost("event/{eventId}")]
+        public async Task<ActionResult> CommentAnEvent([FromRoute] int eventId, [FromBody] CommentAnEventDTO commentDTO)
+        {
+            try 
+            {
+                Comment comment = service.CommentAnEvent(CommentMapper.FromCommentAnEventDTO(commentDTO), eventId);
+                return CreatedAtAction(nameof(CommentAnEvent), new ResponseMessage{ Message = "Comment successfully created" });
+            }
+            catch (NotFoundException ex)
+            { 
+                return StatusCode(404, new ResponseMessage { Message = ex.Message });   
+            }
+            catch (UserNotFoundException ex)
+            {
+                return StatusCode(404, new ResponseMessage { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = ex.Message });
+            }
+        }
     }
 }
