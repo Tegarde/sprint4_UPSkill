@@ -64,5 +64,28 @@ namespace ForumAPI.Services
             return comment;
         }
 
+        public async Task<Comment> CommentAPost(Comment comment)
+        {
+            var post = context.Posts.FirstOrDefault(p => p.Id == comment.PostId);
+            if(post == null)
+            { throw new NotFoundException("Post not found"); }
+
+            GreenitorDTO user = await greenitorDAO.GetUserByUsername(comment.CreatedBy);
+            if(user == null)
+            {
+                throw new UserNotFoundException("User not found");
+            }
+            comment.Post = post;
+
+            context.Comments.Add(comment);
+
+            await context.SaveChangesAsync();
+
+            return comment;
+
+
+
+        }
+
     }
 }

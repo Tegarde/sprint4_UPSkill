@@ -1,4 +1,4 @@
-﻿namespace ForumAPI.DTOs
+﻿namespace ForumAPI.DTOs.CommentDTOs
 {
     public class CommentACommentDTO
     {

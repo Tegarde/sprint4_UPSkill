@@ -7,5 +7,7 @@ namespace ForumAPI.Interfaces
         Comment CommentAComment(Comment comment);
 
        Task<Comment> CommentAnEvent(Comment comment);
+
+        Task<Comment> CommentAPost(Comment comment);
     }
 }

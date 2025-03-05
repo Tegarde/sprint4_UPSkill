@@ -1,4 +1,4 @@
-﻿using ForumAPI.DTOs;
+﻿using ForumAPI.DTOs.CommentDTOs;
 using ForumAPI.Models;
 
 namespace ForumAPI.Mapper
@@ -22,6 +22,16 @@ namespace ForumAPI.Mapper
                 EventId = commentAnEventDTO.EventId,
                 Content = commentAnEventDTO.Content,
                 CreatedBy = commentAnEventDTO.CreatedBy,
+            };
+        }
+
+        public static Comment FromCOmmentAPostDTO(CommentAPostDTO commentAPostDTO)
+        {
+            return new Comment
+            {
+                Content = commentAPostDTO.Content,
+                PostId = commentAPostDTO.PostId,
+                CreatedBy = commentAPostDTO.CreatedBy
             };
         }
     }

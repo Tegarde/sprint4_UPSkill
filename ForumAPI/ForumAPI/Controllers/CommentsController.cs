@@ -1,5 +1,6 @@
 ﻿using ForumAPI.CustomExceptions;
 using ForumAPI.DTOs;
+using ForumAPI.DTOs.CommentDTOs;
 using ForumAPI.Interfaces;
 using ForumAPI.Mapper;
 using ForumAPI.Models;
@@ -59,5 +60,29 @@ namespace ForumAPI.Controllers
                 return StatusCode(400, new ResponseMessage { Message = ex.Message });
             }
         }
+
+        [HttpPost("post/comment")]
+        public async Task<ActionResult> CommentAPost([FromBody]CommentAPostDTO commentDTO) 
+        {
+        try
+            {
+                Comment comment = await service.CommentAPost(CommentMapper.FromCOmmentAPostDTO(commentDTO));
+                return CreatedAtAction(nameof(CommentAPost), new ResponseMessage { Message = "Comment successfully created" });
+            }
+            catch(NotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch(UserNotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(new ResponseMessage { Message = ex.Message });
+            }
+        }
+
+
     }
 }
