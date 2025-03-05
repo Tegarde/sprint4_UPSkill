@@ -78,7 +78,7 @@ namespace ForumAPI.Services
         public async Task<List<Post>> SearchPostsByKeyword(string keyword)
         {
             var posts = await context.Posts
-                .Where(p => p.Title.Contains(keyword) || p.Content.Contains(keyword))
+                .Where(p => (p.Title.Contains(keyword) || p.Content.Contains(keyword)) && p.Status)
                 .ToListAsync();
 
             return posts;
