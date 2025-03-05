@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ForumAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250303140350_third")]
-    partial class third
+    [Migration("20250305100521_first")]
+    partial class first
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace ForumAPI.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ForumAPI.Models.Attendace", b =>
+            modelBuilder.Entity("ForumAPI.Models.Attendance", b =>
                 {
                     b.Property<int>("EventId")
                         .HasColumnType("integer");
@@ -36,7 +36,7 @@ namespace ForumAPI.Migrations
 
                     b.HasKey("EventId", "User");
 
-                    b.ToTable("Attendaces");
+                    b.ToTable("Attendances");
                 });
 
             modelBuilder.Entity("ForumAPI.Models.Comment", b =>
@@ -62,6 +62,10 @@ namespace ForumAPI.Migrations
 
                     b.Property<int?>("EventId")
                         .HasColumnType("integer");
+
+                    b.Property<string[]>("LikedBy")
+                        .IsRequired()
+                        .HasColumnType("text[]");
 
                     b.Property<int?>("ParentCommentId")
                         .HasColumnType("integer");
@@ -207,7 +211,7 @@ namespace ForumAPI.Migrations
                     b.ToTable("PostLikes");
                 });
 
-            modelBuilder.Entity("ForumAPI.Models.Attendace", b =>
+            modelBuilder.Entity("ForumAPI.Models.Attendance", b =>
                 {
                     b.HasOne("ForumAPI.Models.Event", "Event")
                         .WithMany("Attendance")
@@ -242,7 +246,7 @@ namespace ForumAPI.Migrations
             modelBuilder.Entity("ForumAPI.Models.CommentLike", b =>
                 {
                     b.HasOne("ForumAPI.Models.Comment", "Comment")
-                        .WithMany("LikedBy")
+                        .WithMany()
                         .HasForeignKey("CommentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -285,8 +289,6 @@ namespace ForumAPI.Migrations
 
             modelBuilder.Entity("ForumAPI.Models.Comment", b =>
                 {
-                    b.Navigation("LikedBy");
-
                     b.Navigation("Replies");
                 });
 

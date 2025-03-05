@@ -21,11 +21,11 @@ namespace ForumAPI.Controllers
 
 
         [HttpPost]
-        public ActionResult CommentAComment([FromBody] CommentACommentDTO commentDTO)
+        public async Task<ActionResult> CommentAComment([FromBody] CommentACommentDTO commentDTO)
         {
             try
             {
-                Comment comment = service.CommentAComment(CommentMapper.FromCommentACommentDTO(commentDTO));
+                Comment comment = await service.CommentAComment(CommentMapper.FromCommentACommentDTO(commentDTO));
                 return CreatedAtAction(nameof(CommentAComment), new ResponseMessage{ Message = "Comment successfully created" });
             }
             catch (NotFoundException ex)
