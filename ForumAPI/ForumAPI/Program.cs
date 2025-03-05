@@ -25,7 +25,6 @@ namespace ForumAPI
             builder.Services.AddScoped<PostDAO, PostService>();
             builder.Services.AddScoped<EventDAO, EventService>();
             builder.Services.AddScoped<CommentDAO, CommentService>();
-            builder.Services.AddScoped<CategoryDAO, CategoryClient>();
 
             var app = builder.Build();
 
