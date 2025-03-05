@@ -13,6 +13,6 @@ public class GreenitorMapper {
     }
 
     public static GreenitorDTO fromGreenitor(Greenitor greenitor) {
-        return new GreenitorDTO(greenitor.getUsername(), greenitor.getEmail(), greenitor.getInteractions());
+        return new GreenitorDTO(greenitor.getUsername(), greenitor.getEmail(), greenitor.getInteractions(), greenitor.getBadges().stream().map(BadgeMapper::toDescriptionDTO).toList());
     }
 }

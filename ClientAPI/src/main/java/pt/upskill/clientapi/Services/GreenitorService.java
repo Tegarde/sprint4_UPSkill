@@ -57,10 +57,10 @@ public class GreenitorService implements GreenitorDAO {
     @Override
     public Greenitor getGreenitorByUsername(String username) {
         Greenitor greenitor = greenitorRepository.findByUsername(username);
-
         if (greenitor == null) {
             throw new UserNotFoundException(String.format("User with username %s does not exist", username));
         }
+        greenitor.setBadges(badgeRepository.findBadgesByGreenitorId(greenitor.getId()));
 
         return greenitor;
     }
@@ -75,7 +75,7 @@ public class GreenitorService implements GreenitorDAO {
         List<Badge> badges = badgeRepository.findAllSortedByInteractions();
 
         for (Badge badge : badges) {
-            if (greenitor.getInteractions() >= badge.getInteractions()) {
+            if (greenitor.getInteractions() == badge.getInteractions()) {
                 greenitor.getBadges().add(badge);
                 greenitorRepository.save(greenitor);
                 return new ResponseMessage(String.format("Badge %s unlocked", badge.getDescription()));
