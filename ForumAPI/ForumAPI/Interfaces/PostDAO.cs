@@ -5,6 +5,7 @@ namespace ForumAPI.Interfaces
 {
     public interface PostDAO
     {
+
         Task<Post> GetPostById(int id);
         Task<Post> CreatePost(Post post);
 
@@ -14,5 +15,19 @@ namespace ForumAPI.Interfaces
         Task UpdatePostStatus(int id, bool newStatus, string userRole);
 
         Task<List<Post>> SearchPostsByKeyword(string keyword);
+
+
+        Task<List<Post>> GetPostsByUser(string username);
+
+        Task<List<Post>> GetAllPosts();
+
+        Task<Post> UpdatePost(int postId, Post updatedPost);
+
+        List<Post> GetPostSortedByDate();
+
+        Task<List<Post>> GetTopPostsByInteractions(int topN);
+
+        Task<List<Post>> GetPostsBetweenDates(DateTime startDate, DateTime endDate);
+
     }
 }

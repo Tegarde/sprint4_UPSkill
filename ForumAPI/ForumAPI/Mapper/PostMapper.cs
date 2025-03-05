@@ -1,4 +1,5 @@
 ﻿using ForumAPI.DTOs;
+using ForumAPI.DTOs.PostDTOs;
 using ForumAPI.Models;
 
 namespace ForumAPI.Mapper
@@ -43,6 +44,18 @@ namespace ForumAPI.Mapper
                 Status = postDTO.Status,
                 Category = postDTO.Category,
                 Interactions = postDTO.Interactions
+            };
+        }
+
+        public static Post FromUpdatePostDTO(UpdatePostDTO updatePostDTO)
+        {
+            return new Post
+            {   
+                Id = updatePostDTO.Id,
+                Title = updatePostDTO.Title,
+                Content = updatePostDTO.Content,
+                CreatedBy = updatePostDTO.CreatedBy,
+
             };
         }
     }

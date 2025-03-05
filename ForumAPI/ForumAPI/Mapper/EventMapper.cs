@@ -23,7 +23,7 @@ namespace ForumAPI.Mapper
             {
                 Description = evDTO.Description,
                 Location = evDTO.Location,
-                Date = evDTO.Date,
+                Date = DateTime.UtcNow,
                 Status = Enum.Parse<EventStatus>(evDTO.Status)
             };
         }
