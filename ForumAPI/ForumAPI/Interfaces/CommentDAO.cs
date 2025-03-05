@@ -6,6 +6,6 @@ namespace ForumAPI.Interfaces
     {
         Comment CommentAComment(Comment comment);
 
-        Comment CommentAnEvent(Comment comment, int eventId);
+       Task<Comment> CommentAnEvent(Comment comment);
     }
 }

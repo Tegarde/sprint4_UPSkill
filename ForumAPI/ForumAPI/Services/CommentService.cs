@@ -44,8 +44,8 @@ namespace ForumAPI.Services
             return comment;
         }
 
-        public async Task<Comment> CommentAnEventAsync(Comment comment, int eventId){
-            var ev = context.Events.FirstOrDefault(e => e.Id == eventId);
+        public async Task<Comment> CommentAnEvent(Comment comment){
+            var ev = context.Events.FirstOrDefault(e => e.Id == comment.EventId);
             if(ev == null)
             {
                 throw new NotFoundException("Event not found");
@@ -60,7 +60,7 @@ namespace ForumAPI.Services
             
             comment.Event = ev;
             context.Comments.Add(comment);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return comment;
         }
 
