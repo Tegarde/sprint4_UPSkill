@@ -51,6 +51,36 @@ namespace ForumAPI.Services
             return post;
         }
 
+        public async Task AddPostToFavorites(int postId, string username)
+        {
+            var post = await GetPostById(postId);
+            if (post == null)
+            {
+                throw new KeyNotFoundException("Post not found.");
+            }
+
+            var favorite = new PostFavorite
+            {
+                PostId = postId,
+                User = username
+            };
+
+            context.PostFavorites.Add(favorite);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task RemovePostFromFavorites(int postId, string username)
+        {
+            var favorite = await context.PostFavorites
+                .FirstOrDefaultAsync(pf => pf.PostId == postId && pf.User == username);
+            if (favorite == null)
+            {
+                throw new KeyNotFoundException("Favorite not found.");
+            }
+            context.PostFavorites.Remove(favorite);
+            await context.SaveChangesAsync();
+        }
+
         // refazer SD US02
         public async Task UpdatePostStatus(int id, bool newStatus, string userRole)
         {
