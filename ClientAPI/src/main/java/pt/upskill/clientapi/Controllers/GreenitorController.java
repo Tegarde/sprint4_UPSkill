@@ -49,8 +49,8 @@ public class GreenitorController {
         }
     }
 
-    @GetMapping("/username")
-    public ResponseEntity<?> getGreenitorByUsername(@RequestBody String username) {
+    @GetMapping("/user/{username}")
+    public ResponseEntity<?> getGreenitorByUsername(@PathVariable String username) {
         try {
             GreenitorDTO dto = GreenitorMapper.fromGreenitor(service.getGreenitorByUsername(username));
             return new ResponseEntity<>(dto, HttpStatus.OK);

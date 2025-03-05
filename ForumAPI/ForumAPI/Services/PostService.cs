@@ -72,5 +72,7 @@ namespace ForumAPI.Services
             post.Status = newStatus;
             await context.SaveChangesAsync();
         }
+
+
     }
 }
