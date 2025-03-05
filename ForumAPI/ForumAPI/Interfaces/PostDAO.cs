@@ -1,10 +1,9 @@
-﻿using ForumAPI.Models;
-
-namespace ForumAPI.Interfaces
+﻿namespace ForumAPI.Interfaces
 {
     public interface PostDAO
     {
-        public Task<Post> GetPostById(int id);
-        public Task<Post> CreatePost(Post post);
+        Task<Post> GetPostById(int id);
+        Task<Post> CreatePost(Post post);
+        Task UpdatePostStatus(int id, bool newStatus);
     }
 }
