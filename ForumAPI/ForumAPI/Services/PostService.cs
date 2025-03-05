@@ -9,9 +9,9 @@ namespace ForumAPI.Services
     public class PostService : PostDAO
     {
         private readonly DataContext context;
-        private readonly GreenitorClient greenitorClient;
+        private readonly GreenitorDAO greenitorClient;
 
-        public PostService(DataContext context, HttpClient httpClient, GreenitorClient greenitorClient)
+        public PostService(DataContext context, GreenitorDAO greenitorClient)
         {
             this.context = context;
             this.greenitorClient = greenitorClient;
@@ -45,6 +45,8 @@ namespace ForumAPI.Services
                 throw new Exception("User does not exist. Cannot create post.");
             }
 
+            post.CreatedAt = DateTime.UtcNow;
+
             context.Posts.Add(post);
             await context.SaveChangesAsync();
 
@@ -73,6 +75,13 @@ namespace ForumAPI.Services
             await context.SaveChangesAsync();
         }
 
+        public async Task<List<Post>> SearchPostsByKeyword(string keyword)
+        {
+            var posts = await context.Posts
+                .Where(p => p.Title.Contains(keyword) || p.Content.Contains(keyword))
+                .ToListAsync();
 
+            return posts;
+        }
     }
 }
