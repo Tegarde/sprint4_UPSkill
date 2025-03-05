@@ -82,6 +82,24 @@ namespace ForumAPI.Controllers
             }
         }
 
+        [HttpPost("{id}/favorite")]
+        public async Task<ActionResult> RemovePostFromFavorites(int id, [FromHeader] string username)
+        {
+            try
+            {
+                await service.RemovePostFromFavorites(id, username);
+                return Ok(new ResponseMessage { Message = "Post removed from favorites successfully." });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = ex.Message });
+            }
+        }
+
         [HttpGet("status-options")]
         public ActionResult<IEnumerable<string>> GetPostStatusOptions()
         {
