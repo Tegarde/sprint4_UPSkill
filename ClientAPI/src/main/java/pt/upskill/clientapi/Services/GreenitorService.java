@@ -1,19 +1,29 @@
 package pt.upskill.clientapi.Services;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import pt.upskill.clientapi.CustomExceptions.UserNotFoundException;
 import pt.upskill.clientapi.DTOs.LoginDTO;
+import pt.upskill.clientapi.DTOs.ResponseMessage;
 import pt.upskill.clientapi.Interfaces.GreenitorDAO;
+import pt.upskill.clientapi.JPARepositories.BadgeRepository;
 import pt.upskill.clientapi.JPARepositories.GreenitorRepository;
+import pt.upskill.clientapi.Models.Badge;
 import pt.upskill.clientapi.Models.Greenitor;
 import pt.upskill.clientapi.Models.Token;
+
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 public class GreenitorService implements GreenitorDAO {
 
     private final GreenitorRepository greenitorRepository;
 
-    public GreenitorService(GreenitorRepository greenitorRepository) {
+    private final BadgeRepository badgeRepository;
+
+    public GreenitorService(GreenitorRepository greenitorRepository, BadgeRepository badgeRepository) {
+        this.badgeRepository = badgeRepository;
         this.greenitorRepository = greenitorRepository;
     }
 
@@ -53,5 +63,25 @@ public class GreenitorService implements GreenitorDAO {
         }
 
         return greenitor;
+    }
+
+    @Override
+    @Transactional
+    public ResponseMessage incrementInteractions(String username) {
+        Greenitor greenitor = getGreenitorByUsername(username);
+        greenitor.setBadges(badgeRepository.findBadgesByGreenitorId(greenitor.getId()));
+        greenitor.setInteractions(greenitor.getInteractions() + 1);
+
+        List<Badge> badges = badgeRepository.findAllSortedByInteractions();
+
+        for (Badge badge : badges) {
+            if (greenitor.getInteractions() >= badge.getInteractions()) {
+                greenitor.getBadges().add(badge);
+                greenitorRepository.save(greenitor);
+                return new ResponseMessage(String.format("Badge %s unlocked", badge.getDescription()));
+            }
+        }
+        greenitorRepository.save(greenitor);
+        return new ResponseMessage("Interactions incremented");
     }
 }

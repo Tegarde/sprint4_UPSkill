@@ -74,4 +74,8 @@ public class Greenitor {
         this.role = DEFAULT_ROLE;
         this.interactions = 0;
     }
+
+    public void addBadge(Badge badge) {
+        this.badges.add(badge);
+    }
 }
