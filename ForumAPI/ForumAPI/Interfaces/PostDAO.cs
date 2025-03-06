@@ -1,4 +1,5 @@
 ﻿using ForumAPI.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ForumAPI.Interfaces
 {
@@ -19,6 +20,10 @@ namespace ForumAPI.Interfaces
         Task<Post> CreatePost(Post post);
 
         Task<Post> UpdatePost(int postId, Post updatedPost);
+
+        Task<ActionResult> AddPostToFavorites(int id, string username);
+
+        Task<ActionResult> RemovePostFromFavorites(int id, string username);
 
         Task UpdatePostStatus(int id, bool newStatus);
 

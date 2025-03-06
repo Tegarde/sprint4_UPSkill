@@ -97,6 +97,8 @@ namespace ForumAPI.Services
             {
                 throw new ArgumentException("The start date must be earlier than the end date.");
             }
+            startDate = DateTime.SpecifyKind(startDate, DateTimeKind.Utc);
+            endDate = DateTime.SpecifyKind(endDate, DateTimeKind.Utc);
 
             return await context.Posts
                 .Include(p => p.Comments)
