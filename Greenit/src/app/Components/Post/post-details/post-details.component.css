@@ -1,0 +1,14 @@
+.comments {
+    margin-left: 30px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: rgba(193, 207, 219, 0.871);
+    max-width: 86.8%;
+    overflow-x: auto;
+    padding: 20px;
+}
