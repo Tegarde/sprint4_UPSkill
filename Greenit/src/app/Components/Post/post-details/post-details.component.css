@@ -1,5 +1,16 @@
 .comments {
     margin-left: 30px;
+    position: relative;
+}
+
+.comments::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    bottom: 0;
+    left: 0px;
+    width: 2px;
+    background-color: gray;
 }
 
 .post {
@@ -7,6 +18,7 @@
     padding: 10px;
     border-radius: 8px;
     border: 1px solid rgb(0, 0, 0);
+    margin-bottom: 10px;
 }
 
 .container {
