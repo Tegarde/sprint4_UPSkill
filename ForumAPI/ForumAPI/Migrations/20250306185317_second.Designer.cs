@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ForumAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250305100521_first")]
-    partial class first
+    [Migration("20250306185317_second")]
+    partial class second
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,11 +63,10 @@ namespace ForumAPI.Migrations
                     b.Property<int?>("EventId")
                         .HasColumnType("integer");
 
-                    b.Property<string[]>("LikedBy")
-                        .IsRequired()
-                        .HasColumnType("text[]");
-
                     b.Property<int?>("ParentCommentId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("ParentPostId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("PostId")
@@ -246,7 +245,7 @@ namespace ForumAPI.Migrations
             modelBuilder.Entity("ForumAPI.Models.CommentLike", b =>
                 {
                     b.HasOne("ForumAPI.Models.Comment", "Comment")
-                        .WithMany()
+                        .WithMany("LikedBy")
                         .HasForeignKey("CommentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -289,6 +288,8 @@ namespace ForumAPI.Migrations
 
             modelBuilder.Entity("ForumAPI.Models.Comment", b =>
                 {
+                    b.Navigation("LikedBy");
+
                     b.Navigation("Replies");
                 });
 

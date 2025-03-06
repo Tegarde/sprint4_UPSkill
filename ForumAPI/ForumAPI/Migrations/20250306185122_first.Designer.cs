@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ForumAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250306094927_second")]
-    partial class second
+    [Migration("20250306185122_first")]
+    partial class first
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

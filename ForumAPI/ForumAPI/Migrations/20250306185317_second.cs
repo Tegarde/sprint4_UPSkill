@@ -10,20 +10,19 @@ namespace ForumAPI.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "LikedBy",
-                table: "Comments");
+            migrationBuilder.AddColumn<int>(
+                name: "ParentPostId",
+                table: "Comments",
+                type: "integer",
+                nullable: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string[]>(
-                name: "LikedBy",
-                table: "Comments",
-                type: "text[]",
-                nullable: false,
-                defaultValue: new string[0]);
+            migrationBuilder.DropColumn(
+                name: "ParentPostId",
+                table: "Comments");
         }
     }
 }

@@ -63,6 +63,9 @@ namespace ForumAPI.Migrations
                     b.Property<int?>("ParentCommentId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("ParentPostId")
+                        .HasColumnType("integer");
+
                     b.Property<int?>("PostId")
                         .HasColumnType("integer");
 
