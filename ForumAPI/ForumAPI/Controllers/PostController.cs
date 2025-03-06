@@ -67,12 +67,6 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpGet("status-options")]
-        public ActionResult<IEnumerable<string>> GetPostStatusOptions()
-        {
-            var statusOptions = new List<string> { "Active", "Inactive", "Archived" };
-            return Ok(statusOptions);
-        }
 
         [HttpPut("{id}/status")]
         public async Task<ActionResult> UpdatePostStatus(int id, [FromBody] bool newStatus, [FromHeader] string userRole)
