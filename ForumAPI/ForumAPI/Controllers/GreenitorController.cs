@@ -44,7 +44,8 @@ namespace ForumAPI.Controllers
             {
                 TokenDTO token = await service.Login(loginDTO);
                 return Ok(token);
-            }catch(ResponseStatusException ex)
+            }
+            catch(ResponseStatusException ex)
             {
                 return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
             }
