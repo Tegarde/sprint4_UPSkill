@@ -1,4 +1,5 @@
 ﻿using ForumAPI.DTOs;
+using ForumAPI.DTOs.PostDTOs;
 using ForumAPI.Enums;
 using ForumAPI.Models;
 
@@ -27,7 +28,17 @@ namespace ForumAPI.Mapper
                 Status = Enum.Parse<EventStatus>(evDTO.Status)
             };
         }
-        
-        
+
+        public static Post FromUpdatePostDTO(UpdatePostDTO updatePostDTO)
+        {
+            return new Post
+            {
+                Id = updatePostDTO.Id,
+                Title = updatePostDTO.Title,
+                Content = updatePostDTO.Content,
+                CreatedBy = updatePostDTO.CreatedBy,
+
+            };
+        }
     }
 }

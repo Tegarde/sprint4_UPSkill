@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ForumAPI.Services;
 using ForumAPI.DTOs;
 using ForumAPI.Mapper;
 using ForumAPI.Interfaces;
-
 using ForumAPI.CustomExceptions;
 using ForumAPI.DTOs.PostDTOs;
 
@@ -18,6 +16,21 @@ namespace ForumAPI.Controllers
         public PostController(PostDAO service)
         {
             this.service = service;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<PostDTO>>> GetAllPosts()
+        {
+            try
+            {
+                var posts = await service.GetAllPosts();
+                var postDTOs = posts.Select(p => PostMapper.ToDTO(p)).ToList();
+                return Ok(postDTOs);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = ex.Message });
+            }
         }
 
         /// <summary>
@@ -40,6 +53,99 @@ namespace ForumAPI.Controllers
             catch (Exception ex)
             {
                 return StatusCode(400, new ResponseMessage { Message = ex.Message });
+            }
+        }
+
+        [HttpGet("user/{username}")]
+        public async Task<ActionResult<List<PostDTO>>> GetPostsByUser(string username)
+        {
+            try
+            {
+                var posts = await service.GetPostsByUser(username);
+                var postDTOs = posts.Select(p => PostMapper.ToDTO(p)).ToList();
+                return Ok(postDTOs);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = ex.Message });
+            }
+        }
+
+        [HttpGet("sortBydate")]
+        public ActionResult<List<PostDTO>> GetPostSortedByDate()
+        {
+            try
+            {
+                var posts = service.GetPostSortedByDate();
+                var postDTOs = posts.Select(p => PostMapper.ToDTO(p)).ToList();
+                return Ok(postDTOs);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = ex.Message });
+            }
+        }
+
+        [HttpGet("top/{topN}")]
+        public async Task<ActionResult<List<PostDTO>>> GetTopPostsByInteractions([FromRoute] int topN)
+        {
+            try
+            {
+                var posts = await service.GetTopPostsByInteractions(topN);
+                var postDTOs = posts.Select(p => PostMapper.ToDTO(p)).ToList();
+                return Ok(postDTOs);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = ex.Message });
+            }
+        }
+
+        [HttpGet("between-dates")]
+        public async Task<ActionResult<List<PostDTO>>> GetPostsBetweenDates(
+            [FromQuery] DateTime startDate,
+            [FromQuery] DateTime endDate)
+        {
+            try
+            {
+                var posts = await service.GetPostsBetweenDates(startDate, endDate);
+                var postDTOs = posts.Select(p => PostMapper.ToDTO(p)).ToList();
+                return Ok(postDTOs);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new ResponseMessage { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = ex.Message });
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<PostDTO>> UpdatePost(int id,[FromBody] UpdatePostDTO updatedPostDTO)
+        {
+            try
+            {
+                var updatedPost = PostMapper.FromUpdatePostDTO(updatedPostDTO);
+                var post = await service.UpdatePost(id, updatedPost);
+                return Ok(PostMapper.ToDTO(post));
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(403, new ResponseMessage { Message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new ResponseMessage { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = "Unable to update Post, something went wrong" });
             }
         }
 
@@ -95,7 +201,7 @@ namespace ForumAPI.Controllers
         }
 
         [HttpGet("/search/{keyword}")]
-        public async Task<ActionResult<List<PostDTO>>> GetPostsByKeyword(string keyword)
+        public async Task<ActionResult<List<PostDTO>>> SearchPostsByKeyword(string keyword)
         {
             try
             {
@@ -112,115 +218,35 @@ namespace ForumAPI.Controllers
             }
         }
 
-
-        [HttpGet("user/{username}")]
-        public async Task<ActionResult<List<PostDTO>>> GetPostsByUser(string username)
+        [HttpPost("{id}/favorite")]
+        public async Task<ActionResult> AddPostToFavorites(int id, [FromHeader] string username)
         {
             try
             {
-                var posts = await service.GetPostsByUser(username);
-                var postDTOs = posts.Select(p => PostMapper.ToDTO(p)).ToList();
-                return Ok(postDTOs);
+                await service.AddPostToFavorites(id, username);
+                return Ok(new ResponseMessage { Message = "Post added to favorites successfully." });
             }
-            catch (Exception ex)
-            {
-                return StatusCode(400, new ResponseMessage { Message = ex.Message });
-            }
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<List<PostDTO>>> GetAllPosts()
-        {
-            try
-            {
-                var posts = await service.GetAllPosts();
-                var postDTOs = posts.Select(p => PostMapper.ToDTO(p)).ToList();
-                return Ok(postDTOs);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(400, new ResponseMessage { Message = ex.Message });
-            }
-        }
-
-
-        [HttpPut("{id}")]
-        public async Task<ActionResult<PostDTO>> UpdatePost(
-            int id,
-            [FromBody] UpdatePostDTO updatedPostDTO)
-        {
-            try
-            {
-                var updatedPost = PostMapper.FromUpdatePostDTO(updatedPostDTO);
-                var post = await service.UpdatePost(id, updatedPost);
-                return Ok(PostMapper.ToDTO(post));
-            }
-            catch (NotFoundException ex)
+            catch (KeyNotFoundException ex)
             {
                 return NotFound(new ResponseMessage { Message = ex.Message });
             }
-            catch (UnauthorizedAccessException ex)
-            {
-                return StatusCode(403, new ResponseMessage { Message = ex.Message });
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(new ResponseMessage { Message = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(400, new ResponseMessage { Message = "Unable to update Post, something went wrong" });
-            }
-        }
-
-
-        [HttpGet("sortBydate")]
-        public ActionResult<List<PostDTO>> GetPostSortedByDate()
-        {
-            try
-            {
-                var posts = service.GetPostSortedByDate();
-                var postDTOs = posts.Select(p => PostMapper.ToDTO(p)).ToList();
-                return Ok(postDTOs);
-            }
             catch (Exception ex)
             {
                 return StatusCode(400, new ResponseMessage { Message = ex.Message });
             }
         }
 
-
-        [HttpGet("top/{topN}")]
-        public async Task<ActionResult<List<PostDTO>>> GetTopPostsByInteractions([FromRoute] int topN)
+        [HttpPost("{id}/favorite")]
+        public async Task<ActionResult> RemovePostFromFavorites(int id, [FromHeader] string username)
         {
             try
             {
-                var posts = await service.GetTopPostsByInteractions(topN);
-                var postDTOs = posts.Select(p => PostMapper.ToDTO(p)).ToList();
-                return Ok(postDTOs);
+                await service.RemovePostFromFavorites(id, username);
+                return Ok(new ResponseMessage { Message = "Post removed from favorites successfully." });
             }
-            catch (Exception ex)
+            catch (KeyNotFoundException ex)
             {
-                return StatusCode(400, new ResponseMessage { Message = ex.Message });
-            }
-        }
-
-
-        [HttpGet("between-dates")]
-
-        public async Task<ActionResult<List<PostDTO>>> GetPostsBetweenDates(
-            [FromQuery] DateTime startDate,
-            [FromQuery] DateTime endDate)
-        {
-            try
-            {
-                var posts = await service.GetPostsBetweenDates(startDate, endDate);
-                var postDTOs = posts.Select(p => PostMapper.ToDTO(p)).ToList();
-                return Ok(postDTOs);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(new ResponseMessage { Message = ex.Message });
+                return NotFound(new ResponseMessage { Message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -228,7 +254,5 @@ namespace ForumAPI.Controllers
             }
         }
     }
-
-
 }
 

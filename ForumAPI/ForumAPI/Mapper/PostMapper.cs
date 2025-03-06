@@ -49,5 +49,17 @@ namespace ForumAPI.Mapper
                 Category = createPostDTO.Category
             };
         }
+
+        public static Post FromUpdatePostDTO(UpdatePostDTO updatePostDTO)
+        {
+            return new Post
+            {
+                Id = updatePostDTO.Id,
+                Title = updatePostDTO.Title,
+                Content = updatePostDTO.Content,
+                CreatedBy = updatePostDTO.CreatedBy,
+
+            };
+        }
     }
 }

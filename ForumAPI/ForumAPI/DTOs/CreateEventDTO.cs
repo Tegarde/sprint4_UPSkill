@@ -1,7 +1,4 @@
-﻿using ForumAPI.Enums;
-using System.ComponentModel.DataAnnotations;
-
-namespace ForumAPI.DTOs
+﻿namespace ForumAPI.DTOs
 {
     public class CreateEventDTO
     {
@@ -11,7 +8,7 @@ namespace ForumAPI.DTOs
         public string Location { get; set; }
 
 
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.UtcNow;
 
 
         public string Status { get; set; }
