@@ -1,10 +1,14 @@
-﻿namespace ForumAPI.DTOs
+﻿using ForumAPI.DTOs.CommentDTOs;
+
+namespace ForumAPI.DTOs
 {
     /// <summary>
     /// Data Transfer Object for the Post entity.
     /// </summary>
     public class PostDTO
     {
+        public int Id { get; set; }
+
         /// <summary>
         /// The title of the post.
         /// </summary>
@@ -25,6 +29,10 @@
         /// </summary>
         public DateTime CreatedAt { get; set; }
 
+        public int LikedBy { get; set; }
+
+        public int DislikedBy { get; set; }
+
         /// <summary>
         /// The status of the post.
         /// </summary>
@@ -39,5 +47,10 @@
         /// The number of interactions with the post.
         /// </summary>
         public int Interactions { get; set; }
+
+        /// <summary>
+        /// The comments associated with the post.
+        /// </summary>
+        public List<CommentDTO> Comments { get; set; }
     }
 }

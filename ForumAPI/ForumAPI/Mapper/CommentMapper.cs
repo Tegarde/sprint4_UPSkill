@@ -35,33 +35,19 @@ namespace ForumAPI.Mapper
             };
         }
 
-        public static Comment FromCommentWithCommentsDTO(CommentWithCommentsDTO commentWithCommentsDTO)
+        public static CommentDTO ToDTO(Comment comment)
         {
-            return new Comment
+            return new CommentDTO
             {
-                PostId = commentWithCommentsDTO.PostId,
-                ParentCommentId = commentWithCommentsDTO.ParentCommentId,
-                EventId = commentWithCommentsDTO.EventId,
-                Content = commentWithCommentsDTO.Content,
-                CreatedBy = commentWithCommentsDTO.CreatedBy,
-                CreatedAt = commentWithCommentsDTO.CreatedAt,
-                LikedBy = commentWithCommentsDTO.LikedBy,
-                Comments = 
-            };
-        }
-
-        public static Comment FromCommentWithoutCommentsDTO(CommentWithoutCommentsDTO commentWithoutCommentsDTO)
-        {
-            return new Comment
-            {
-                PostId = commentWithoutCommentsDTO.PostId,
-                ParentCommentId = commentWithoutCommentsDTO.ParentCommentId,
-                EventId = commentWithoutCommentsDTO.EventId,
-                Content = commentWithoutCommentsDTO.Content,
-                CreatedBy = commentWithoutCommentsDTO.CreatedBy,
-                CreatedAt = commentWithoutCommentsDTO.CreatedAt,
-                LikedBy = commentWithoutCommentsDTO.LikedBy,
-                Comments =
+                Id = comment.Id,
+                PostId = (int)comment.PostId,
+                ParentCommentId = (int)comment.ParentCommentId,
+                EventId = (int)comment.EventId,
+                Content = comment.Content,
+                CreatedBy = comment.CreatedBy,
+                CreatedAt = comment.CreatedAt,
+                LikeBy = comment.LikedBy.Count,
+                CommentsCounter = comment.Replies.Count
             };
         }
     }

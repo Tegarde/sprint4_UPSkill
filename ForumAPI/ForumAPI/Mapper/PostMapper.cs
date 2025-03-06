@@ -1,4 +1,5 @@
 ﻿using ForumAPI.DTOs;
+using ForumAPI.DTOs.PostDTOs;
 using ForumAPI.Models;
 
 namespace ForumAPI.Mapper
@@ -17,13 +18,19 @@ namespace ForumAPI.Mapper
         {
             return new PostDTO
             {
+                Id = post.Id,
                 Title = post.Title,
                 Content = post.Content,
                 CreatedBy = post.CreatedBy,
                 CreatedAt = post.CreatedAt,
                 Status = post.Status,
                 Category = post.Category,
-                Interactions = post.Interactions
+                Interactions = post.Interactions,
+                LikedBy = post.LikedBy.Count,
+                DislikedBy = post.DislikedBy.Count,
+                Comments = post.Comments
+                    .Select(CommentMapper.ToDTO)
+                    .ToList()
             };
         }
 
@@ -32,17 +39,14 @@ namespace ForumAPI.Mapper
         /// </summary>
         /// <param name="postDTO">The PostDTO to convert.</param>
         /// <returns>A Post entity representation of the PostDTO.</returns>
-        public static Post FromDTO(PostDTO postDTO)
+        public static Post FromDTO(CreatePostDTO createPostDTO)
         {
             return new Post
             {
-                Title = postDTO.Title,
-                Content = postDTO.Content,
-                CreatedBy = postDTO.CreatedBy,
-                CreatedAt = DateTime.UtcNow,
-                Status = postDTO.Status,
-                Category = postDTO.Category,
-                Interactions = postDTO.Interactions
+                Title = createPostDTO.Title,
+                Content = createPostDTO.Content,
+                CreatedBy = createPostDTO.CreatedBy,
+                Category = createPostDTO.Category
             };
         }
     }
