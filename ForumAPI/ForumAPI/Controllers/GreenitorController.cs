@@ -14,11 +14,15 @@ namespace ForumAPI.Controllers
     {
         private readonly GreenitorDAO service;
         private readonly PostDAO postService;
+        private readonly CommentDAO commentService;
+        private readonly EventDAO eventService;
 
-        public GreenitorController(GreenitorDAO service, PostDAO postService)
+        public GreenitorController(GreenitorDAO service, PostDAO postService, CommentDAO commentService, EventDAO eventService)
         {
             this.service = service;
             this.postService = postService;
+            this.commentService = commentService;
+            this.eventService = eventService;
         }
 
         [HttpPost]
@@ -90,6 +94,34 @@ namespace ForumAPI.Controllers
             {
                 var posts = await postService.GetNotificationsByUser(username);
                 return (posts.Any()) ? Ok(posts.Select(post => PostMapper.ToPostNotificationDTO(post)).ToList()) : NoContent();
+            }
+            catch (ResponseStatusException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
+        }
+
+        [HttpGet("/stats/{username}")] 
+        public async Task<ActionResult<GreenitorStatisticsDTO>> GetGreenitorStats(string username)
+        {
+            try
+            {
+                var postStats = await postService.GetPostStatisticsByUsername(username);
+
+                int eventStats = await eventService.GetEventStatisticsByUsername(username);
+
+                postStats.EventAttendances = eventStats;
+
+                var commentStats = await commentService.GetCommentStatisticsByUsername(username);
+
+                postStats.Comments = commentStats.Comments;
+                postStats.LikesInComments = commentStats.LikesInComments;
+
+                return Ok(postStats);
             }
             catch (ResponseStatusException ex)
             {

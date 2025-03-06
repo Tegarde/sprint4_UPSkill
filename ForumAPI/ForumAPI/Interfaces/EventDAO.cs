@@ -21,5 +21,7 @@ namespace ForumAPI.Interfaces
         public List<Event> GetEventsByStatus(string Status);
 
         public string ChangeEventStatus(int id, string status);
+
+        public Task<int> GetEventStatisticsByUsername(string username);
     }
 }

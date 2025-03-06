@@ -101,5 +101,19 @@ namespace ForumAPI.Services
             return comment;
         }
 
+        public async Task<GreenitorStatisticsDTO> GetCommentStatisticsByUsername(string username)
+        {
+            
+            var comments = await context.Comments.Where(c => c.CreatedBy == username).CountAsync();
+
+            var likes = await context.CommentLikes.Where(cl => cl.User == username).CountAsync();
+
+            return new GreenitorStatisticsDTO
+            {
+                Comments = comments,
+                LikesInComments = likes
+            };           
+        }
+
     }
 }

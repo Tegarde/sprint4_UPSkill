@@ -275,5 +275,31 @@ namespace ForumAPI.Services
             post.Interactions = 0;
             await context.SaveChangesAsync();
         }
-    }
+        public async Task<GreenitorStatisticsDTO> GetPostStatisticsByUsername(string username)
+        {
+            await greenitorClient.GetUserByUsername(username);
+
+            var likesInPosts = await context.PostLikes
+                .Where(pl => pl.User == username).CountAsync();
+
+            var dislikesInPosts = await context.PostDislikes
+                .Where(pl => pl.User == username).CountAsync();
+
+
+            var favoritePosts = await context.PostFavorites
+                .Where(pf => pf.User == username).CountAsync();
+
+
+            var posts = await context.Posts
+                .Where(p => p.CreatedBy == username).CountAsync();
+
+            return new GreenitorStatisticsDTO
+            {
+                LikesInPosts = likesInPosts,
+                DislikesInPosts = dislikesInPosts,               
+                FavoritePosts = favoritePosts,
+                Posts = posts
+            };
+        }
+    }    
 }

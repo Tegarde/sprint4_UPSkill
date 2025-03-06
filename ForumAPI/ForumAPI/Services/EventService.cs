@@ -4,6 +4,7 @@ using ForumAPI.DTOs;
 using ForumAPI.Enums;
 using ForumAPI.Interfaces;
 using ForumAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ForumAPI.Services
 {
@@ -69,7 +70,8 @@ namespace ForumAPI.Services
             return events;
         }
 
-        public string ChangeEventStatus(int id, string status){
+        public string ChangeEventStatus(int id, string status)
+        {
             var ev = GetEventById(id);
             if(ev == null)
             {
@@ -82,6 +84,15 @@ namespace ForumAPI.Services
             ev.Status = eventStatus;
             context.SaveChangesAsync();
             return "Event status updated successfully";
+        }
+
+        public async Task<int> GetEventStatisticsByUsername(string username)
+        {
+            int attendanceCount = await context.Attendances
+                .Where(e => e.User == username)
+                .CountAsync();
+
+            return attendanceCount;
         }
 
 

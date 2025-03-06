@@ -1,4 +1,5 @@
-﻿using ForumAPI.Models;
+﻿using ForumAPI.DTOs.GreenitorDTOs;
+using ForumAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForumAPI.Interfaces
@@ -37,5 +38,7 @@ namespace ForumAPI.Interfaces
         Task<List<Post>> GetNotificationsByUser(string username);
 
         Task ResetPostInteractionCount(int postId);
+
+        Task<GreenitorStatisticsDTO> GetPostStatisticsByUsername(string username);
     }
 }
