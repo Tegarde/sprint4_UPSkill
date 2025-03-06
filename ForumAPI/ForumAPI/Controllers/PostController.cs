@@ -3,6 +3,7 @@ using ForumAPI.Services;
 using ForumAPI.DTOs;
 using ForumAPI.Mapper;
 using ForumAPI.Interfaces;
+using ForumAPI.DTOs.PostDTOs;
 
 namespace ForumAPI.Controllers
 {
@@ -23,7 +24,7 @@ namespace ForumAPI.Controllers
         /// <param name="id">The post ID.</param>
         /// <returns>The post details.</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<CreatePostDTO>> GetPostById(int id)
+        public async Task<ActionResult<PostDTO>> GetPostById(int id)
         {
             try
             {
