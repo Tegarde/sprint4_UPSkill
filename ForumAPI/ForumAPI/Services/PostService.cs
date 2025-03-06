@@ -31,7 +31,7 @@ namespace ForumAPI.Services
 
             if (post == null)
             {
-                throw new KeyNotFoundException("Post not found.");
+                throw new KeyNotFoundException($"Post with ID {id} not found.");
             }
 
             return post;
@@ -43,7 +43,7 @@ namespace ForumAPI.Services
 
             if (user == null)
             {
-                throw new Exception("User does not exist. Cannot create post.");
+                throw new ArgumentException($"User '{post.CreatedBy}' does not exist. Cannot create post.");
             }
 
             context.Posts.Add(post);
@@ -57,7 +57,7 @@ namespace ForumAPI.Services
             var post = await GetPostById(postId);
             if (post == null)
             {
-                throw new KeyNotFoundException("Post not found.");
+                throw new KeyNotFoundException($"Post with ID {postId} not found.");
             }
 
             var favorite = new PostFavorite
@@ -68,7 +68,7 @@ namespace ForumAPI.Services
 
             context.PostFavorites.Add(favorite);
             await context.SaveChangesAsync();
-            return new OkResult();
+            return new OkObjectResult($"Post with ID {postId} added to favorites for user '{username}'.");
         }
 
         public async Task<ActionResult> RemovePostFromFavorites(int postId, string username)
@@ -77,12 +77,13 @@ namespace ForumAPI.Services
                 .FirstOrDefaultAsync(pf => pf.PostId == postId && pf.User == username);
             if (favorite == null)
             {
-                throw new KeyNotFoundException("Favorite not found.");
+                throw new KeyNotFoundException($"Favorite for post ID {postId} and user '{username}' not found.");
             }
             context.PostFavorites.Remove(favorite);
             await context.SaveChangesAsync();
-            return new OkResult();
+            return new OkObjectResult($"Post with ID {postId} removed from favorites for user '{username}'.");
         }
+
 
         // refazer SD US02
         public async Task UpdatePostStatus(int id, bool newStatus, string userRole)
@@ -95,17 +96,18 @@ namespace ForumAPI.Services
             var post = await GetPostById(id);
             if (post == null)
             {
-                throw new KeyNotFoundException("Post not found");
+                throw new KeyNotFoundException($"Post with ID {id} not found.");
             }
 
             if (post.Status == newStatus)
             {
-                throw new InvalidOperationException("New status must be different from the current status");
+                throw new InvalidOperationException("New status must be different from the current status.");
             }
 
             post.Status = newStatus;
             await context.SaveChangesAsync();
         }
+
 
         public async Task<List<Post>> SearchPostsByKeyword(string keyword)
         {
