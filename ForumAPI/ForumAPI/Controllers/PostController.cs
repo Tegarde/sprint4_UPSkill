@@ -175,11 +175,11 @@ namespace ForumAPI.Controllers
 
 
         [HttpPut("{id}/status")]
-        public async Task<ActionResult> UpdatePostStatus(int id, [FromBody] bool newStatus, [FromHeader] string userRole)
+        public async Task<ActionResult> UpdatePostStatus(int id, [FromBody] bool newStatus)
         {
             try
             {
-                await service.UpdatePostStatus(id, newStatus, userRole);
+                await service.UpdatePostStatus(id, newStatus);
                 return Ok(new ResponseMessage { Message = "Post status updated successfully." });
             }
             catch (UnauthorizedAccessException ex)
@@ -219,7 +219,7 @@ namespace ForumAPI.Controllers
         }
 
         [HttpPost("/favorite/add/{id}")]
-        public async Task<ActionResult> AddPostToFavorites(int id, [FromHeader] string username)
+        public async Task<ActionResult> AddPostToFavorites([FromRoute] int id, [FromBody] string username)
         {
             try
             {
@@ -237,7 +237,7 @@ namespace ForumAPI.Controllers
         }
 
         [HttpPost("/favorite/remove/{id}")]
-        public async Task<ActionResult> RemovePostFromFavorites(int id, [FromHeader] string username)
+        public async Task<ActionResult> RemovePostFromFavorites([FromRoute] int id, [FromBody] string username)
         {
             try
             {
