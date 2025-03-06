@@ -31,6 +31,8 @@ namespace ForumAPI.Models
 
         public Comment? ParentComment { get; set; }
 
+        public int? ParentPost { get; set; }
+
         /// <summary>
         /// The unique identifier for the event.
         /// </summary>
