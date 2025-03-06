@@ -180,14 +180,8 @@ namespace ForumAPI.Services
             return new OkResult();
         }
 
-        // refazer SD US02
-        public async Task UpdatePostStatus(int id, bool newStatus, string userRole)
+        public async Task UpdatePostStatus(int id, bool newStatus)
         {
-            if (userRole != "Moderator")
-            {
-                throw new UnauthorizedAccessException("Only users with the role 'Moderator' can update the post status.");
-            }
-
             var post = await GetPostById(id);
             if (post == null)
             {

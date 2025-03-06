@@ -218,7 +218,7 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpPost("{id}/favorite")]
+        [HttpPost("/favorite/add/{id}")]
         public async Task<ActionResult> AddPostToFavorites(int id, [FromHeader] string username)
         {
             try
@@ -236,7 +236,7 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpPost("{id}/favorite")]
+        [HttpPost("/favorite/remove/{id}")]
         public async Task<ActionResult> RemovePostFromFavorites(int id, [FromHeader] string username)
         {
             try
