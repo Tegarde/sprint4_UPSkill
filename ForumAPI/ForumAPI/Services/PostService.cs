@@ -63,8 +63,6 @@ namespace ForumAPI.Services
 
             var posts = await context.Posts
                 .Where(p => p.CreatedBy == username && p.Status)
-                .Include(p => p.Comments)
-
                 .ToListAsync();
 
             return posts;

@@ -51,6 +51,6 @@ namespace ForumAPI.DTOs
         /// <summary>
         /// The comments associated with the post.
         /// </summary>
-        public List<CommentDTO> Comments { get; set; }
+        public List<CommentFromPostDTO> Comments { get; set; }
     }
 }
