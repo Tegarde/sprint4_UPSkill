@@ -3,7 +3,6 @@ using ForumAPI.Data;
 using ForumAPI.DTOs.GreenitorDTOs;
 using ForumAPI.Interfaces;
 using ForumAPI.Models;
-using System.Threading.Tasks;
 
 namespace ForumAPI.Services
 {
@@ -85,9 +84,6 @@ namespace ForumAPI.Services
             await context.SaveChangesAsync();
 
             return comment;
-
-
-
         }
 
     }

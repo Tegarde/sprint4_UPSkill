@@ -66,7 +66,7 @@ namespace ForumAPI.Controllers
         {
         try
             {
-                Comment comment = await service.CommentAPost(CommentMapper.FromCOmmentAPostDTO(commentDTO));
+                Comment comment = await service.CommentAPost(CommentMapper.FromCommentAPostDTO(commentDTO));
                 return CreatedAtAction(nameof(CommentAPost), new ResponseMessage { Message = "Comment successfully created" });
             }
             catch(NotFoundException ex)

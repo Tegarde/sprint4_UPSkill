@@ -23,7 +23,7 @@ namespace ForumAPI.Controllers
         /// <param name="id">The post ID.</param>
         /// <returns>The post details.</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<PostDTO>> GetPostById(int id)
+        public async Task<ActionResult<CreatePostDTO>> GetPostById(int id)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace ForumAPI.Controllers
         /// <param name="postDTO">The post details.</param>
         /// <returns>The created post.</returns>
         [HttpPost]
-        public async Task<ActionResult<PostDTO>> CreatePost([FromBody] PostDTO postDTO)
+        public async Task<ActionResult<CreatePostDTO>> CreatePost([FromBody] CreatePostDTO postDTO)
         {
             try
             {
@@ -134,7 +134,7 @@ namespace ForumAPI.Controllers
         }
 
         [HttpGet("/search/{keyword}")]
-        public async Task<ActionResult<List<PostDTO>>> GetPostsByKeyword(string keyword)
+        public async Task<ActionResult<List<CreatePostDTO>>> GetPostsByKeyword(string keyword)
         {
             try
             {
