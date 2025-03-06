@@ -3,6 +3,7 @@ using ForumAPI.Services;
 using ForumAPI.DTOs;
 using ForumAPI.Mapper;
 using ForumAPI.Interfaces;
+using ForumAPI.DTOs.PostDTOs;
 
 namespace ForumAPI.Controllers
 {
@@ -64,8 +65,8 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpPut("{id}/addfavorite")]
-        public async Task<ActionResult> AddPostToFavorites(int id, [FromHeader] string username)
+        [HttpPut("/addfavorite/{id}")]
+        public async Task<ActionResult> AddPostToFavorites([FromRoute] int id, [FromBody] string username)
         {
             try
             {
@@ -82,8 +83,8 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpPost("{id}/rermovefavorite")]
-        public async Task<ActionResult> RemovePostFromFavorites(int id, [FromHeader] string username)
+        [HttpPut("/rermovefavorite/{id}")]
+        public async Task<ActionResult> RemovePostFromFavorites([FromRoute] int id, [FromBody] string username)
         {
             try
             {
@@ -101,11 +102,11 @@ namespace ForumAPI.Controllers
         }
 
         [HttpPut("{id}/status")]
-        public async Task<ActionResult> UpdatePostStatus(int id, [FromBody] bool newStatus, [FromHeader] string userRole)
+        public async Task<ActionResult> UpdatePostStatus(int id, [FromBody] bool newStatus)
         {
             try
             {
-                await service.UpdatePostStatus(id, newStatus, userRole);
+                await service.UpdatePostStatus(id, newStatus);
                 return Ok(new ResponseMessage { Message = "Post status updated successfully." });
             }
             catch (UnauthorizedAccessException ex)
