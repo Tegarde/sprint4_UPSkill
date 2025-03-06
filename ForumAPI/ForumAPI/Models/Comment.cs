@@ -56,6 +56,8 @@ namespace ForumAPI.Models
         /// </summary>
         public DateTime CreatedAt { get; set; }
 
+        public int? ParentPostId;
+
         /// <summary>
         /// The unique identifier for the users who liked the comment.
         /// </summary>

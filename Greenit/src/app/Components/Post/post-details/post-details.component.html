@@ -8,7 +8,7 @@
         <p>{{post.createdBy}} on {{post.createdAt | date: 'EEEE, d MMMM, y, h:mm:ss'}}</p>
        </div>
     </div>
-    <div *ngFor="let comment of post.comments; track comment" class="comments">
+    <div *ngFor="let comment of post!.comments; track comment" class="comments">
         <app-comment-details [comment]="comment"></app-comment-details>
     </div>
 </div>

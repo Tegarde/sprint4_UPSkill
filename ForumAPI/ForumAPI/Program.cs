@@ -12,6 +12,18 @@ namespace ForumAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigins",
+                    policy =>
+                    {
+                        policy.WithOrigins("http://localhost:4200")
+                              .AllowAnyMethod()
+                              .AllowAnyHeader().
+                              AllowCredentials();
+                    });
+            });
+
             builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             // Add services to the container.
@@ -28,6 +40,8 @@ namespace ForumAPI
             builder.Services.AddScoped<CategoryDAO, CategoryClient>();
 
             var app = builder.Build();
+
+            app.UseCors("AllowSpecificOrigins");
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

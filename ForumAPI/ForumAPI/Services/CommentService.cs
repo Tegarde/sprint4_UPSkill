@@ -3,6 +3,7 @@ using ForumAPI.Data;
 using ForumAPI.DTOs.GreenitorDTOs;
 using ForumAPI.Interfaces;
 using ForumAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ForumAPI.Services
 {
@@ -34,6 +35,20 @@ namespace ForumAPI.Services
 
             // Set parent comment
             comment.ParentComment = parentComment;
+
+            if(parentComment.PostId != null) 
+            {
+                comment.ParentPostId = parentComment.PostId;
+
+            }else  
+            {
+                comment.ParentPostId = parentComment.ParentPostId;
+            }
+
+            if (!comment.ParentPostId.HasValue)
+            {
+                throw new NotFoundException("Unnable to link to Post");
+            }
 
             // Set created at
             comment.CreatedAt = DateTime.UtcNow;
