@@ -36,11 +36,7 @@ namespace ForumAPI.Services
             // Set parent comment
             comment.ParentComment = parentComment;
 
-            if(parentComment.PostId != null) 
-            {
-                comment.ParentPostId = parentComment.PostId;
-
-            }else if(parentComment.ParentPostId!=null){
+            if(parentComment.ParentPostId!=null){
                 comment.ParentPostId = parentComment.ParentPostId;
             }
 
@@ -88,6 +84,7 @@ namespace ForumAPI.Services
                 throw new UserNotFoundException("User not found");
             }
             comment.Post = post;
+            comment.ParentPostId = post.Id;
 
             comment.CreatedAt = DateTime.UtcNow;
 
