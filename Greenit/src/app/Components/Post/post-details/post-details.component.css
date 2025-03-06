@@ -1,0 +1,22 @@
+.comments {
+    margin-left: 30px;
+}
+
+.post {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: rgba(193, 207, 219, 0.871);
+    max-width: 83.7%;
+    overflow-x: auto;
+    padding: 20px;
+    border-radius: 8px;
+}

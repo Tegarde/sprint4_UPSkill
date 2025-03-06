@@ -1,11 +1,14 @@
 <div class="container">
-  <nav (click)="isSideBarOpen = !isSideBarOpen" [ngClass]="(isSideBarOpen) ? 'navbar' : 'navbar-closed'">
-    <div *ngIf="isSideBarOpen" class="main-buttons">
-      <img routerLink="/" class="logo" src="./assets/Logo6.jpg" alt="Logo">
-      <label class="button">Login</label>
-      <label class="button">Register</label>
+  <nav [ngClass]="(isSideBarOpen | async) ? 'navbar' : 'navbar-closed'">
+    <div>
+      <img class="menu-icon" src="../assets/menu-icon2.png" (click)="isSideBarOpen.next(!isSideBarOpen.value)">
+      <div *ngIf="isSideBarOpen | async" class="main-buttons">
+        <img routerLink="" (click)="isSideBarOpen.next(false)" class="logo" src="./assets/Logo6.jpg" alt="Logo">
+        <label class="button">Login</label>
+        <label class="button">Register</label>
+      </div>
     </div>
-    <div *ngIf="isSideBarOpen" class="main-buttons">
+    <div *ngIf="isSideBarOpen | async" class="main-buttons">
       <label class="button">Logout</label>
     </div>
   </nav>

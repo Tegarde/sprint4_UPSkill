@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="post">
+       <div class="title-content">
+        <h1>{{post.title}}</h1>
+        <p>{{post.content}}</p>
+       </div>
+       <div class="create-content">
+        <p>{{post.createdBy}} on {{post.createdAt | date: 'EEEE, d MMMM, y, h:mm:ss'}}</p>
+       </div>
+    </div>
+    <div *ngFor="let comment of post.comments; track comment" class="comments">
+        <app-comment-details [comment]="comment"></app-comment-details>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="comment">
+        <div class="title-content">
+            <h4>{{comment.content}}</h4>
+        </div>
+        <div class="create-content">
+            <p>{{comment.createdBy}} on {{comment.createdAt | date: 'EEEE, d MMMM, y, h:mm:ss'}}</p>
+        </div>
+        <button *ngIf="comment.commentsCounter > 0" (click)="showReplies()">Replies</button>
+    </div>
+    <div *ngFor="let reply of replies; track reply" class="replies">
+        <app-comment-details [comment]="reply"></app-comment-details>
+    </div>
+</div>
