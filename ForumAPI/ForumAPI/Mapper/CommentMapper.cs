@@ -45,7 +45,7 @@ namespace ForumAPI.Mapper
                 Content = comment.Content,
                 CreatedBy = comment.CreatedBy,
                 CreatedAt = comment.CreatedAt,
-                LikeBy = comment.LikedBy.Count,
+                LikedBy = comment.LikedBy.Count,
                 CommentsCounter = comment.Replies.Count
             };
         }
@@ -59,7 +59,7 @@ namespace ForumAPI.Mapper
                 Content = comment.Content,
                 CreatedBy = comment.CreatedBy,
                 CreatedAt = comment.CreatedAt,
-                LikeBy = comment.LikedBy.Count,
+                LikedBy = comment.LikedBy.Count,
                 CommentsCounter = comment.Replies.Count
             };
         }
