@@ -23,11 +23,11 @@ namespace ForumAPI.Controllers
         /// <param name="id">The post ID.</param>
         /// <returns>The post details.</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<PostDTO>> GetPostById(int id)
+        public ActionResult<PostDTO> GetPostById(int id)
         {
             try
             {
-                var post = await service.GetPostById(id);
+                var post = service.GetPostById(id);
                 return Ok(PostMapper.ToDTO(post));
             }
             catch (KeyNotFoundException ex)

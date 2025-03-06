@@ -60,21 +60,21 @@ namespace ForumAPI.Models
         /// <summary>
         /// The unique identifiers for the comments on the post.
         /// </summary>
-        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+        public List<Comment> Comments { get; set; } = new List<Comment>();
 
         /// <summary>
         /// The unique identifiers for the users who liked the post.
         /// </summary>
-        public ICollection<PostLike> LikedBy { get; set; } = new List<PostLike>();
+        public List<PostLike> LikedBy { get; set; } = new List<PostLike>();
 
         /// <summary>
         /// The unique identifiers for the users who disliked the post.
         /// </summary>
-        public ICollection<PostDislike> DislikedBy { get; set; } = new List<PostDislike>();
+        public List<PostDislike> DislikedBy { get; set; } = new List<PostDislike>();
 
         /// <summary>
         /// The unique identifiers for the users who favorited the post.
         /// </summary>
-        public ICollection<PostFavorite> FavoritedBy { get; set; } = new List<PostFavorite>();
+        public List<PostFavorite> FavoritedBy { get; set; } = new List<PostFavorite>();
     }
 }

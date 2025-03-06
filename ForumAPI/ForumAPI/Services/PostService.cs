@@ -22,11 +22,11 @@ namespace ForumAPI.Services
         /// </summary>
         /// <param name="id">The post ID.</param>
         /// <returns>The post if found, otherwise throws an exception.</returns>
-        public async Task<Post> GetPostById(int id)
+        public Post GetPostById(int id)
         {
-            var post = await context.Posts
+            var post = context.Posts
                 .Include(p => p.Comments)
-                .FirstOrDefaultAsync(p => p.Id == id);
+                .FirstOrDefault(p => p.Id == id);
 
             if (post == null)
             {
@@ -58,7 +58,7 @@ namespace ForumAPI.Services
                 throw new UnauthorizedAccessException("Only users with the role 'Moderator' can update the post status.");
             }
 
-            var post = await GetPostById(id);
+            var post = GetPostById(id);
             if (post == null)
             {
                 throw new KeyNotFoundException("Post not found");
