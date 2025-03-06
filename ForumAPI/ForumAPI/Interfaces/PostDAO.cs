@@ -29,5 +29,9 @@ namespace ForumAPI.Interfaces
         Task UpdatePostStatus(int id, bool newStatus);
 
         Task<List<Post>> SearchPostsByKeyword(string keyword);
+
+        Task<int> GetPostHotnessScore(int postId);
+
+        Task<List<Post>> GetHottestPosts(int topN);
     }
 }

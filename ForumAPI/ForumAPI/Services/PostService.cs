@@ -23,6 +23,7 @@ namespace ForumAPI.Services
         {
             var posts = await context.Posts
                 .Include(p => p.Comments)
+                .ThenInclude(p => p.Replies)
                 .Where(p => p.Status)
                 .ToListAsync();
 
@@ -213,6 +214,42 @@ namespace ForumAPI.Services
                 .Where(p => (p.Title.Contains(keyword) || p.Content.Contains(keyword)) && p.Status)
                 .ToListAsync();
             return posts;
+        }
+
+
+        public async Task<int> GetPostHotnessScore(int postId)
+        {
+            var post = await context.Posts
+                .Where(p => p.Id == postId)
+                .Select(p => new
+                {
+                    Likes = p.LikedBy.Count,
+                    Favorites = p.FavoritedBy.Count,
+                    DirectComments = p.Comments.Count,
+                    IndirectComments = context.Comments.Count(c => c.ParentCommentId == postId)
+                })
+                .FirstOrDefaultAsync();
+
+            if (post == null) return 0; // Retorna 0 se o post não existir
+
+            return post.Likes + post.Favorites + post.DirectComments + post.IndirectComments;
+        }
+
+        public async Task<List<Post>> GetHottestPosts(int topN)
+        {
+            return await context.Posts
+                .Where(p => p.Status)
+                .OrderByDescending(p =>
+                    p.LikedBy.Count +
+                    p.FavoritedBy.Count +
+                    p.Comments.Count +
+                    context.Comments.Count(c => c.ParentCommentId == p.Id)) // Ordena por HOTNESS
+                .Take(topN)
+                //.AsSplitQuery() // Otimiza a consulta
+                //.Include(p => p.Comments)
+                //.Include(p => p.LikedBy)
+                //.Include(p => p.FavoritedBy)
+                .ToListAsync();
         }
     }
 }

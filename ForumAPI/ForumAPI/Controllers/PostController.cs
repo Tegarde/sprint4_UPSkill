@@ -260,6 +260,35 @@ namespace ForumAPI.Controllers
                 return StatusCode(400, new ResponseMessage { Message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Obtém o "hotness score" de um post específico.
+        /// </summary>
+        /// <param name="postId">ID do post</param>
+        /// <returns>O score de popularidade do post</returns>
+        [HttpGet("hotness/{postId}")]
+        public async Task<IActionResult> GetPostHotness(int postId)
+        {
+            int hotnessScore = await service.GetPostHotnessScore(postId);
+
+            if (hotnessScore == 0)
+                return NotFound("Post não encontrado");
+
+            return Ok(new { postId, hotnessScore });
+        }
+
+        /// <summary>
+        /// Obtém os posts mais "hot" (com mais interações).
+        /// </summary>
+        /// <param name="topN">Número de posts mais populares a retornar</param>
+        /// <returns>Lista dos posts mais "hot"</returns>
+        [HttpGet("hottest/{topN}")]
+        public async Task<IActionResult> GetHottestPosts(int topN)
+        {
+            var posts = await service.GetHottestPosts(topN);
+            return Ok(posts);
+        }
     }
 }
+
 
