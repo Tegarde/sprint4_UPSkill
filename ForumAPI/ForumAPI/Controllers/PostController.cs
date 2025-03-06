@@ -102,6 +102,7 @@ namespace ForumAPI.Controllers
             }
         }
 
+        [HttpGet("favoritePosts")]
         public async Task<List<Post>> GetFavoritePosts([FromBody] string username)
         {
             return await service.GetFavoritePosts(username);
