@@ -29,7 +29,7 @@ namespace ForumAPI.Mapper
                 LikedBy = post.LikedBy.Count,
                 DislikedBy = post.DislikedBy.Count,
                 Comments = post.Comments
-                    .Select(CommentMapper.ToDTO)
+                    .Select(CommentMapper.ToCommentFromPostDTO)
                     .ToList()
             };
         }
@@ -58,7 +58,6 @@ namespace ForumAPI.Mapper
                 Title = updatePostDTO.Title,
                 Content = updatePostDTO.Content,
                 CreatedBy = updatePostDTO.CreatedBy,
-
             };
         }
     }
