@@ -67,42 +67,6 @@ namespace ForumAPI.Controllers
             }
         }
 
-        //[HttpPost("{id}/favorite")]
-        //public async Task<ActionResult> AddPostToFavorites(int id, [FromHeader] string username)
-        //{
-        //    try
-        //    {
-        //        await service.AddPostToFavorites(id, username);
-        //        return Ok(new ResponseMessage { Message = "Post added to favorites successfully." });
-        //    }
-        //    catch (KeyNotFoundException ex)
-        //    {
-        //        return NotFound(new ResponseMessage { Message = ex.Message });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(400, new ResponseMessage { Message = ex.Message });
-        //    }
-        //}
-
-        //[HttpPost("{id}/favorite")]
-        //public async Task<ActionResult> RemovePostFromFavorites(int id, [FromHeader] string username)
-        //{
-        //    try
-        //    {
-        //        await service.RemovePostFromFavorites(id, username);
-        //        return Ok(new ResponseMessage { Message = "Post removed from favorites successfully." });
-        //    }
-        //    catch (KeyNotFoundException ex)
-        //    {
-        //        return NotFound(new ResponseMessage { Message = ex.Message });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(400, new ResponseMessage { Message = ex.Message });
-        //    }
-        //}
-
         [HttpGet("status-options")]
         public ActionResult<IEnumerable<string>> GetPostStatusOptions()
         {
