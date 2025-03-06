@@ -114,6 +114,9 @@ namespace ForumAPI.Services
         {
             var posts = await context.Posts
                 .Where(p => (p.Title.Contains(keyword) || p.Content.Contains(keyword)) && p.Status)
+                .ToListAsync();
+            return posts;
+        }
 
 
         public async Task<List<Post>> GetPostsByUser(string username)
@@ -201,6 +204,8 @@ namespace ForumAPI.Services
             {
                 throw new ArgumentException("The start date must be earlier than the end date.");
             }
+            startDate = DateTime.SpecifyKind(startDate, DateTimeKind.Utc);
+            endDate = DateTime.SpecifyKind(endDate, DateTimeKind.Utc);
 
             return await context.Posts
                 .Include(p => p.Comments)
