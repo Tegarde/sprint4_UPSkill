@@ -246,7 +246,7 @@ namespace ForumAPI.Services
                     p.LikedBy.Count +
                     p.FavoritedBy.Count +
                     p.Comments.Count +
-                    context.Comments.Count(c => c.ParentCommentId == p.Id)) // Ordena por HOTNESS
+                    context.Comments.Count(c => c.ParentPostId == p.Id)) // Ordena por HOTNESS
                 .Take(topN)
                 //.AsSplitQuery() // Otimiza a consulta
                 //.Include(p => p.Comments)
