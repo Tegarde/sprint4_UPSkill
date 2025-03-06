@@ -56,7 +56,7 @@ namespace ForumAPI.Controllers
 
         }
 
-        [HttpGet("{username}")]
+        [HttpGet("/username/{username}")]
         public async Task<ActionResult<GreenitorWithoutRoleDTO>> GetUserByUsername(string username)
         {
             try
