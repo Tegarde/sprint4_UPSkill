@@ -64,7 +64,7 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpPost("{id}/addfavorite")]
+        [HttpPut("{id}/addfavorite")]
         public async Task<ActionResult> AddPostToFavorites(int id, [FromHeader] string username)
         {
             try

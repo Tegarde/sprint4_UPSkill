@@ -1,12 +1,15 @@
 <div class="container">
-  <nav class="navbar">
-    <div class="main-buttons">
+  <nav (click)="isSideBarOpen = !isSideBarOpen" [ngClass]="(isSideBarOpen) ? 'navbar' : 'navbar-closed'">
+    <div *ngIf="isSideBarOpen" class="main-buttons">
       <img routerLink="/" class="logo" src="./assets/Logo6.jpg" alt="Logo">
       <label class="button">Login</label>
       <label class="button">Register</label>
     </div>
-    <div class="main-buttons">
+    <div *ngIf="isSideBarOpen" class="main-buttons">
       <label class="button">Logout</label>
     </div>
   </nav>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
 </div>

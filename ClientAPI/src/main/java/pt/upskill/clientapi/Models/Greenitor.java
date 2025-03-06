@@ -57,15 +57,15 @@ public class Greenitor {
     private int interactions;
 
     /**
-     * Default role for the greenitor
-     */
-    private static final String DEFAULT_ROLE = "User";
-
-    /**
      * Badges of the user
      */
     @ManyToMany
     private List<Badge> badges;
+    
+    /**
+     * Default role for the greenitor
+     */
+    private static final String DEFAULT_ROLE = "User";
 
     public Greenitor(String username, String email, String password) {
         this.username = username;
