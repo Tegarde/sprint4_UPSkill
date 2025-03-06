@@ -7,7 +7,5 @@
         public string Content { get; set; }
 
         public string CreatedBy { get; set; }
-
-
     }
 }

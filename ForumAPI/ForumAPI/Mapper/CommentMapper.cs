@@ -63,5 +63,19 @@ namespace ForumAPI.Mapper
                 CommentsCounter = comment.Replies.Count
             };
         }
+
+        public static CommentFromEventDTO ToCommentFromEventDTO(Comment comment)
+        {
+            return new CommentFromEventDTO
+            {
+                Id = comment.Id,
+                EventId = (int)comment.EventId,
+                Content = comment.Content,
+                CreatedBy = comment.CreatedBy,
+                CreatedAt = comment.CreatedAt,
+                LikedBy = comment.LikedBy.Count,
+                CommentsCounter = comment.Replies.Count
+            };
+        }
     }
 }
