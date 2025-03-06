@@ -8,10 +8,10 @@ namespace ForumAPI.Interfaces
         Task<Post> GetPostById(int id);
         Task<Post> CreatePost(Post post);
 
-        Task<ActionResult> AddPostToFavorites(int id, [FromHeader] string username);
+        Task<ActionResult> AddPostToFavorites(int id, string username);
 
-        Task<ActionResult> RemovePostFromFavorites(int id, [FromHeader] string username);
-        Task UpdatePostStatus(int id, bool newStatus, string userRole);
+        Task<ActionResult> RemovePostFromFavorites(int id, string username);
+        Task UpdatePostStatus(int id, bool newStatus);
 
         Task<List<Post>> SearchPostsByKeyword(string keyword);
     }
