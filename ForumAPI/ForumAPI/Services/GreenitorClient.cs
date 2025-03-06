@@ -63,5 +63,16 @@ namespace ForumAPI.Services
                 throw new ResponseStatusException(request.StatusCode, message!);
             }
         }
+
+        public async Task IncrementUserInteractions(string username)
+        {
+            var request = await client.PatchAsync($"{BaseUrl}/increment/{username}", null);
+
+            if (!request.IsSuccessStatusCode)
+            {
+                var message = await request.Content.ReadFromJsonAsync<ResponseMessage>();
+                throw new ResponseStatusException(request.StatusCode, message!);
+            }
+        }
     }
 }

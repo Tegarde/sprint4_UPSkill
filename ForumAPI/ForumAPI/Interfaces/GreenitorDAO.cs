@@ -10,5 +10,7 @@ namespace ForumAPI.Interfaces
         public Task<ResponseMessage> RegisterUser(RegisterUserDTO registerUserDTO);
 
         public Task<GreenitorDTO> GetUserByUsername(string username);
+
+        Task IncrementUserInteractions(string username);
     }
 }

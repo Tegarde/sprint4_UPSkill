@@ -170,9 +170,9 @@ namespace ForumAPI.Controllers
                 var createdPost = await service.CreatePost(post);
                 return CreatedAtAction(nameof(CreatePost), new ResponseMessage { Message = "Post created successfully." });
             }
-            catch (KeyNotFoundException ex)
+            catch (ResponseStatusException ex)
             {
-                return NotFound(new ResponseMessage { Message = ex.Message });
+                return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
             }
             catch (Exception ex)
             {

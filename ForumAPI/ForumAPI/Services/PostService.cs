@@ -12,11 +12,13 @@ namespace ForumAPI.Services
     {
         private readonly DataContext context;
         private readonly GreenitorDAO greenitorClient;
+        private readonly CategoryDAO categoryClient;
 
-        public PostService(DataContext context, GreenitorDAO greenitorClient)
+        public PostService(DataContext context, GreenitorDAO greenitorClient, CategoryDAO categoryClient)
         {
             this.context = context;
             this.greenitorClient = greenitorClient;
+            this.categoryClient = categoryClient;
         }
 
         public async Task<List<Post>> GetAllPosts()
@@ -119,12 +121,11 @@ namespace ForumAPI.Services
 
         public async Task<Post> CreatePost(Post post)
         {
-            GreenitorDTO? user = await greenitorClient.GetUserByUsername(post.CreatedBy);
+            await greenitorClient.GetUserByUsername(post.CreatedBy);            
 
-            if (user == null)
-            {
-                throw new Exception("User does not exist. Cannot create post.");
-            }
+            await categoryClient.GetCategoryByDescription(post.Category);
+
+            await greenitorClient.IncrementUserInteractions(post.CreatedBy);
 
             context.Posts.Add(post);
             await context.SaveChangesAsync();
