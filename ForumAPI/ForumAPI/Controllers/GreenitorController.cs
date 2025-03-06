@@ -1,6 +1,7 @@
 ﻿
 using ForumAPI.DTOs;
 using ForumAPI.DTOs.GreenitorDTOs;
+using ForumAPI.DTOs.PostDTOs;
 using ForumAPI.Interfaces;
 using ForumAPI.Mapper;
 using Microsoft.AspNetCore.Mvc;
@@ -12,10 +13,12 @@ namespace ForumAPI.Controllers
     public class GreenitorController : ControllerBase
     {
         private readonly GreenitorDAO service;
+        private readonly PostDAO postService;
 
-        public GreenitorController(GreenitorDAO service)
+        public GreenitorController(GreenitorDAO service, PostDAO postService)
         {
             this.service = service;
+            this.postService = postService;
         }
 
         [HttpPost]
@@ -69,6 +72,24 @@ namespace ForumAPI.Controllers
                 }
 
                 return Ok(GreenitorMapper.toGreenitorWithoutRoleDTO(greenitor));
+            }
+            catch (ResponseStatusException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
+        }
+
+        [HttpGet("notifications/{username}")]
+        public async Task<ActionResult<List<PostNotificationDTO>>> GetNotifications(string username)
+        {
+            try
+            {
+                var posts = await postService.GetNotificationsByUser(username);
+                return (posts.Any()) ? Ok(posts.Select(post => PostMapper.ToPostNotificationDTO(post)).ToList()) : NoContent();
             }
             catch (ResponseStatusException ex)
             {

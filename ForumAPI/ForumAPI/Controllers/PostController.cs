@@ -288,6 +288,24 @@ namespace ForumAPI.Controllers
             var posts = await service.GetHottestPosts(topN);
             return Ok(posts);
         }
+
+        [HttpPatch("/reset/{id}")]
+        public async Task<ActionResult> ResetPost([FromRoute] int id)
+        {
+            try
+            {
+                await service.ResetPostInteractionCount(id);
+                return Ok(new ResponseMessage { Message = "Post reset successfully." });
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = ex.Message });
+            }
+        }
     }
 }
 

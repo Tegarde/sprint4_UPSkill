@@ -33,5 +33,9 @@ namespace ForumAPI.Interfaces
         Task<int> GetPostHotnessScore(int postId);
 
         Task<List<Post>> GetHottestPosts(int topN);
+
+        Task<List<Post>> GetNotificationsByUser(string username);
+
+        Task ResetPostInteractionCount(int postId);
     }
 }

@@ -60,5 +60,15 @@ namespace ForumAPI.Mapper
                 CreatedBy = updatePostDTO.CreatedBy,
             };
         }
+
+        public static PostNotificationDTO ToPostNotificationDTO(Post post)
+        {
+            return new PostNotificationDTO
+            {
+                PostId = post.Id,
+                Title = post.Title,
+                Interactions = post.Interactions,               
+            };
+        }
     }
 }

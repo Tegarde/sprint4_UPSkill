@@ -251,5 +251,29 @@ namespace ForumAPI.Services
                 //.Include(p => p.FavoritedBy)
                 .ToListAsync();
         }
+
+        public async Task<List<Post>> GetNotificationsByUser(string username)
+        {
+            await greenitorClient.GetUserByUsername(username);
+            
+            var posts = await context.Posts
+                .Where(p => p.CreatedBy == username && p.Status && p.Interactions > 0)
+                .ToListAsync();
+
+            return posts;
+        }
+
+        public async Task ResetPostInteractionCount(int postId)
+        {
+            var post = await context.Posts.FirstOrDefaultAsync(p => p.Id == postId);
+
+            if (post == null)
+            {
+                throw new NotFoundException("Post not found.");
+            }
+
+            post.Interactions = 0;
+            await context.SaveChangesAsync();
+        }
     }
 }
