@@ -73,7 +73,6 @@ namespace ForumAPI.Services
         public List<Post> GetPostSortedByDate()
         {
             return context.Posts
-           .Include(p => p.Comments)
            .Where(p => p.Status)
            .OrderByDescending(p => p.CreatedAt)
            .ToList();
@@ -82,9 +81,6 @@ namespace ForumAPI.Services
         public async Task<List<Post>> GetTopPostsByInteractions(int topN)
         {
             return await context.Posts
-                .Include(p => p.Comments)
-                .Include(p => p.LikedBy)
-                .Include(p => p.FavoritedBy)
                 .Where(p => p.Status)
                 .OrderByDescending(p => p.LikedBy.Count + p.Comments.Count + p.FavoritedBy.Count)
                 .Take(topN)

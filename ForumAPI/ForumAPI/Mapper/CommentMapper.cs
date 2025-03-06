@@ -35,14 +35,13 @@ namespace ForumAPI.Mapper
             };
         }
 
-        public static CommentDTO ToDTO(Comment comment)
+        public static CommentFromPostDTO ToCommentFromPostDTO(Comment comment)
         {
-            return new CommentDTO
+
+            return new CommentFromPostDTO
             {
                 Id = comment.Id,
                 PostId = (int)comment.PostId,
-                ParentCommentId = (int)comment.ParentCommentId,
-                EventId = (int)comment.EventId,
                 Content = comment.Content,
                 CreatedBy = comment.CreatedBy,
                 CreatedAt = comment.CreatedAt,
