@@ -4,6 +4,7 @@ using ForumAPI.Mapper;
 using ForumAPI.Interfaces;
 using ForumAPI.CustomExceptions;
 using ForumAPI.DTOs.PostDTOs;
+using ForumAPI.Models;
 
 namespace ForumAPI.Controllers
 {
@@ -99,6 +100,11 @@ namespace ForumAPI.Controllers
             {
                 return StatusCode(400, new ResponseMessage { Message = ex.Message });
             }
+        }
+
+        public async Task<List<Post>> GetFavoritePosts([FromBody] string username)
+        {
+            return await service.GetFavoritePosts(username);
         }
 
         [HttpGet("between-dates")]

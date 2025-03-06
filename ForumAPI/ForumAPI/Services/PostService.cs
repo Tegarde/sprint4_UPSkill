@@ -85,6 +85,22 @@ namespace ForumAPI.Services
                 .ToListAsync();
         }
 
+        public async Task<List<Post>> GetFavoritePosts([FromBody] string username)
+        {
+            GreenitorDTO? user = await greenitorClient.GetUserByUsername(username);
+            if (user == null)
+            {
+                throw new Exception("User does not exist.");
+            }
+
+            var favoritePosts = await context.PostFavorites
+                .Where(pf => pf.User == username)
+                .Include(pf => pf.Post)
+                .ThenInclude(p => p.Comments)
+                .ToListAsync();
+
+            return favoritePosts.Select(pf => pf.Post).ToList();
+        }
         public async Task<List<Post>> GetPostsBetweenDates(DateTime startDate, DateTime endDate)
         {
             if (startDate > endDate)

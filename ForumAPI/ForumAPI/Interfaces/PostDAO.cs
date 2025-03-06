@@ -15,6 +15,7 @@ namespace ForumAPI.Interfaces
 
         Task<List<Post>> GetTopPostsByInteractions(int topN);
 
+        Task<List<Post>> GetFavoritePosts(string username);
         Task<List<Post>> GetPostsBetweenDates(DateTime startDate, DateTime endDate);
 
         Task<Post> CreatePost(Post post);
