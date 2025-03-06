@@ -45,7 +45,9 @@ namespace ForumAPI.Mapper
             {
                 Title = createPostDTO.Title,
                 Content = createPostDTO.Content,
+                CreatedAt = DateTime.UtcNow,
                 CreatedBy = createPostDTO.CreatedBy,
+                Status = true,
                 Category = createPostDTO.Category
             };
         }

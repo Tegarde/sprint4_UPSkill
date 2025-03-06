@@ -269,12 +269,26 @@ namespace ForumAPI.Controllers
         [HttpGet("hotness/{postId}")]
         public async Task<IActionResult> GetPostHotness(int postId)
         {
-            int hotnessScore = await service.GetPostHotnessScore(postId);
 
-            if (hotnessScore == 0)
-                return NotFound("Post não encontrado");
+            try
+            {
+                int hotnessScore = await service.GetPostHotnessScore(postId);
 
-            return Ok(new { postId, hotnessScore });
+                return Ok(new { postId, hotnessScore });
+            }
+            catch(NotFoundException e)
+            {
+                return NotFound(new ResponseMessage { Message = e.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = "Something went wrong" });
+            }
+
+
+
+
+
         }
 
         /// <summary>

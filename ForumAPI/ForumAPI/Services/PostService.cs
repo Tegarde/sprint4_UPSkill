@@ -193,7 +193,8 @@ namespace ForumAPI.Services
 
         public async Task UpdatePostStatus(int id, bool newStatus)
         {
-            var post = await GetPostById(id);
+            var post = context.Posts.FirstOrDefault(p => p.Id == id);
+
             if (post == null)
             {
                 throw new KeyNotFoundException("Post not found");
@@ -226,11 +227,13 @@ namespace ForumAPI.Services
                     Likes = p.LikedBy.Count,
                     Favorites = p.FavoritedBy.Count,
                     DirectComments = p.Comments.Count,
-                    IndirectComments = context.Comments.Count(c => c.ParentCommentId == postId)
+                    IndirectComments = context.Comments.Count(c => c.ParentPostId == postId)
                 })
                 .FirstOrDefaultAsync();
 
-            if (post == null) return 0; // Retorna 0 se o post não existir
+            if (post == null){
+                throw new NotFoundException("Post not found");           
+            }
 
             return post.Likes + post.Favorites + post.DirectComments + post.IndirectComments;
         }

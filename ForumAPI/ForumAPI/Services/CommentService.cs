@@ -40,14 +40,8 @@ namespace ForumAPI.Services
             {
                 comment.ParentPostId = parentComment.PostId;
 
-            }else  
-            {
+            }else if(parentComment.ParentPostId!=null){
                 comment.ParentPostId = parentComment.ParentPostId;
-            }
-
-            if (!comment.ParentPostId.HasValue)
-            {
-                throw new NotFoundException("Unnable to link to Post");
             }
 
             // Set created at
