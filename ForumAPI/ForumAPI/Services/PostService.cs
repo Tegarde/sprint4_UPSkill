@@ -27,6 +27,8 @@ namespace ForumAPI.Services
         {
             var post = await context.Posts
                 .Include(p => p.Comments)
+                .Include(l => l.LikedBy)
+                .Include(d => d.DislikedBy)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (post == null)
