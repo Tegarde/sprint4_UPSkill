@@ -76,6 +76,7 @@ namespace ForumAPI.Services
             }
             
             comment.Event = ev;
+            comment.CreatedAt = DateTime.UtcNow;
             context.Comments.Add(comment);
             await context.SaveChangesAsync();
             return comment;
@@ -93,6 +94,8 @@ namespace ForumAPI.Services
                 throw new UserNotFoundException("User not found");
             }
             comment.Post = post;
+
+            comment.CreatedAt = DateTime.UtcNow;
 
             context.Comments.Add(comment);
 
