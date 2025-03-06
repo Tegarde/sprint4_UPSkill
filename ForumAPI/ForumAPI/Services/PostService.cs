@@ -115,6 +115,9 @@ namespace ForumAPI.Services
             var posts = await context.Posts
                 .Where(p => (p.Title.Contains(keyword) || p.Content.Contains(keyword)) && p.Status)
                 .ToListAsync();
+            return posts;
+        }
+
 
             return posts;
         }

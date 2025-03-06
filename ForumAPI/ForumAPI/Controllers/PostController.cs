@@ -65,6 +65,7 @@ namespace ForumAPI.Controllers
             }
         }
 
+
         [HttpPut("{id}/addfavorite")]
         public async Task<ActionResult> AddPostToFavorites(int id, [FromHeader] string username)
         {
@@ -83,7 +84,7 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpPost("{id}/rermovefavorite")]
+        [HttpPost("{id}/removefavorite")]
         public async Task<ActionResult> RemovePostFromFavorites(int id, [FromHeader] string username)
         {
             try
@@ -100,6 +101,7 @@ namespace ForumAPI.Controllers
                 return StatusCode(400, new ResponseMessage { Message = ex.Message });
             }
         }
+
 
         [HttpPut("{id}/status")]
         public async Task<ActionResult> UpdatePostStatus(int id, [FromBody] bool newStatus, [FromHeader] string userRole)
