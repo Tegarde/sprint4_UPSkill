@@ -21,9 +21,9 @@ namespace ForumAPI.Interfaces
 
         Task<Post> UpdatePost(int postId, Post updatedPost);
 
-        Task<ActionResult> AddPostToFavorites(int id, string username);
+        Task<ActionResult> AddPostToFavorites(int postId, string username);
 
-        Task<ActionResult> RemovePostFromFavorites(int id, string username);
+        Task<ActionResult> RemovePostFromFavorites(int postId, string username);
 
         Task UpdatePostStatus(int id, bool newStatus);
 
