@@ -35,7 +35,7 @@ namespace ForumAPI.Models
         /// <summary>
         /// The date and time the post was created.
         /// </summary>
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         /// <summary>
         /// The status of the post.
