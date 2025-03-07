@@ -1,12 +1,11 @@
 /* From Uiverse.io by mahiatlinux */ 
 .like-dislike-container {
-    --primary-blue: #3498db;
-    --light-blue: #5dade2;
-    --dark-blue: #2980b9;
-    --text-color: #ecf0f1;
-    --background: linear-gradient(#2c3e50, #34495e);
-    --shadow: 0 5px 15px 0 rgba(52, 152, 219, 0.3);
-    --shadow-active: 0 5px 5px 0 rgba(52, 152, 219, 0.5);
+    --primary-blue: #3c791f
+    ;
+    --light-green: #8CC592;
+    --dark-green: #3E9F4D;
+    --text-color: #6c6d6d;
+    --background: #ffffff; /*linear-gradient(#2c3e50, #34495e);*/
     --border-radius-main: 10px;
     --border-radius-icon: 50px;
     position: relative;
@@ -17,18 +16,12 @@
     cursor: default;
     color: var(--text-color);
     opacity: 0.9;
-    margin: auto;
     padding: 1.5rem;
     font-weight: 600;
     background: var(--background);
     max-width: max-content;
     border-radius: var(--border-radius-main);
-    box-shadow: var(--shadow);
     transition: 0.2s ease all;
-  }
-  
-  .like-dislike-container:hover {
-    box-shadow: var(--shadow-active);
   }
   
   .like-dislike-container .icons-box {
@@ -44,21 +37,19 @@
     margin: 0 0.5rem;
     cursor: pointer;
     user-select: none;
-    border: 1px solid var(--light-blue);
+    border: 1px solid var(--light-green);
     border-radius: var(--border-radius-icon);
     transition: 0.2s ease all;
   }
   
   .like-dislike-container .icons:hover {
     opacity: 1;
-    box-shadow: var(--shadow);
-    background-color: var(--light-blue);
+    background-color: var(--light-green);
   }
   
   .like-dislike-container .icons:active {
     opacity: 1;
-    box-shadow: var(--shadow-active);
-    background-color: var(--dark-blue);
+    background-color: var(--dark-green);
   }
   
   .like-dislike-container .icons .btn-label {
@@ -71,13 +62,13 @@
   }
   
   .like-dislike-container .like-text-content {
-    border-right: 0.1rem solid var(--light-blue);
+    border-right: 0.1rem solid var(--light-green);
     padding: 0 0.6rem 0 0.5rem;
     pointer-events: none;
   }
   
   .like-dislike-container .dislike-text-content {
-    border-left: 0.1rem solid var(--light-blue);
+    border-left: 0.1rem solid var(--light-green);
     padding: 0 0.5rem 0 0.6rem;
     pointer-events: none;
   }
@@ -168,66 +159,66 @@
     height: 10px;
     border-radius: 50%;
     box-shadow:
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2,
-      0 0 #5dade2;
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue),
+      0 0 var(--primary-blue);
     animation:
       1s fireworks-bang ease-out forwards,
       1s fireworks-gravity ease-in forwards,
@@ -347,36 +338,66 @@
   @keyframes fireworks-bang {
     to {
       box-shadow:
-        114px -107px #3498db,
-        212px -166px #3498db,
-        197px -6px #3498db,
-        179px -329px #3498db,
-        -167px -262px #3498db,
-        233px 65px #3498db,
-        81px 42px #3498db,
-        -13px 54px #3498db,
-        -60px -183px #3498db,
-        127px -259px #3498db,
-        117px -122px #3498db,
-        95px 20px #3498db,
-        115px 1px #3498db,
-        -160px -328px #3498db,
-        69px -242px #3498db,
-        -208px -230px #3498db,
-        30px -15px #3498db,
-        235px -15px #3498db,
-        80px -232px #3498db,
-        175px -173px #3498db,
-        -187px -176px #3498db,
-        4px 26px #3498db,
-        227px -106px #3498db,
-        119px 17px #3498db,
-        -102px 4px #3498db,
-        -16px -4px #3498db,
-        -201px -310px #3498db,
-        64px -181px #3498db,
-        -234px -15px #3498db,
-        -184px -263px #3498db;
+        114px -107px var(--primary-blue)
+        ,
+        212px -166px var(--primary-blue)
+        ,
+        197px -6px var(--primary-blue)
+        ,
+        179px -329px var(--primary-blue)
+        ,
+        -167px -262px var(--primary-blue)
+        ,
+        233px 65px var(--primary-blue)
+        ,
+        81px 42px var(--primary-blue)
+        ,
+        -13px 54px var(--primary-blue)
+        ,
+        -60px -183px var(--primary-blue)
+        ,
+        127px -259px var(--primary-blue)
+        ,
+        117px -122px var(--primary-blue)
+        ,
+        95px 20px var(--primary-blue)
+        ,
+        115px 1px var(--primary-blue)
+        ,
+        -160px -328px var(--primary-blue)
+        ,
+        69px -242px var(--primary-blue)
+        ,
+        -208px -230px var(--primary-blue)
+        ,
+        30px -15px var(--primary-blue)
+        ,
+        235px -15px var(--primary-blue)
+        ,
+        80px -232px var(--primary-blue)
+        ,
+        175px -173px var(--primary-blue)
+        ,
+        -187px -176px var(--primary-blue)
+        ,
+        4px 26px var(--primary-blue)
+        ,
+        227px -106px var(--primary-blue)
+        ,
+        119px 17px var(--primary-blue)
+        ,
+        -102px 4px var(--primary-blue)
+        ,
+        -16px -4px var(--primary-blue)
+        ,
+        -201px -310px var(--primary-blue)
+        ,
+        64px -181px var(--primary-blue)
+        ,
+        -234px -15px var(--primary-blue)
+        ,
+        -184px -263px var(--primary-blue)
+        ;
     }
   }
   
