@@ -48,7 +48,10 @@ namespace ForumAPI.Services
 
 
             context.Comments.Add(comment);
+
             context.SaveChanges();
+
+            await greenitorDAO.IncrementUserInteractions(comment.CreatedBy);
 
             return comment;
         }
@@ -72,6 +75,7 @@ namespace ForumAPI.Services
             comment.CreatedAt = DateTime.UtcNow;
             context.Comments.Add(comment);
             await context.SaveChangesAsync();
+            await greenitorDAO.IncrementUserInteractions(comment.CreatedBy);
             return comment;
         }
 
@@ -94,6 +98,8 @@ namespace ForumAPI.Services
             context.Comments.Add(comment);
 
             await context.SaveChangesAsync();
+
+            await greenitorDAO.IncrementUserInteractions(comment.CreatedBy);
 
             return comment;
         }
@@ -160,8 +166,8 @@ namespace ForumAPI.Services
             }
 
             context.CommentLikes.Remove(like);
-            //await greenitorDAO.DecrementUserInteractions(commentLike.User);
             await context.SaveChangesAsync();
+            await greenitorDAO.DecrementUserInteractions(commentLike.User);
             return like;
 
 

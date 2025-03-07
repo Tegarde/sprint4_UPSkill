@@ -13,6 +13,6 @@ namespace ForumAPI.Interfaces
 
         Task IncrementUserInteractions(string username);
 
-        //Task DecrementUserInteractions(string username);
+        Task DecrementUserInteractions(string username);
     }
 }

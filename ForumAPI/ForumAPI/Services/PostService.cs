@@ -130,6 +130,7 @@ namespace ForumAPI.Services
 
             context.Posts.Add(post);
             await context.SaveChangesAsync();
+            await greenitorClient.IncrementUserInteractions(post.CreatedBy);
 
             return post;
         }
@@ -177,6 +178,7 @@ namespace ForumAPI.Services
 
             context.PostFavorites.Add(favorite);
             await context.SaveChangesAsync();
+            await greenitorClient.IncrementUserInteractions(favorite.User);
             return new OkResult();
         }
 
@@ -190,6 +192,7 @@ namespace ForumAPI.Services
             }
             context.PostFavorites.Remove(favorite);
             await context.SaveChangesAsync();
+            await greenitorClient.DecrementUserInteractions(favorite.User);
             return new OkResult();
         }
 
@@ -333,8 +336,8 @@ namespace ForumAPI.Services
                 }
                 postLike.Post = post;
                 context.PostLikes.Add(postLike);
-                await greenitorClient.IncrementUserInteractions(postLike.User);
                 await context.SaveChangesAsync();
+                await greenitorClient.IncrementUserInteractions(postLike.User);
                 return postLike;
             }
             else
@@ -370,8 +373,9 @@ namespace ForumAPI.Services
                 }
                 postDislike.Post = post;
                 context.PostDislikes.Add(postDislike);
-                await greenitorClient.IncrementUserInteractions(postDislike.User);
+                
                 await context.SaveChangesAsync();
+                await greenitorClient.IncrementUserInteractions(postDislike.User);
                 return postDislike;
             }
             else
@@ -401,6 +405,7 @@ namespace ForumAPI.Services
             {
                 context.PostLikes.Remove(like);
                 await context.SaveChangesAsync();
+                await greenitorClient.DecrementUserInteractions(postLike.User);
                 return like;
             }
             else
@@ -430,6 +435,7 @@ namespace ForumAPI.Services
             {
                 context.PostDislikes.Remove(dislike);
                 await context.SaveChangesAsync();
+                await greenitorClient.DecrementUserInteractions(postDislike.User);
                 return dislike;
             }
             else
