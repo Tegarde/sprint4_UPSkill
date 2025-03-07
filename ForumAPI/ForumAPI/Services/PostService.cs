@@ -339,7 +339,10 @@ namespace ForumAPI.Services
                 postLike.Post = post;
                 context.PostLikes.Add(postLike);
                 await context.SaveChangesAsync();
-                await greenitorClient.IncrementUserInteractions(postLike.User);
+                if (dislike == null)
+                {
+                    await greenitorClient.IncrementUserInteractions(postLike.User);
+                }
                 return postLike;
             }
             else
@@ -377,7 +380,10 @@ namespace ForumAPI.Services
                 context.PostDislikes.Add(postDislike);
                 
                 await context.SaveChangesAsync();
-                await greenitorClient.IncrementUserInteractions(postDislike.User);
+                if (like == null)
+                {
+                    await greenitorClient.IncrementUserInteractions(postDislike.User);
+                }
                 return postDislike;
             }
             else
