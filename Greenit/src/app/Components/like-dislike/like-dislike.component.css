@@ -1,0 +1,382 @@
+/* From Uiverse.io by mahiatlinux */ 
+.like-dislike-container {
+    --primary-blue: #3498db;
+    --light-blue: #5dade2;
+    --dark-blue: #2980b9;
+    --text-color: #ecf0f1;
+    --background: linear-gradient(#2c3e50, #34495e);
+    --shadow: 0 5px 15px 0 rgba(52, 152, 219, 0.3);
+    --shadow-active: 0 5px 5px 0 rgba(52, 152, 219, 0.5);
+    --border-radius-main: 10px;
+    --border-radius-icon: 50px;
+    position: relative;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    cursor: default;
+    color: var(--text-color);
+    opacity: 0.9;
+    margin: auto;
+    padding: 1.5rem;
+    font-weight: 600;
+    background: var(--background);
+    max-width: max-content;
+    border-radius: var(--border-radius-main);
+    box-shadow: var(--shadow);
+    transition: 0.2s ease all;
+  }
+  
+  .like-dislike-container:hover {
+    box-shadow: var(--shadow-active);
+  }
+  
+  .like-dislike-container .icons-box {
+    display: flex;
+  }
+  
+  .like-dislike-container .icons {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.8;
+    margin: 0 0.5rem;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid var(--light-blue);
+    border-radius: var(--border-radius-icon);
+    transition: 0.2s ease all;
+  }
+  
+  .like-dislike-container .icons:hover {
+    opacity: 1;
+    box-shadow: var(--shadow);
+    background-color: var(--light-blue);
+  }
+  
+  .like-dislike-container .icons:active {
+    opacity: 1;
+    box-shadow: var(--shadow-active);
+    background-color: var(--dark-blue);
+  }
+  
+  .like-dislike-container .icons .btn-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0.5rem;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .like-dislike-container .like-text-content {
+    border-right: 0.1rem solid var(--light-blue);
+    padding: 0 0.6rem 0 0.5rem;
+    pointer-events: none;
+  }
+  
+  .like-dislike-container .dislike-text-content {
+    border-left: 0.1rem solid var(--light-blue);
+    padding: 0 0.5rem 0 0.6rem;
+    pointer-events: none;
+  }
+  
+  .like-dislike-container .icons .svgs {
+    width: 1.3rem;
+    fill: var(--text-color);
+    box-sizing: content-box;
+    padding: 10px 10px;
+    transition: 0.2s ease all;
+  }
+  
+  .like-dislike-container .icons .input-box {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  .like-dislike-container .icons #icon-like-regular {
+    display: block;
+  }
+  
+  .like-dislike-container .icons #icon-like-solid {
+    display: none;
+  }
+  
+  .like-dislike-container .icons:hover :is(#icon-like-solid, #icon-like-regular) {
+    animation: rotate-icon-like 0.7s ease-in-out both;
+  }
+  
+  .like-dislike-container .icons #like-checkbox:checked ~ #icon-like-regular {
+    display: none;
+    animation: checked-icon-like 0.5s;
+  }
+  
+  .like-dislike-container .icons #like-checkbox:checked ~ #icon-like-solid {
+    display: block;
+    animation: checked-icon-like 0.5s;
+  }
+  
+  .like-dislike-container .icons #icon-dislike-regular {
+    display: block;
+    transform: rotate(180deg);
+  }
+  
+  .like-dislike-container .icons #icon-dislike-solid {
+    display: none;
+    transform: rotate(180deg);
+  }
+  
+  .like-dislike-container
+    .icons:hover
+    :is(#icon-dislike-solid, #icon-dislike-regular) {
+    animation: rotate-icon-dislike 0.7s ease-in-out both;
+  }
+  
+  .like-dislike-container
+    .icons
+    #dislike-checkbox:checked
+    ~ #icon-dislike-regular {
+    display: none;
+    animation: checked-icon-dislike 0.5s;
+  }
+  
+  .like-dislike-container .icons #dislike-checkbox:checked ~ #icon-dislike-solid {
+    display: block;
+    animation: checked-icon-dislike 0.5s;
+  }
+  
+  .like-dislike-container .icons .fireworks {
+    transform: scale(0.4);
+  }
+  
+  .like-dislike-container
+    .icons
+    #like-checkbox:checked
+    ~ .fireworks
+    > .checked-like-fx,
+  .like-dislike-container
+    .icons
+    #dislike-checkbox:checked
+    ~ .fireworks
+    > .checked-dislike-fx {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    box-shadow:
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2,
+      0 0 #5dade2;
+    animation:
+      1s fireworks-bang ease-out forwards,
+      1s fireworks-gravity ease-in forwards,
+      5s fireworks-position linear forwards;
+    animation-duration: 1.25s, 1.25s, 6.25s;
+  }
+  
+  .like-dislike-container
+    .icons
+    #like-checkbox:checked
+    ~ .fireworks
+    > .checked-like-fx {
+    right: 40px;
+  }
+  
+  .like-dislike-container
+    .icons
+    #dislike-checkbox:checked
+    ~ .fireworks
+    > .checked-dislike-fx {
+    left: 40px;
+  }
+  
+  @keyframes rotate-icon-like {
+    0%,
+    100% {
+      transform: rotate(0deg) translate3d(0, 0, 0);
+    }
+    25% {
+      transform: rotate(3deg) translate3d(0, 0, 0);
+    }
+    50% {
+      transform: rotate(-3deg) translate3d(0, 0, 0);
+    }
+    75% {
+      transform: rotate(1deg) translate3d(0, 0, 0);
+    }
+  }
+  
+  @keyframes rotate-icon-dislike {
+    0%,
+    100% {
+      transform: rotate(180deg) translate3d(0, 0, 0);
+    }
+    25% {
+      transform: rotate(183deg) translate3d(0, 0, 0);
+    }
+    50% {
+      transform: rotate(177deg) translate3d(0, 0, 0);
+    }
+    75% {
+      transform: rotate(181deg) translate3d(0, 0, 0);
+    }
+  }
+  
+  @keyframes checked-icon-like {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.2) rotate(-10deg);
+    }
+    100% {
+      transform: scale(1) rotate(0deg);
+    }
+  }
+  
+  @keyframes checked-icon-dislike {
+    0% {
+      transform: scale(0) rotate(180deg);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.2) rotate(170deg);
+    }
+    100% {
+      transform: scale(1) rotate(180deg);
+    }
+  }
+  
+  @keyframes fireworks-position {
+    0%,
+    19.9% {
+      margin-top: 10%;
+      margin-left: 40%;
+    }
+    20%,
+    39.9% {
+      margin-top: 40%;
+      margin-left: 30%;
+    }
+    40%,
+    59.9% {
+      margin-top: 20%;
+      margin-left: 70%;
+    }
+    60%,
+    79.9% {
+      margin-top: 30%;
+      margin-left: 20%;
+    }
+    80%,
+    99.9% {
+      margin-top: 30%;
+      margin-left: 80%;
+    }
+  }
+  
+  @keyframes fireworks-gravity {
+    to {
+      transform: translateY(200px);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes fireworks-bang {
+    to {
+      box-shadow:
+        114px -107px #3498db,
+        212px -166px #3498db,
+        197px -6px #3498db,
+        179px -329px #3498db,
+        -167px -262px #3498db,
+        233px 65px #3498db,
+        81px 42px #3498db,
+        -13px 54px #3498db,
+        -60px -183px #3498db,
+        127px -259px #3498db,
+        117px -122px #3498db,
+        95px 20px #3498db,
+        115px 1px #3498db,
+        -160px -328px #3498db,
+        69px -242px #3498db,
+        -208px -230px #3498db,
+        30px -15px #3498db,
+        235px -15px #3498db,
+        80px -232px #3498db,
+        175px -173px #3498db,
+        -187px -176px #3498db,
+        4px 26px #3498db,
+        227px -106px #3498db,
+        119px 17px #3498db,
+        -102px 4px #3498db,
+        -16px -4px #3498db,
+        -201px -310px #3498db,
+        64px -181px #3498db,
+        -234px -15px #3498db,
+        -184px -263px #3498db;
+    }
+  }
+  
