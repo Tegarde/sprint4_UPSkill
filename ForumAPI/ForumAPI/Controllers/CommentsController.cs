@@ -110,7 +110,7 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpDelete("comment/dislike/")]
+        [HttpDelete("comment/like/")]
         public async Task<ActionResult> UnLikeComment([FromBody] CommentLikeDTO likeDTO)
         {
             try

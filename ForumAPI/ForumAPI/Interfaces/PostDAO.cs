@@ -1,4 +1,5 @@
-﻿using ForumAPI.DTOs.GreenitorDTOs;
+﻿using ForumAPI.DTOs;
+using ForumAPI.DTOs.GreenitorDTOs;
 using ForumAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,5 +41,13 @@ namespace ForumAPI.Interfaces
         Task ResetPostInteractionCount(int postId);
 
         Task<GreenitorStatisticsDTO> GetPostStatisticsByUsername(string username);
+
+        Task<PostLike> LikePost(PostLike postLike);
+
+        Task<PostLike> UnlikePost(PostLike postLike);
+
+        Task<PostDislike> DislikePost(PostDislike postDislike);
+
+        Task<PostDislike> UndislikePost(PostDislike postDislike);
     }
 }

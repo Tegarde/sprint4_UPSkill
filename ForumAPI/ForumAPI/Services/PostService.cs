@@ -1,5 +1,6 @@
 ﻿using ForumAPI.CustomExceptions;
 using ForumAPI.Data;
+using ForumAPI.DTOs;
 using ForumAPI.DTOs.GreenitorDTOs;
 using ForumAPI.Interfaces;
 using ForumAPI.Models;
@@ -305,5 +306,138 @@ namespace ForumAPI.Services
                 Posts = posts
             };
         }
+
+        public async Task<PostLike> LikePost(PostLike postLike)
+        {
+            var post = await context.Posts.FirstOrDefaultAsync(p => p.Id == postLike.PostId);
+
+            if (post == null)
+            {
+                throw new NotFoundException("Post not found.");
+            }
+
+            GreenitorDTO user = await greenitorClient.GetUserByUsername(postLike.User);
+            if (user == null)
+            {
+                throw new UserNotFoundException("User not found.");
+            }
+
+            PostLike? like = await context.PostLikes.FirstOrDefaultAsync(pl => pl.PostId == postLike.PostId && pl.User == postLike.User);
+
+            if (like == null)
+            {
+                var dislike = await context.PostDislikes.FirstOrDefaultAsync(pl => pl.PostId == postLike.PostId && pl.User == postLike.User);
+                if(dislike != null)
+                {
+                    context.PostDislikes.Remove(dislike);
+                }
+                postLike.Post = post;
+                context.PostLikes.Add(postLike);
+                await context.SaveChangesAsync();
+                return postLike;
+            }
+            else
+            {
+                throw new ArgumentException("User already liked this post.");
+            }
+
+        }
+
+        public async Task<PostDislike> DislikePost(PostDislike postDislike)
+        {
+            var post = await context.Posts.FirstOrDefaultAsync(p => p.Id == postDislike.PostId);
+
+            if (post == null)
+            {
+                throw new NotFoundException("Post not found.");
+            }
+
+            GreenitorDTO user = await greenitorClient.GetUserByUsername(postDislike.User);
+            if (user == null)
+            {
+                throw new UserNotFoundException("User not found.");
+            }
+
+            PostDislike? dislike = await context.PostDislikes.FirstOrDefaultAsync(pl => pl.PostId == postDislike.PostId && pl.User == postDislike.User);
+
+            if (dislike == null)
+            {
+                var like = await context.PostLikes.FirstOrDefaultAsync(pl => pl.PostId == postDislike.PostId && pl.User == postDislike.User);
+                if (like != null)
+                {
+                    context.PostLikes.Remove(like);
+                }
+                postDislike.Post = post;
+                context.PostDislikes.Add(postDislike);
+                await context.SaveChangesAsync();
+                return postDislike;
+            }
+            else
+            {
+                throw new ArgumentException("User already disliked this post.");
+            }
+        }
+
+        public async Task<PostLike> UnlikePost(PostLike postLike)
+        {
+            var post = await context.Posts.FirstOrDefaultAsync(p => p.Id == postLike.PostId);
+
+            if (post == null)
+            {
+                throw new NotFoundException("Post not found.");
+            }
+
+            GreenitorDTO user = await greenitorClient.GetUserByUsername(postLike.User);
+            if (user == null)
+            {
+                throw new UserNotFoundException("User not found.");
+            }
+
+            PostLike? like = await context.PostLikes.FirstOrDefaultAsync(pl => pl.PostId == postLike.PostId && pl.User == postLike.User);
+
+            if (like != null)
+            {
+                context.PostLikes.Remove(like);
+                await context.SaveChangesAsync();
+                return like;
+            }
+            else
+            {
+                throw new ArgumentException("User has not liked this post.");
+            }
+        }
+
+        public async Task<PostDislike> UndislikePost(PostDislike postDislike)
+        {
+            var post = await context.Posts.FirstOrDefaultAsync(p => p.Id == postDislike.PostId);
+
+            if (post == null)
+            {
+                throw new NotFoundException("Post not found.");
+            }
+
+            GreenitorDTO user = await greenitorClient.GetUserByUsername(postDislike.User);
+            if (user == null)
+            {
+                throw new UserNotFoundException("User not found.");
+            }
+
+            PostDislike? dislike = await context.PostDislikes.FirstOrDefaultAsync(pl => pl.PostId == postDislike.PostId && pl.User == postDislike.User);
+
+            if (dislike != null)
+            {
+                context.PostDislikes.Remove(dislike);
+                await context.SaveChangesAsync();
+                return dislike;
+            }
+            else
+            {
+                throw new ArgumentException("User has not disliked this post.");
+            }
+        }
+
+
+
+
     }    
 }

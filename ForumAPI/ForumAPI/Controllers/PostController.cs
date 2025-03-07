@@ -284,11 +284,6 @@ namespace ForumAPI.Controllers
             {
                 return StatusCode(400, new ResponseMessage { Message = "Something went wrong" });
             }
-
-
-
-
-
         }
 
         /// <summary>
@@ -320,6 +315,111 @@ namespace ForumAPI.Controllers
                 return StatusCode(400, new ResponseMessage { Message = ex.Message });
             }
         }
+
+        [HttpPost("post/like")]
+        public async Task<ActionResult> LikePost([FromBody] PostLikeDTO likePostDTO)
+        {
+            try
+            {
+                await service.LikePost(InteractionsMapper.FromPostLikeDTO (likePostDTO));
+                return Ok(new ResponseMessage { Message = "Post liked successfully." });
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch(UserNotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch(ArgumentException ex)
+            {
+                return BadRequest(new ResponseMessage { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = "Something went wrong" });
+            }
+        }
+
+        [HttpDelete("comment/like")]
+        public async Task<ActionResult> UnLikePost([FromBody] PostLikeDTO likePostDTO)
+        {
+            try
+            {
+                await service.UnlikePost(InteractionsMapper.FromPostLikeDTO(likePostDTO));
+                return Ok(new ResponseMessage { Message = "Post unliked successfully." });
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch (UserNotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new ResponseMessage { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = "Something went wrong" });
+            }
+        }
+
+        [HttpPost("post/dislike")]
+        public async Task<ActionResult> DislikePost([FromBody] PostDislikeDTO postDislikeDTO)
+        {
+            try
+            {
+                await service.DislikePost(InteractionsMapper.FromPostDislikeDTO(postDislikeDTO));
+                return Ok(new ResponseMessage { Message = "Post disliked successfully." });
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch (UserNotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new ResponseMessage { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = "Something went wrong" });
+            }
+        }
+
+        [HttpDelete("post/dislike")]
+        public async Task<ActionResult> UnDislikePost([FromBody] PostDislikeDTO postDislikeDTO)
+        {
+            try
+            {
+                await service.UndislikePost(InteractionsMapper.FromPostDislikeDTO(postDislikeDTO));
+                return Ok(new ResponseMessage { Message = "Post undisliked successfully." });
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch (UserNotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new ResponseMessage { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = "Something went wrong" });
+            }
+        }
+
     }
 }
 
