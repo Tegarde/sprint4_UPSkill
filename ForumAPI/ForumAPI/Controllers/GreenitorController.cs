@@ -44,7 +44,7 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpPost("/login")]
+        [HttpPost("login")]
         public async Task<ActionResult<TokenDTO>> Login([FromBody] LoginDTO loginDTO)
         {
             try
@@ -63,7 +63,7 @@ namespace ForumAPI.Controllers
 
         }
 
-        [HttpGet("/username/{username}")]
+        [HttpGet("username/{username}")]
         public async Task<ActionResult<GreenitorWithoutRoleDTO>> GetUserByUsername(string username)
         {
             try
@@ -105,7 +105,7 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpGet("/stats/{username}")] 
+        [HttpGet("stats/{username}")] 
         public async Task<ActionResult<GreenitorStatisticsDTO>> GetGreenitorStats(string username)
         {
             try

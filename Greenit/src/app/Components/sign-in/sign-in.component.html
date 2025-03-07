@@ -1,18 +1,17 @@
-<body>
 <div class="container">
-    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+    <h2>Login</h2>
+    <form [formGroup]="signInForm" class="form" (ngSubmit)="onSubmit()">
         <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" formControlName="username" class="form-control">
+            <label for="email">Email</label>
+            <input type="text" id="email" formControlName="email" class="form-control">
         </div>
         <div class="form-group">
             <label for="password">Password</label>
             <input type="password" id="password" formControlName="password" class="form-control">
         </div>
-        <button [disabled]="signInForm.invalid" type="submit" class="submit-button">Signin</button>
+        <button [disabled]="signInForm.invalid" type="submit" class="submit-button">Login</button>
         @if (message) {
             <p style="text-align: center;">{{message}}</p>
         }
     </form>
 </div>
-</body>

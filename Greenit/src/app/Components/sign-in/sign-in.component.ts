@@ -18,16 +18,16 @@ export class SignInComponent {
 
   constructor(private signInService : SignInService, private fb : FormBuilder, private router : Router) {
     this.signInForm = this.fb.group({
-      username : ['', [Validators.required]],
+      email : ['', [Validators.required, Validators.email]],
       password : ['', [Validators.required]]
     });
   }
 
   onSubmit() {
     if (this.signInForm.valid) {
-      this.signInService.signIn(this.signInForm.value.username, this.signInForm.value.password).subscribe({
+      this.signInService.signIn(this.signInForm.value.email, this.signInForm.value.password).subscribe({
         next : () => {
-          this.message = "Sign In efetuado com sucesso";
+          this.message = "User logged in successfully";
           this.signInForm.reset();
 
           setTimeout(() => {
@@ -35,7 +35,7 @@ export class SignInComponent {
           }, 1000);
         },
         error : () => {
-          this.message = "Erro ao efetuar Sign In";
+          this.message = "User login failed";
         }
       });
     }

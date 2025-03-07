@@ -9,7 +9,7 @@ import { TokenInfo } from '../Models/token-info';
 })
 export class SignInService {
 
-  private endpoint : string = "http://localhost:8080/api/auth";
+  private endpoint : string = "http://localhost:5000/api/Greenitor";
   private userSubject = new BehaviorSubject<TokenInfo | null>(null);
 
 
@@ -23,8 +23,8 @@ export class SignInService {
     return this.userSubject.asObservable();
   }
 
-  signIn(username:string, password:string) : Observable<TokenInfo | any> {
-    return this.client.post<TokenInfo | any>(`${this.endpoint}/signIn`, {username: username, password: password})
+  signIn(email:string, password:string) : Observable<TokenInfo | any> {
+    return this.client.post<TokenInfo | any>(`${this.endpoint}/login`, {email: email, password: password})
         .pipe(
             map(user => {
               this.userSubject.next(user);
