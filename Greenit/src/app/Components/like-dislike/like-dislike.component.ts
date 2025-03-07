@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { PostService } from '../../Services/post.service';
+import { SignInService } from '../../Services/sign-in.service';
 
 @Component({
   selector: 'app-like-dislike',
@@ -8,36 +10,108 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './like-dislike.component.html',
   styleUrl: './like-dislike.component.css'
 })
-export class LikeDislikeComponent {
+export class LikeDislikeComponent implements OnInit {
   @Input() postId! : number
 
-  likesCount : number = 115
-  dislikesCount : number = 5
+  username? : string;
+
+  likesCount : number = 0;
+  dislikesCount : number = 0;
 
   isLiked = false;
   isDisliked = false;
 
+  constructor(private postService : PostService, private authService : SignInService) { }
+
+  ngOnInit(): void {
+    this.getPostInteractions();
+    this.authService.getUserSubject().subscribe({
+      next : (user) => {
+        this.username = user!.username;
+        this.getUserInteractionsOnPost();
+      }
+    });
+    
+  }
+
   toggleLike() {
-    if (this.isDisliked) {
-      this.toggleDislike();
-      this.isDisliked = false;
-    }
     if (this.isLiked) {
-      this.likesCount --;
+      this.unlikeAPost();
     } else {
-      this.likesCount ++;
+      this.likeAPost();
     }
   }
 
   toggleDislike() {
-    if (this.isLiked) {
-      this.toggleLike();
-      this.isLiked = false;
-    }
     if (this.isDisliked) {
-      this.dislikesCount --;
+      this.undislikeAPost();
     } else {
-      this.dislikesCount ++;
+      this.dislikeAPost();
     }
-  }  
+  }
+
+  likeAPost() {
+    this.postService.likeAPost(this.postId, this.username!).subscribe({
+      next : () => {
+        this.likesCount ++;
+        if (this.isDisliked) {
+          this.isDisliked = false;
+          this.dislikesCount --;
+        }
+      }
+    });
+  }
+
+  dislikeAPost() {
+    this.postService.dislikeAPost(this.postId, this.username!).subscribe({
+      next : () => {
+        this.dislikesCount ++;
+        if (this.isLiked) {
+          this.isLiked = false;
+          this.likesCount --;
+        }
+        
+      }
+    });
+  }
+
+  unlikeAPost() {
+    this.postService.unlikeAPost(this.postId, this.username!).subscribe({
+      next : () => {
+        this.likesCount --;
+      }
+    });
+  }
+
+  undislikeAPost() {
+    this.postService.undislikeAPost(this.postId, this.username!).subscribe({
+      next : () => {
+        this.dislikesCount --;
+      }
+    });
+  } 
+
+
+  
+  getPostInteractions() {
+    this.postService.getPostInteractions(this.postId).subscribe({
+      next : (interactions) => {
+        this.likesCount = interactions.likes;
+        this.dislikesCount = interactions.dislikes;
+      }
+    });
+  }
+  getUserInteractionsOnPost() {
+    this.postService.getInteractionByUser(this.postId, this.username!).subscribe({
+      next : (interaction) => {
+        if (interaction.interaction == '1') {
+          this.isLiked = true;
+          this.isDisliked = false;
+        } else if (interaction.interaction == '-1') {
+          this.isDisliked = true;
+          this.isLiked = false;
+        }
+      }
+    });
+  }
 }
