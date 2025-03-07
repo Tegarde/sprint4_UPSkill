@@ -16,6 +16,8 @@ import pt.upskill.clientapi.Models.Greenitor;
 import pt.upskill.clientapi.Models.Token;
 import pt.upskill.clientapi.Services.GreenitorService;
 
+import java.util.ArrayList;
+
 public class GreenitorServiceTest {
 
     @Mock
@@ -46,6 +48,19 @@ public class GreenitorServiceTest {
         assertEquals(greenitor.getUsername(), result.getUsername());
         assertEquals(greenitor.getEmail(), result.getEmail());
     }
+
+    /*
+    @Test
+    void testRegisterUser_NullValues() {
+        Greenitor greenitor = new Greenitor(null, null, null);
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            greenitorService.registerUser(greenitor);
+        });
+
+        assertEquals("Username, email, and password must not be null", exception.getMessage());
+    }
+     */
 
     @Test
     void testRegisterUser_EmailExists() {
@@ -87,6 +102,19 @@ public class GreenitorServiceTest {
         assertEquals(greenitor.getRole(), result.getRole());
     }
 
+    /*
+    @Test
+    void testLoginUser_NullValues() {
+        LoginDTO loginDTO = new LoginDTO(null, null);
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            greenitorService.loginUser(loginDTO);
+        });
+
+        assertEquals("Email and password must not be null", exception.getMessage());
+    }
+    */
+
     @Test
     void testLoginUser_UserNotFound() {
         LoginDTO loginDTO = new LoginDTO("email@example.com", "password");
@@ -127,6 +155,17 @@ public class GreenitorServiceTest {
         assertEquals(greenitor.getEmail(), result.getEmail());
     }
 
+
+    /*@Test
+    void testGetGreenitorByUsername_NullValue() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            greenitorService.getGreenitorByUsername(null);
+        });
+
+        assertEquals("Username must not be null", exception.getMessage());
+    }
+    */
+
     @Test
     void testGetGreenitorByUsername_UserNotFound() {
         when(greenitorRepository.findByUsername("username")).thenReturn(null);
@@ -137,4 +176,78 @@ public class GreenitorServiceTest {
 
         assertEquals("User with username username does not exist", exception.getMessage());
     }
+
+    @Test
+    void testIncrementInteractions_UserNotFound() {
+        when(greenitorRepository.findByUsername("nonexistent")).thenReturn(null);
+
+        UserNotFoundException exception = assertThrows(UserNotFoundException.class, () -> {
+            greenitorService.incrementInteractions("nonexistent");
+        });
+
+        assertEquals("User with username nonexistent does not exist", exception.getMessage());
+    }
+
+    /*
+    @Test
+    void testIncrementInteractions_NullUsername() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            greenitorService.incrementInteractions(null);
+        });
+
+        assertEquals("Username must not be null", exception.getMessage());
+    }
+
+    @Test
+    void testIncrementInteractions_MaxInteractions() {
+        Greenitor greenitor = new Greenitor("username", "email@example.com", "password");
+        greenitor.setInteractions(Integer.MAX_VALUE);
+
+        when(greenitorRepository.findByUsername("username")).thenReturn(greenitor);
+        when(badgeRepository.findBadgesByGreenitorId(greenitor.getId())).thenReturn(new ArrayList<>());
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            greenitorService.incrementInteractions("username");
+        });
+
+        assertEquals("Maximum interactions reached", exception.getMessage());
+    }
+    */
+
+    @Test
+    void testDecrementInteractions_UserNotFound() {
+        when(greenitorRepository.findByUsername("nonexistent")).thenReturn(null);
+
+        UserNotFoundException exception = assertThrows(UserNotFoundException.class, () -> {
+            greenitorService.decrementInteractions("nonexistent");
+        });
+
+        assertEquals("User with username nonexistent does not exist", exception.getMessage());
+    }
+
+    /*
+    @Test
+    void testDecrementInteractions_NullUsername() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            greenitorService.decrementInteractions(null);
+        });
+
+        assertEquals("Username must not be null", exception.getMessage());
+    }
+
+    @Test
+    void testDecrementInteractions_ZeroInteractions() {
+        Greenitor greenitor = new Greenitor("username", "email@example.com", "password");
+        greenitor.setInteractions(0);
+
+        when(greenitorRepository.findByUsername("username")).thenReturn(greenitor);
+        when(badgeRepository.findBadgesByGreenitorId(greenitor.getId())).thenReturn(new ArrayList<>());
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            greenitorService.decrementInteractions("username");
+        });
+
+        assertEquals("No interactions to decrement", exception.getMessage());
+    }
+     */
 }
