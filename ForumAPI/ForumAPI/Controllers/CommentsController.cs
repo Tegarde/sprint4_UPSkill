@@ -27,7 +27,7 @@ namespace ForumAPI.Controllers
             try
             {
                 Comment comment = await service.CommentAComment(CommentMapper.FromCommentACommentDTO(commentDTO));
-                return CreatedAtAction(nameof(CommentAComment), new ResponseMessage{ Message = "Comment successfully created" });
+                return CreatedAtAction(nameof(CommentAComment), new ResponseMessage { Message = "Comment successfully created" });
             }
             catch (NotFoundException ex)
             {
@@ -42,14 +42,14 @@ namespace ForumAPI.Controllers
         [HttpPost("event/comment")]
         public async Task<ActionResult> CommentAnEvent([FromBody] CommentAnEventDTO commentDTO)
         {
-            try 
+            try
             {
                 Comment comment = await service.CommentAnEvent(CommentMapper.FromCommentAnEventDTO(commentDTO));
-                return CreatedAtAction(nameof(CommentAnEvent), new ResponseMessage{ Message = "Comment successfully created" });
+                return CreatedAtAction(nameof(CommentAnEvent), new ResponseMessage { Message = "Comment successfully created" });
             }
             catch (NotFoundException ex)
-            { 
-                return StatusCode(404, new ResponseMessage { Message = ex.Message });   
+            {
+                return StatusCode(404, new ResponseMessage { Message = ex.Message });
             }
             catch (UserNotFoundException ex)
             {
@@ -62,22 +62,22 @@ namespace ForumAPI.Controllers
         }
 
         [HttpPost("post/comment")]
-        public async Task<ActionResult> CommentAPost([FromBody]CommentAPostDTO commentDTO) 
+        public async Task<ActionResult> CommentAPost([FromBody] CommentAPostDTO commentDTO)
         {
-        try
+            try
             {
                 Comment comment = await service.CommentAPost(CommentMapper.FromCommentAPostDTO(commentDTO));
                 return CreatedAtAction(nameof(CommentAPost), new ResponseMessage { Message = "Comment successfully created" });
             }
-            catch(NotFoundException ex)
+            catch (NotFoundException ex)
             {
                 return NotFound(new ResponseMessage { Message = ex.Message });
             }
-            catch(UserNotFoundException ex)
+            catch (UserNotFoundException ex)
             {
                 return NotFound(new ResponseMessage { Message = ex.Message });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(new ResponseMessage { Message = ex.Message });
             }
@@ -90,7 +90,7 @@ namespace ForumAPI.Controllers
             {
                 CommentLike commentLike = await service.LikeComment(InteractionsMapper.FromCommentLikeDTO(likeDTO));
 
-                return Ok( new ResponseMessage { Message = "Comment liked successfully" });
+                return Ok(new ResponseMessage { Message = "Comment liked successfully" });
             }
             catch (NotFoundException ex)
             {
@@ -136,11 +136,24 @@ namespace ForumAPI.Controllers
             }
         }
 
+        [HttpGet("likesCount/{commentId}")]
+        public async Task<ActionResult> GetLikesCount(int commentId)
+        {
+            try
+            {
+                int likesCount = await service.GetNumberOfLikesFromCommentId(commentId);
 
-
-
+                return Ok(new { CommentId = commentId, LikesCount = likesCount });
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseMessage { Message = "Something went wrong" });
+            }
         }
-
-
     }
+}
 

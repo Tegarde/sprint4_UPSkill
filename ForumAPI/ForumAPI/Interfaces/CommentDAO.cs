@@ -16,5 +16,7 @@ namespace ForumAPI.Interfaces
         Task<CommentLike> UnLikeComment(CommentLike commentLike);
 
         Task<CommentLike> LikeComment(CommentLike commentLike);
+
+        Task<int> GetNumberOfLikesFromCommentId(int commentId);
     }
 }
