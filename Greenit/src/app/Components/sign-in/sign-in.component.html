@@ -1,1 +1,18 @@
-<p>sign-in works!</p>
+<body>
+<div class="container">
+    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" formControlName="username" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" formControlName="password" class="form-control">
+        </div>
+        <button [disabled]="signInForm.invalid" type="submit" class="submit-button">Signin</button>
+        @if (message) {
+            <p style="text-align: center;">{{message}}</p>
+        }
+    </form>
+</div>
+</body>
