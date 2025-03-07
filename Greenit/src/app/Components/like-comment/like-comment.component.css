@@ -1,4 +1,3 @@
-/* From Uiverse.io by mahiatlinux */ 
 .like-dislike-container {
     --primary-green: #3c791f
     ;
@@ -101,12 +100,12 @@
     animation: rotate-icon-like 0.7s ease-in-out both;
   }
   
-  .like-dislike-container .icons #like-checkbox:checked ~ #icon-like-regular {
+  .like-dislike-container .icons #like-comment-checkbox:checked ~ #icon-like-regular {
     display: none;
     animation: checked-icon-like 0.5s;
   }
   
-  .like-dislike-container .icons #like-checkbox:checked ~ #icon-like-solid {
+  .like-dislike-container .icons #like-comment-checkbox:checked ~ #icon-like-solid {
     display: block;
     animation: checked-icon-like 0.5s;
   }
@@ -146,7 +145,7 @@
   
   .like-dislike-container
     .icons
-    #like-checkbox:checked
+    #like-comment-checkbox:checked
     ~ .fireworks
     > .checked-like-fx,
   .like-dislike-container
@@ -228,7 +227,7 @@
   
   .like-dislike-container
     .icons
-    #like-checkbox:checked
+    #like-comment-checkbox:checked
     ~ .fireworks
     > .checked-like-fx {
     right: 40px;
@@ -400,4 +399,3 @@
         ;
     }
   }
-  
