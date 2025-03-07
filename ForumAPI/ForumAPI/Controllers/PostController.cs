@@ -420,6 +420,28 @@ namespace ForumAPI.Controllers
             }
         }
 
+        [HttpGet("post/{id}/interactions/{username}")]
+        public async Task<ActionResult> GetPostInteractionsByUser([FromRoute]int id, [FromRoute] string username)
+        {
+            try
+            {
+                int likes = await service.GetPostInteractionsByUser(id,username);
+                return Ok(likes);
+            }
+            catch(UserNotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = "Something went wrong" });
+            }
+        }
+
     }
 }
 

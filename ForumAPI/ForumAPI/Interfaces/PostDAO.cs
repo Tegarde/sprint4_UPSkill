@@ -49,5 +49,6 @@ namespace ForumAPI.Interfaces
         Task<PostDislike> DislikePost(PostDislike postDislike);
 
         Task<PostDislike> UndislikePost(PostDislike postDislike);
+        Task<int> GetPostInteractionsByUser(int id, string username);
     }
 }

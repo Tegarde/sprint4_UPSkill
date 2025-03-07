@@ -444,8 +444,38 @@ namespace ForumAPI.Services
             }
         }
 
+        public async Task<int> GetPostInteractionsByUser(int postId, string username)
+        {
+            var user = await greenitorClient.GetUserByUsername(username);
+            if (user == null)
+            {
+                throw new UserNotFoundException("User not found.");
+            }
+
+            var postExists = await context.Posts.AnyAsync(p => p.Id == postId);
+            if (!postExists)
+            {
+                throw new NotFoundException("Post not found.");
+            }
+
+            
+            if (await context.PostLikes.AnyAsync(pl => pl.PostId == postId && pl.User == username))
+            {
+                return 1; // Retorna 1 se o utilizador deu Like
+            }
+
+            
+            if (await context.PostDislikes.AnyAsync(pd => pd.PostId == postId && pd.User == username))
+            {
+                return -1; // Retorna -1 se o utilizador deu Dislike
+            }
+
+            return 0; // Retorna 0 se não houver interação
+        }
 
 
 
-    }    
+
+
+    }
 }

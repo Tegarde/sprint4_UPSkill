@@ -169,6 +169,7 @@ namespace ForumAPI.Services
             await context.SaveChangesAsync();
             await greenitorDAO.DecrementUserInteractions(commentLike.User);
             return like;
+
         }
 
         public async Task<int> GetNumberOfLikesFromCommentId(int commentId)
@@ -179,8 +180,8 @@ namespace ForumAPI.Services
                 throw new NotFoundException("Comment not found");
             }
             return await context.CommentLikes.Where(cl => cl.CommentId == commentId).CountAsync();
-        }
 
+        }
 
     }
 }
