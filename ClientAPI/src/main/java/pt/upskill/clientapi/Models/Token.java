@@ -10,9 +10,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Token {
-
     public String username;
-
     public String role;
-
 }
