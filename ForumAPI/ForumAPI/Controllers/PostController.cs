@@ -243,7 +243,7 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpPost("favorite/remove/{id}")]
+        [HttpDelete("favorite/remove/{id}")]
         public async Task<ActionResult> RemovePostFromFavorites([FromRoute] int id, [FromBody] string username)
         {
             try
