@@ -24,11 +24,24 @@ public class CategoryServiceTest {
     @InjectMocks
     private CategoryService categoryService;
 
+    /**
+     * Set up the test fixture. This is called before each test method.
+     * <p>
+     * Initializes mocks with MockitoAnnotations.
+     */
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
+    /**
+     * Verifies that a category can be successfully created.
+     * <p>
+     * Preconditions: No category with the same description exists.
+     * Postconditions: The category is created and returned.
+     * <p>
+     * Covers: {@link CategoryService#createCategory(Category)}
+     */
     @Test
     void testCreateCategory_Success() {
         Category category = new Category("New Category");
@@ -42,6 +55,14 @@ public class CategoryServiceTest {
         assertEquals(category.getDescription(), result.getDescription());
     }
 
+    /**
+     * Verifies that attempting to create a category with an existing description fails.
+     * <p>
+     * Preconditions: A category with the same description exists.
+     * Postconditions: An IllegalArgumentException is thrown.
+     * <p>
+     * Covers: {@link CategoryService#createCategory(Category)}
+     */
     @Test
     void testCreateCategory_AlreadyExists() {
         Category category = new Category("Existing Category");
@@ -55,6 +76,14 @@ public class CategoryServiceTest {
         assertEquals("Category with description Existing Category already exists", exception.getMessage());
     }
 
+    /**
+     * Verifies that a category can be successfully retrieved by its description.
+     * <p>
+     * Preconditions: A category with the specified description exists.
+     * Postconditions: The category is returned.
+     * <p>
+     * Covers: {@link CategoryService#getCategoryByDescription(String)}
+     */
     @Test
     void testGetCategoryByDescription_Success() {
         Category category = new Category("Existing Category");
@@ -68,6 +97,14 @@ public class CategoryServiceTest {
         assertEquals(category.getDescription(), result.getDescription());
     }
 
+    /**
+     * Verifies that attempting to retrieve a category by its description fails when the category does not exist.
+     * <p>
+     * Preconditions: No category with the specified description exists.
+     * Postconditions: A CategoryNotFoundException is thrown.
+     * <p>
+     * Covers: {@link CategoryService#getCategoryByDescription(String)}
+     */
     @Test
     void testGetCategoryByDescription_NotFound() {
         String description = "Nonexistent Category";
@@ -81,6 +118,14 @@ public class CategoryServiceTest {
         assertEquals("Category with description Nonexistent Category does not exist", exception.getMessage());
     }
 
+    /**
+     * Verifies that all categories can be successfully retrieved.
+     * <p>
+     * Preconditions: Two categories exist in the repository.
+     * Postconditions: A list containing the existing categories is returned.
+     * <p>
+     * Covers: {@link CategoryService#getAllCategories()}
+     */
     @Test
     void testGetAllCategories() {
         Category category1 = new Category("Category 1");
@@ -96,6 +141,14 @@ public class CategoryServiceTest {
         assertEquals("Category 2", result.get(1).getDescription());
     }
 
+    /**
+     * Verifies that a category can be successfully deleted by its description.
+     * <p>
+     * Preconditions: A category with the specified description exists in the repository.
+     * Postconditions: The category with the specified description is deleted.
+     * <p>
+     * Covers: {@link CategoryService#deleteCategoryByDescription(String)}
+     */
     @Test
     void testDeleteCategoryByDescription_Success() {
         Category category = new Category("Existing Category");
@@ -110,6 +163,14 @@ public class CategoryServiceTest {
         verify(categoryRepository, times(1)).delete(category);
     }
 
+    /**
+     * Verifies that attempting to delete a category by its description fails when the category does not exist.
+     * <p>
+     * Preconditions: No category with the specified description exists in the repository.
+     * Postconditions: A CategoryNotFoundException is thrown.
+     * <p>
+     * Covers: {@link CategoryService#deleteCategoryByDescription(String)}
+     */
     @Test
     void testDeleteCategoryByDescription_NotFound() {
         String description = "Nonexistent Category";
