@@ -207,7 +207,7 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpGet("/search/{keyword}")]
+        [HttpGet("search/{keyword}")]
         public async Task<ActionResult<List<PostDTO>>> SearchPostsByKeyword(string keyword)
         {
             try
@@ -225,7 +225,7 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpPost("/favorite/add/{id}")]
+        [HttpPost("favorite/add/{id}")]
         public async Task<ActionResult> AddPostToFavorites([FromRoute] int id, [FromBody] string username)
         {
             try
@@ -243,7 +243,7 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpPost("/favorite/remove/{id}")]
+        [HttpPost("favorite/remove/{id}")]
         public async Task<ActionResult> RemovePostFromFavorites([FromRoute] int id, [FromBody] string username)
         {
             try
@@ -298,7 +298,7 @@ namespace ForumAPI.Controllers
             return Ok(posts);
         }
 
-        [HttpPatch("/reset/{id}")]
+        [HttpPatch("reset/{id}")]
         public async Task<ActionResult> ResetPost([FromRoute] int id)
         {
             try
@@ -316,7 +316,7 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpPost("post/like")]
+        [HttpPost("like")]
         public async Task<ActionResult> LikePost([FromBody] PostLikeDTO likePostDTO)
         {
             try
@@ -342,7 +342,7 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpDelete("comment/like")]
+        [HttpDelete("like")]
         public async Task<ActionResult> UnLikePost([FromBody] PostLikeDTO likePostDTO)
         {
             try
@@ -368,7 +368,7 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpPost("post/dislike")]
+        [HttpPost("dislike")]
         public async Task<ActionResult> DislikePost([FromBody] PostDislikeDTO postDislikeDTO)
         {
             try
@@ -394,7 +394,7 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpDelete("post/dislike")]
+        [HttpDelete("dislike")]
         public async Task<ActionResult> UnDislikePost([FromBody] PostDislikeDTO postDislikeDTO)
         {
             try
