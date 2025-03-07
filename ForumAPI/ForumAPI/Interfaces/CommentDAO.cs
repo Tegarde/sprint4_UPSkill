@@ -18,5 +18,7 @@ namespace ForumAPI.Interfaces
         Task<CommentLike> LikeComment(CommentLike commentLike);
 
         Task<int> GetNumberOfLikesFromCommentId(int commentId);
+
+        Task<int> GetCommentInteractionsByUser(int commentId, string username);
     }
 }

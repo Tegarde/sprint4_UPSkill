@@ -183,6 +183,28 @@ namespace ForumAPI.Services
 
         }
 
+        public async Task<int> GetCommentInteractionsByUser(int commentId, string username)
+        {
+            var user = await greenitorDAO.GetUserByUsername(username);
+            if (user == null)
+            {
+                throw new UserNotFoundException("User not found");
+            }
+
+            var commentExists = await context.Comments.AnyAsync(c => c.Id == commentId);
+            if (!commentExists)
+            {
+                throw new NotFoundException("Comment not found");
+            }
+
+            if (await context.CommentLikes.AnyAsync(cl => cl.CommentId == commentId && cl.User == username))
+            {
+                return 1; // Retorna 1 se o utilizador deu Like
+            }
+
+            return 0; // Retorna 0 se não houver interação
+        }
+
     }
 }
 

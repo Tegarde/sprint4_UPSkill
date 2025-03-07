@@ -154,6 +154,29 @@ namespace ForumAPI.Controllers
                 return BadRequest(new ResponseMessage { Message = "Something went wrong" });
             }
         }
+
+        [HttpGet("{id}/likes/{username}")]
+        public async Task<ActionResult<int>> GetCommentInteractionsByUser(int id, string username)
+        {
+            try
+            {
+                int likes = await service.GetCommentInteractionsByUser(id,username);
+                return Ok(likes);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch(UserNotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseMessage { Message = "Something went wrong" });
+            }
+        }
+
     }
 }
 
