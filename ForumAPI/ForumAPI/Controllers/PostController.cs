@@ -426,7 +426,7 @@ namespace ForumAPI.Controllers
             try
             {
                 int likes = await service.GetPostInteractionsByUser(id,username);
-                return Ok(likes);
+                return Ok(new { Interaction = likes });
             }
             catch(UserNotFoundException ex)
             {
