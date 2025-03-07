@@ -24,11 +24,22 @@ class BadgeServiceTest {
     @InjectMocks
     private BadgeService badgeService;
 
+    /**
+     * Set up the test fixture. This is called before each test method.
+     */
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
+    /**
+     * Verifies that a badge can be successfully created.
+     * <p>
+     * Preconditions: No badge with the same description or interactions exists.
+     * Postconditions: The badge is created and returned.
+     * <p>
+     * Covers: {@link BadgeService#createBadge(Badge)}
+     */
     @Test
     void testCreateBadge_Success() {
         Badge badge = new Badge("New Badge", 10);
@@ -44,6 +55,14 @@ class BadgeServiceTest {
         assertEquals(badge.getInteractions(), result.getInteractions());
     }
 
+    /**
+     * Verifies that creating a badge with an existing description fails.
+     * <p>
+     * Preconditions: A badge with the same description exists.
+     * Postconditions: An IllegalArgumentException is thrown.
+     * <p>
+     * Covers: {@link BadgeService#createBadge(Badge)}
+     */
     @Test
     void testCreateBadge_DescriptionExists() {
         Badge badge = new Badge("Existing Badge", 10);
@@ -57,6 +76,14 @@ class BadgeServiceTest {
         assertEquals("Badge with description Existing Badge already exists", exception.getMessage());
     }
 
+    /**
+     * Verifies that creating a badge with existing interactions fails.
+     * <p>
+     * Preconditions: A badge with the same interactions exists.
+     * Postconditions: An IllegalArgumentException is thrown.
+     * <p>
+     * Covers: {@link BadgeService#createBadge(Badge)}
+     */
     @Test
     void testCreateBadge_InteractionsExists() {
         Badge badge = new Badge("New Badge", 10);
@@ -70,6 +97,14 @@ class BadgeServiceTest {
         assertEquals("Badge with interactions 10 already exists", exception.getMessage());
     }
 
+    /**
+     * Verifies that all badges can be successfully retrieved.
+     * <p>
+     * Preconditions: A single badge exists in the repository.
+     * Postconditions: A list containing the existing badge is returned.
+     * <p>
+     * Covers: {@link BadgeService#getAllBadges()}
+     */
     @Test
     void testGetAllBadges() {
         Badge badge = new Badge("Badge", 10);
@@ -83,6 +118,14 @@ class BadgeServiceTest {
         assertEquals(badge.getDescription(), result.get(0).getDescription());
     }
 
+    /**
+     * Verifies that a badge can be successfully deleted by its description.
+     * <p>
+     * Preconditions: A badge with the specified description exists in the repository.
+     * Postconditions: The badge with the specified description is deleted.
+     * <p>
+     * Covers: {@link BadgeService#deleteBadgeByDescription(String)}
+     */
     @Test
     void testDeleteBadgeByDescription_Success() {
         Badge badge = new Badge("Badge to Delete", 10);
@@ -95,6 +138,14 @@ class BadgeServiceTest {
         verify(badgeRepository, times(1)).delete(badge);
     }
 
+    /**
+     * Verifies that attempting to delete a badge by its description fails when the badge does not exist.
+     * <p>
+     * Preconditions: No badge with the specified description exists in the repository.
+     * Postconditions: A BadgeNotFoundException is thrown.
+     * <p>
+     * Covers: {@link BadgeService#deleteBadgeByDescription(String)}
+     */
     @Test
     void testDeleteBadgeByDescription_NotFound() {
         String description = "Nonexistent Badge";
