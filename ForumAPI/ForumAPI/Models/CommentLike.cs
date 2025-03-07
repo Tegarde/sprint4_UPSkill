@@ -26,5 +26,7 @@ namespace ForumAPI.Models
         /// </summary>
         [MaxLength(100)]
         public string User { get; set; }
+
+        public DateTime LikedAt { get; set; }
     }
 }

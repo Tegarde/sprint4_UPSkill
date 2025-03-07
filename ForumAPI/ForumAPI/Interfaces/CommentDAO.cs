@@ -12,5 +12,9 @@ namespace ForumAPI.Interfaces
         Task<Comment> CommentAPost(Comment comment);
 
         Task<GreenitorStatisticsDTO> GetCommentStatisticsByUsername(string username);
+
+        Task<CommentLike> UnLikeComment(CommentLike commentLike);
+
+        Task<CommentLike> LikeComment(CommentLike commentLike);
     }
 }

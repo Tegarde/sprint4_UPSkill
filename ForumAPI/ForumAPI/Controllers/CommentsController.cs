@@ -83,6 +83,64 @@ namespace ForumAPI.Controllers
             }
         }
 
+        [HttpPost("comment/like/")]
+        public async Task<ActionResult> LikeComment([FromBody] CommentLikeDTO likeDTO)
+        {
+            try
+            {
+                CommentLike commentLike = await service.LikeComment(InteractionsMapper.FromCommentLikeDTO(likeDTO));
+
+                return Ok( new ResponseMessage { Message = "Comment liked successfully" });
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch (UserNotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new ResponseMessage { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseMessage { Message = "Something went wrong" });
+            }
+        }
+
+        [HttpDelete("comment/dislike/")]
+        public async Task<ActionResult> UnLikeComment([FromBody] CommentLikeDTO likeDTO)
+        {
+            try
+            {
+                CommentLike commentLike = await service.UnLikeComment(InteractionsMapper.FromCommentLikeDTO(likeDTO));
+                return Ok(new ResponseMessage { Message = "Comment unliked successfully" });
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch (UserNotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new ResponseMessage { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseMessage { Message = "Something went wrong" });
+            }
+        }
+
+
+
+
+        }
+
 
     }
-}
+

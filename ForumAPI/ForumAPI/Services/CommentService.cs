@@ -4,6 +4,7 @@ using ForumAPI.DTOs.GreenitorDTOs;
 using ForumAPI.Interfaces;
 using ForumAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 namespace ForumAPI.Services
 {
@@ -21,7 +22,7 @@ namespace ForumAPI.Services
         }
 
         public async Task<Comment> CommentAComment(Comment comment)
-        {   
+        {
             //Check if parent comment exists
             var parentComment = context.Comments.FirstOrDefault(c => c.Id == comment.ParentCommentId);
 
@@ -36,14 +37,15 @@ namespace ForumAPI.Services
             // Set parent comment
             comment.ParentComment = parentComment;
 
-            if(parentComment.ParentPostId!=null){
+            if (parentComment.ParentPostId != null)
+            {
                 comment.ParentPostId = parentComment.ParentPostId;
             }
 
             // Set created at
             comment.CreatedAt = DateTime.UtcNow;
 
-      
+
 
             context.Comments.Add(comment);
             context.SaveChanges();
@@ -51,20 +53,21 @@ namespace ForumAPI.Services
             return comment;
         }
 
-        public async Task<Comment> CommentAnEvent(Comment comment){
+        public async Task<Comment> CommentAnEvent(Comment comment)
+        {
             var ev = context.Events.FirstOrDefault(e => e.Id == comment.EventId);
-            if(ev == null)
+            if (ev == null)
             {
                 throw new NotFoundException("Event not found");
             }
 
             //Get user from greenitorDAO
             GreenitorDTO user = await greenitorDAO.GetUserByUsername(comment.CreatedBy);
-            if(user == null)
+            if (user == null)
             {
                 throw new UserNotFoundException("User not found");
             }
-            
+
             comment.Event = ev;
             comment.CreatedAt = DateTime.UtcNow;
             context.Comments.Add(comment);
@@ -75,11 +78,11 @@ namespace ForumAPI.Services
         public async Task<Comment> CommentAPost(Comment comment)
         {
             var post = context.Posts.FirstOrDefault(p => p.Id == comment.PostId);
-            if(post == null)
+            if (post == null)
             { throw new NotFoundException("Post not found"); }
 
             GreenitorDTO user = await greenitorDAO.GetUserByUsername(comment.CreatedBy);
-            if(user == null)
+            if (user == null)
             {
                 throw new UserNotFoundException("User not found");
             }
@@ -97,7 +100,7 @@ namespace ForumAPI.Services
 
         public async Task<GreenitorStatisticsDTO> GetCommentStatisticsByUsername(string username)
         {
-            
+
             var comments = await context.Comments.Where(c => c.CreatedBy == username).CountAsync();
 
             var likes = await context.CommentLikes.Where(cl => cl.User == username).CountAsync();
@@ -106,8 +109,66 @@ namespace ForumAPI.Services
             {
                 Comments = comments,
                 LikesInComments = likes
-            };           
+            };
         }
+
+        public async Task<CommentLike> LikeComment(CommentLike commentLike)
+        {
+            var comment = context.Comments.FirstOrDefault(c => c.Id == commentLike.CommentId);
+            if (comment == null)
+            {
+                throw new NotFoundException("Comment not found");
+            }
+
+            GreenitorDTO user = await greenitorDAO.GetUserByUsername(commentLike.User);
+            if (user == null)
+            {
+                throw new UserNotFoundException("User not found");
+            }
+
+            CommentLike? like = context.CommentLikes.FirstOrDefault(cl => cl.CommentId == commentLike.CommentId && cl.User == commentLike.User);
+            if (like != null)
+            {
+                throw new ArgumentException("User already liked this comment");
+            }
+
+            commentLike.Comment = comment;
+            context.CommentLikes.Add(commentLike);
+            await greenitorDAO.IncrementUserInteractions(commentLike.User);
+            await context.SaveChangesAsync();
+            return commentLike;
+        }
+
+        public async Task<CommentLike> UnLikeComment(CommentLike commentLike)
+        {
+            var comment = context.Comments.FirstOrDefault(c => c.Id == commentLike.CommentId);
+            if (comment == null)
+            {
+                throw new NotFoundException("Comment not found");
+            }
+
+            GreenitorDTO user = await greenitorDAO.GetUserByUsername(commentLike.User);
+            if (user == null)
+            {
+                throw new UserNotFoundException("User not found");
+            }
+
+            CommentLike? like = context.CommentLikes.FirstOrDefault(cl => cl.CommentId == commentLike.CommentId && cl.User == commentLike.User);
+            if (like == null)
+            {
+                throw new ArgumentException("User has not liked this comment");
+            }
+
+            context.CommentLikes.Remove(like);
+            //await greenitorDAO.DecrementUserInteractions(commentLike.User);
+            await context.SaveChangesAsync();
+            return like;
+
+
+
+        }
+
 
     }
 }
+

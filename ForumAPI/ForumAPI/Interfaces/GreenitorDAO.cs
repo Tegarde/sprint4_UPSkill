@@ -12,5 +12,7 @@ namespace ForumAPI.Interfaces
         public Task<GreenitorDTO> GetUserByUsername(string username);
 
         Task IncrementUserInteractions(string username);
+
+        //Task DecrementUserInteractions(string username);
     }
 }
