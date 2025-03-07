@@ -2,10 +2,12 @@
 using ForumAPI.Data;
 using ForumAPI.DTOs;
 using ForumAPI.DTOs.GreenitorDTOs;
+using ForumAPI.DTOs.PostDTOs;
 using ForumAPI.Interfaces;
 using ForumAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Any;
 
 namespace ForumAPI.Services
 {
@@ -473,7 +475,20 @@ namespace ForumAPI.Services
             return 0; // Retorna 0 se não houver interação
         }
 
+        public async Task<PostInteractionsDTO> GetLikesAndDislikesByPostId(int postId)
+        {
+            var post = await context.Posts.FirstOrDefaultAsync(p => p.Id == postId);
 
+            if (post == null)
+            {
+                throw new NotFoundException("Post not found.");
+            }
+
+            int postLikes = await context.PostLikes.Where(pl => pl.PostId == postId).CountAsync();
+            int postDislikes = await context.PostDislikes.Where(pl => pl.PostId == postId).CountAsync();
+
+            return new PostInteractionsDTO { Likes = postLikes, Dislikes = postDislikes };
+        }
 
 
 

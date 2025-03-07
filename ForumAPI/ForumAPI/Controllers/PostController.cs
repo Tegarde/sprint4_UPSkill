@@ -420,7 +420,7 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpGet("post/{id}/interactions/{username}")]
+        [HttpGet("{id}/interactions/{username}")]
         public async Task<ActionResult> GetPostInteractionsByUser([FromRoute]int id, [FromRoute] string username)
         {
             try
@@ -431,6 +431,24 @@ namespace ForumAPI.Controllers
             catch(UserNotFoundException ex)
             {
                 return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = "Something went wrong" });
+            }
+        }
+
+        [HttpGet("likesAndDislikes/{id}")] 
+        public async Task<ActionResult> GetPostLikesAndDislikes([FromRoute] int id)
+        {
+            try
+            {
+                var likesAndDislikes = await service.GetLikesAndDislikesByPostId(id);
+                return Ok(likesAndDislikes);
             }
             catch (NotFoundException ex)
             {

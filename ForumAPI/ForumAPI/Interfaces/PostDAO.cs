@@ -1,5 +1,6 @@
 ﻿using ForumAPI.DTOs;
 using ForumAPI.DTOs.GreenitorDTOs;
+using ForumAPI.DTOs.PostDTOs;
 using ForumAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -50,5 +51,7 @@ namespace ForumAPI.Interfaces
 
         Task<PostDislike> UndislikePost(PostDislike postDislike);
         Task<int> GetPostInteractionsByUser(int id, string username);
+
+        Task<PostInteractionsDTO> GetLikesAndDislikesByPostId(int postId);
     }
 }
