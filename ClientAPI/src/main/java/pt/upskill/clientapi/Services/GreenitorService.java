@@ -84,4 +84,23 @@ public class GreenitorService implements GreenitorDAO {
         greenitorRepository.save(greenitor);
         return new ResponseMessage("Interactions incremented");
     }
+
+    @Override
+    @Transactional
+    public ResponseMessage decrementInteractions(String username) {
+        Greenitor greenitor = getGreenitorByUsername(username);
+        greenitor.setBadges(badgeRepository.findBadgesByGreenitorId(greenitor.getId()));
+        List<Badge> badges = badgeRepository.findAllSortedByInteractions();
+
+        for (Badge badge : badges) {
+            if (greenitor.getInteractions() == badge.getInteractions()) {
+                greenitor.setInteractions(greenitor.getInteractions() - 1);
+                greenitor.getBadges().remove(badge);
+                greenitorRepository.save(greenitor);
+                return new ResponseMessage(String.format("Badge %s removed", badge.getDescription()));
+            }
+        }
+        greenitorRepository.save(greenitor);
+        return new ResponseMessage("Interactions decremented");
+    }
 }

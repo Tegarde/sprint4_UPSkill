@@ -71,4 +71,15 @@ public class GreenitorController {
             return new ResponseEntity<>(new ResponseMessage("Something went wrong"), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PatchMapping("decrement/{username}")
+    public ResponseEntity<ResponseMessage> decrementInteractions(@PathVariable String username) {
+        try {
+            return new ResponseEntity<>(service.decrementInteractions(username), HttpStatus.OK);
+        } catch (UserNotFoundException e) {
+            return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ResponseMessage("Something went wrong"), HttpStatus.BAD_REQUEST);
+        }
+    }
 }

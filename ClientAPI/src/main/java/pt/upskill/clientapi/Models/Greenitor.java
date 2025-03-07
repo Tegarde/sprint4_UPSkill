@@ -78,4 +78,8 @@ public class Greenitor {
     public void addBadge(Badge badge) {
         this.badges.add(badge);
     }
+
+    public void removeBadge(Badge badge) {this.badges.remove(badge);}
+
+
 }

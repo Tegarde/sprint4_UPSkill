@@ -74,5 +74,16 @@ namespace ForumAPI.Services
                 throw new ResponseStatusException(request.StatusCode, message!);
             }
         }
+
+        public async Task DecrementUserInteractions(string username)
+        {
+            var request = await client.PatchAsync($"{BaseUrl}/decrement/{username}", null);
+
+            if (!request.IsSuccessStatusCode)
+            {
+                var message = await request.Content.ReadFromJsonAsync<ResponseMessage>();
+                throw new ResponseStatusException(request.StatusCode, message!);
+            }
+        }
     }
 }

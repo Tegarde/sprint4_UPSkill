@@ -16,4 +16,6 @@ public interface GreenitorDAO {
     Greenitor getGreenitorByUsername(String username);
 
     ResponseMessage incrementInteractions(String username);
+
+    ResponseMessage decrementInteractions(String username);
 }
