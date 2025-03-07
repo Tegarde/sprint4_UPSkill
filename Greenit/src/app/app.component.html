@@ -5,7 +5,7 @@
       <div *ngIf="isSideBarOpen | async" class="main-buttons">
         <img routerLink="" (click)="isSideBarOpen.next(false)" class="logo" src="./assets/Logo6.jpg" alt="Logo">
         <label class="button">Login</label>
-        <label class="button">Register</label>
+        <label class="button" routerLink="/signup">Register</label>
       </div>
     </div>
     <div *ngIf="isSideBarOpen | async" class="main-buttons">
