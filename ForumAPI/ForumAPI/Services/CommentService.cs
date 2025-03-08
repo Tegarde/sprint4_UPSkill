@@ -207,7 +207,7 @@ namespace ForumAPI.Services
 
         public async Task<List<Comment>> GetCommentsByCommentId(int commentId)
         {
-            var comment = await context.Comments.Include(c => c.Replies). FirstOrDefaultAsync(c => c.Id == commentId);
+            var comment = await context.Comments.FirstOrDefaultAsync(c => c.Id == commentId);
             if (comment == null)
             {
                 throw new NotFoundException("Comment not found");
