@@ -47,4 +47,8 @@ export class PostService {
     const undislike = {postId : id, user : username};
     return this.client.delete<any>(`${this.endpoint}/dislike`, {body : undislike});
   }
+
+  searchPosts(query : string) : Observable<Post[]> {
+    return this.client.get<Post[]>(`${this.endpoint}/search/${query}`);
+  }
 }

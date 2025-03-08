@@ -1,4 +1,10 @@
 <div class="container">
+  <nav class="searchBar">
+    <p (click)="goHome()">Green'it</p>
+    <form (submit)="searchPosts()">
+      <input type="search" [(ngModel)]="query" name="query" placeholder="Search">
+    </form>    
+  </nav>
   <nav [ngClass]="(isSideBarOpen | async) ? 'navbar' : 'navbar-closed'">
     <div>
       <img class="menu-icon" src="../assets/menu-icon2.png" (click)="isSideBarOpen.next(!isSideBarOpen.value)">
