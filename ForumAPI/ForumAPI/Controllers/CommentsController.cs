@@ -177,7 +177,7 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpGet("{id}/comments")]
+        [HttpGet("{parentCommentId}/comments")]
         public async Task<ActionResult<List<CommentFromCommentDTO>>> GetCommentsToComment(int parentCommentId)
         {
             try
