@@ -1,13 +1,20 @@
 <div class="container">
     <div class="comment">
-        <div class="title-content">
-            <h4>{{comment.content}}</h4>
-        </div>
         <div class="create-content">
             <p>{{comment.createdBy}} on {{comment.createdAt | date: 'EEEE, d MMMM, y, h:mm:ss'}}</p>
         </div>
-        <app-like-comment class="like-btn" [commentId]="comment.id"></app-like-comment>
-        <button *ngIf="comment.commentsCounter > 0" (click)="showReplies()">Replies</button>
+        <div class="title-content">
+            <p>{{comment.content}}<p>
+        </div>
+        <div class="buttons">
+            <app-like-comment class="like-btn" [commentId]="comment.id"></app-like-comment>
+            <button class="reply-btn" *ngIf="comment.commentsCounter > 0" (click)="showReplies()">Replies</button>
+        </div>
+        <div class="comment-section">
+            <button *ngIf="!makingAComment" (click)="toggleMakingAComment()" class="comment-btn">Reply to this comment</button>
+            <button *ngIf="makingAComment" (click)="toggleMakingAComment()" class="comment-btn">Stop replying to this comment</button>
+            <app-make-comment *ngIf="makingAComment" [id]="comment.id" [type]="'comment'"></app-make-comment>
+        </div>
     </div>
     <div *ngFor="let reply of replies; track reply" class="replies">
         <app-comment-details [comment]="reply"></app-comment-details>

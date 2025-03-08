@@ -1,13 +1,20 @@
 <div *ngIf="post" class="container">
     <div class="post">
-       <div class="title-content">
-        <h1>{{post.title}}</h1>
-        <p>{{post.content}}</p>
-       </div>
-       <div class="create-content">
-        <p>{{post.createdBy}} on {{post.createdAt | date: 'EEEE, d MMMM, y, h:mm:ss'}}</p>
-       </div>
-       <app-like-dislike class="like-dislike" [postId]="post.id"></app-like-dislike>
+        <div class="create-content">
+            <p>{{post.createdBy}} on {{post.createdAt | date: 'EEEE, d MMMM, y, h:mm:ss'}}</p>
+        </div>
+        <div class="title-content">
+            <h1>{{post.title}}</h1>
+            <p>{{post.content}}</p>
+        </div>
+        <div class="buttons">
+            <app-like-dislike class="like-dislike" [postId]="post.id"></app-like-dislike>
+        </div>
+        <div class="comment-section">
+            <button *ngIf="!makingAComment" (click)="toggleMakingAComment()" class="comment-btn">Comment on this post</button>
+            <button *ngIf="makingAComment" (click)="toggleMakingAComment()" class="comment-btn">Stop commenting on this post</button>
+            <app-make-comment *ngIf="makingAComment" [id]="post.id" [type]="'post'"></app-make-comment>
+        </div>
     </div>
     <div *ngFor="let comment of post!.comments; track comment" class="comments">
         <app-comment-details [comment]="comment"></app-comment-details>

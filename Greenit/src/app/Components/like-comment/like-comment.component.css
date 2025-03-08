@@ -17,7 +17,6 @@
     opacity: 0.9;
     padding: 1.5rem;
     font-weight: 600;
-    background: var(--background);
     max-width: max-content;
     border-radius: var(--border-radius-main);
     transition: 0.2s ease all;

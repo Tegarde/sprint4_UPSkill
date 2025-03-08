@@ -41,4 +41,8 @@ export class CommentService {
   getCommentLikeByUsername(commentId : number, username : string) : Observable<any> {
     return this.client.get<any>(`${this.endpoint}/${commentId}/likes/${username}`);
   }
+
+  getCommentsFromComment(commentId : number) : Observable<any> {
+    return this.client.get<any>(`${this.endpoint}/${commentId}/comments`);
+  }
 }

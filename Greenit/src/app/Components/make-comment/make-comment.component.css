@@ -1,0 +1,34 @@
+textarea {
+    resize: none;
+    border-radius: 8px;
+    color: gray;
+    font-size: 20px;
+    padding: 5px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 5px;
+}
+
+.comment-btn {
+    background: none;
+    border-radius: 20px;
+    border: 1px solid #8CC592;
+    padding: 8px;
+    color: gray;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.comment-btn:hover {
+    background-color: #8CC592;
+}
+
+.comment-btn:active {
+    padding: 7.5px;
+}

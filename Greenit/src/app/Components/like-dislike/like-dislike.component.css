@@ -5,7 +5,7 @@
     --light-green: #8CC592;
     --dark-green: #3E9F4D;
     --text-color: #6c6d6d;
-    --background: #ffffff; /*linear-gradient(#2c3e50, #34495e);*/
+    --background: rgb(170, 202, 172, 0.938); /*linear-gradient(#2c3e50, #34495e);*/
     --border-radius-main: 10px;
     --border-radius-icon: 50px;
     position: relative;
@@ -18,7 +18,6 @@
     opacity: 0.9;
     padding: 1.5rem;
     font-weight: 600;
-    background: var(--background);
     max-width: max-content;
     border-radius: var(--border-radius-main);
     transition: 0.2s ease all;

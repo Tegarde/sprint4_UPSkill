@@ -14,11 +14,22 @@
 }
 
 .post {
-    background-color: white;
+    background: linear-gradient(45deg, rgb(217, 218, 196), rgb(212, 214, 164));
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid rgb(0, 0, 0);
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.comment-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
 }
 
 .container {
@@ -26,9 +37,48 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    background-color: rgba(193, 207, 219, 0.871);
+    background-color: rgba(170, 202, 172, 0.938);
     max-width: max-content;
     overflow-x: auto;
     padding: 20px;
     border-radius: 8px;
+}
+
+.comment-btn {
+    background: none;
+    border-radius: 20px;
+    border: 1px solid #8CC592;
+    padding: 10px;
+    color: gray;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.comment-btn:hover {
+    background-color: #8CC592;
+}
+
+.comment-btn:active {
+    padding: 9.5px;
+}
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+
+.like-dislike {
+    margin-left: -30px;
+}
+
+.title-content p {
+    font-size: 20px;
+}
+
+.create-content {
+    font-size: 15px;
+    font-style: italic;
 }
