@@ -27,7 +27,7 @@
     justify-content: center;
     align-items: flex-start;
     background-color: rgba(193, 207, 219, 0.871);
-    max-width: 83.7%;
+    max-width: max-content;
     overflow-x: auto;
     padding: 20px;
     border-radius: 8px;
