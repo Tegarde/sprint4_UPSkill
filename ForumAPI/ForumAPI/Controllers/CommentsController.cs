@@ -177,6 +177,26 @@ namespace ForumAPI.Controllers
             }
         }
 
+        [HttpGet("{id}/comments")]
+        public async Task<ActionResult<List<CommentFromCommentDTO>>> GetCommentsToComment(int parentCommentId)
+        {
+            try
+            {
+                List<Comment> comments = await service.GetCommentsByCommentId(parentCommentId);
+         
+                return Ok(comments.Select(CommentMapper.ToCommentFromCommentDTO)
+                    .ToList());
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseMessage { Message = "Something went wrong" });
+            }
+        }
+
     }
 }
 

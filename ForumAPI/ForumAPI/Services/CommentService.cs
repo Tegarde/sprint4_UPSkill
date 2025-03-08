@@ -205,6 +205,19 @@ namespace ForumAPI.Services
             return 0; // Retorna 0 se não houver interação
         }
 
+        public async Task<List<Comment>> GetCommentsByCommentId(int commentId)
+        {
+            var comment = await context.Comments.FirstOrDefaultAsync(c => c.Id == commentId);
+            if (comment == null)
+            {
+                throw new NotFoundException("Comment not found");
+            }
+            return await context.Comments.Where(c => c.ParentCommentId == commentId).ToListAsync();
+        }
+
+
+
+
     }
 }
 
