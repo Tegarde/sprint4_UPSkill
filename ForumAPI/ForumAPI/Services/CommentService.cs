@@ -212,7 +212,7 @@ namespace ForumAPI.Services
             {
                 throw new NotFoundException("Comment not found");
             }
-            return await context.Comments.Where(c => c.ParentCommentId == commentId).ToListAsync();
+            return await context.Comments.Where(c => c.ParentCommentId == commentId).Include(c => c.Replies).ToListAsync();
         }
 
 
