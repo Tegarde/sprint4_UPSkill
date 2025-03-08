@@ -3,13 +3,13 @@
     <div>
       <img class="menu-icon" src="../assets/menu-icon2.png" (click)="isSideBarOpen.next(!isSideBarOpen.value)">
       <div *ngIf="isSideBarOpen | async" class="main-buttons">
-        <img routerLink="" (click)="isSideBarOpen.next(false)" class="logo" src="./assets/Logo6.jpg" alt="Logo">
-        <label class="button" routerLink="//login">Login</label>
+        <img (click)="goHome()" class="logo" src="./assets/Logo6.jpg" alt="Logo">
+        <label class="button" routerLink="/login">Login</label>
         <label class="button" routerLink="/register">Register</label>
       </div>
     </div>
     <div *ngIf="isSideBarOpen | async" class="main-buttons">
-      <label class="button">Logout</label>
+      <label (click)="logout()" class="button">Logout</label>
     </div>
   </nav>
   <div class="content">
