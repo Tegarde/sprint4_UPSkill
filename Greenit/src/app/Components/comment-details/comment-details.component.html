@@ -6,6 +6,7 @@
         <div class="create-content">
             <p>{{comment.createdBy}} on {{comment.createdAt | date: 'EEEE, d MMMM, y, h:mm:ss'}}</p>
         </div>
+        <app-like-comment class="like-btn" [commentId]="comment.id"></app-like-comment>
         <button *ngIf="comment.commentsCounter > 0" (click)="showReplies()">Replies</button>
     </div>
     <div *ngFor="let reply of replies; track reply" class="replies">

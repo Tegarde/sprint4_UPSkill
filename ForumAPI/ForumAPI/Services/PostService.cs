@@ -44,6 +44,7 @@ namespace ForumAPI.Services
         {
             var post = await context.Posts
                 .Include(p => p.Comments)
+                .ThenInclude(p => p.Replies)
                 .Include(l => l.LikedBy)
                 .Include(d => d.DislikedBy)
                 .Where(p => p.Status)

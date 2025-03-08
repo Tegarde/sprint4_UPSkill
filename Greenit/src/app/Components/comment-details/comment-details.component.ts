@@ -1,11 +1,12 @@
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Comment } from '../../Models/comment';
+import { LikeCommentComponent } from "../like-comment/like-comment.component";
 
 @Component({
   selector: 'app-comment-details',
   standalone: true,
-  imports: [NgIf, NgFor, DatePipe],
+  imports: [NgIf, NgFor, DatePipe, CommentDetailsComponent, LikeCommentComponent],
   templateUrl: './comment-details.component.html',
   styleUrl: './comment-details.component.css'
 })
