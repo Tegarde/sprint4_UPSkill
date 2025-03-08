@@ -1,11 +1,7 @@
 ﻿namespace ForumAPI.DTOs.GreenitorDTOs
 {
-    /// <summary>
-    /// Data transfer object for user registration
-    /// </summary>
-    public class RegisterUserDTO
+    public class RegisterUserWithImageDTO
     {
-        
         /// <summary>
         /// Username to register
         /// </summary>
@@ -21,6 +17,6 @@
         /// </summary>
         public string Password { get; set; }
 
-        public IFormFile? Image { get; set; }
+        public string Image { get; set; }
     }
 }

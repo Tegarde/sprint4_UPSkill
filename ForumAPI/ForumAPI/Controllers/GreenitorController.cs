@@ -4,6 +4,7 @@ using ForumAPI.DTOs.GreenitorDTOs;
 using ForumAPI.DTOs.PostDTOs;
 using ForumAPI.Interfaces;
 using ForumAPI.Mapper;
+using ForumAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForumAPI.Controllers
@@ -16,21 +17,28 @@ namespace ForumAPI.Controllers
         private readonly PostDAO postService;
         private readonly CommentDAO commentService;
         private readonly EventDAO eventService;
+        private readonly FileUploadService fileUploadService;
 
-        public GreenitorController(GreenitorDAO service, PostDAO postService, CommentDAO commentService, EventDAO eventService)
+        public GreenitorController(GreenitorDAO service, PostDAO postService, CommentDAO commentService, EventDAO eventService, FileUploadService fileUploadService)
         {
             this.service = service;
             this.postService = postService;
             this.commentService = commentService;
             this.eventService = eventService;
+            this.fileUploadService = fileUploadService;
         }
 
         [HttpPost]
-        public async Task<ActionResult<ResponseMessage>> RegisterUser([FromBody] RegisterUserDTO greenitor)
+        public async Task<ActionResult<ResponseMessage>> RegisterUser( RegisterUserDTO greenitor)
         {
             try
-            {
-                ResponseMessage message = await service.RegisterUser(greenitor);
+            {   
+                RegisterUserWithImageDTO user = GreenitorMapper.toRegisterUserWithImageDTO(greenitor);
+                if (greenitor.Image!= null) 
+                { 
+                    user.Image = await fileUploadService.UploadFileAsync(greenitor.Image); 
+                }
+                ResponseMessage message = await service.RegisterUser(user);
                 return CreatedAtAction(nameof(RegisterUser), message);
 
             }
@@ -69,11 +77,6 @@ namespace ForumAPI.Controllers
             try
             {
                 var greenitor = await service.GetUserByUsername(username);
-
-                if (greenitor == null)
-                {
-                    return NotFound(new { Message = "User not found" });
-                }
 
                 return Ok(GreenitorMapper.toGreenitorWithoutRoleDTO(greenitor));
             }

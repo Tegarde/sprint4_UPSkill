@@ -5,6 +5,7 @@ using ForumAPI.Interfaces;
 using ForumAPI.CustomExceptions;
 using ForumAPI.DTOs.PostDTOs;
 using ForumAPI.Models;
+using ForumAPI.Services;
 
 namespace ForumAPI.Controllers
 {
@@ -13,10 +14,12 @@ namespace ForumAPI.Controllers
     public class PostController : ControllerBase
     {
         private readonly PostDAO service;
+        private readonly FileUploadService fileUploadService;
 
-        public PostController(PostDAO service)
+        public PostController(PostDAO service, FileUploadService fileUploadService)
         {
             this.service = service;
+            this.fileUploadService = fileUploadService;
         }
 
         [HttpGet]
@@ -165,10 +168,17 @@ namespace ForumAPI.Controllers
         public async Task<ActionResult> CreatePost([FromBody] CreatePostDTO postDTO)
         {
             try
-            {
+            {   
                 var post = PostMapper.FromDTO(postDTO);
+                if(postDTO.Image != null) { 
+                  post.Image = await fileUploadService.UploadFileAsync(postDTO.Image); 
+                }
                 var createdPost = await service.CreatePost(post);
                 return CreatedAtAction(nameof(CreatePost), new ResponseMessage { Message = "Post created successfully." });
+            }
+            catch(ArgumentException ex)
+            {
+                return BadRequest(new ResponseMessage { Message = ex.Message });
             }
             catch (ResponseStatusException ex)
             {

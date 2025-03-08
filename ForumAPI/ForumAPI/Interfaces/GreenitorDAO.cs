@@ -7,7 +7,7 @@ namespace ForumAPI.Interfaces
     {
         public Task<TokenDTO> Login(LoginDTO loginDTO);
 
-        public Task<ResponseMessage> RegisterUser(RegisterUserDTO registerUserDTO);
+        public Task<ResponseMessage> RegisterUser(RegisterUserWithImageDTO registerUserDTO);
 
         public Task<GreenitorDTO> GetUserByUsername(string username);
 

@@ -37,6 +37,11 @@ public class GreenitorDTO {
     private int interactions;
 
     /**
+     * Image of the Greenitor
+     */
+    private String image;
+
+    /**
      * Badges achieved by the Greenitor
      */
     private List<BadgeDescriptionDTO> badges;

@@ -50,6 +50,8 @@ public class Greenitor {
     @Column(length = 50, nullable = false)
     private String role;
 
+    private String image;
+
     /**
      * Interactions made by the user
      */
@@ -74,6 +76,17 @@ public class Greenitor {
         this.role = DEFAULT_ROLE;
         this.interactions = 0;
     }
+
+    public Greenitor(String username, String email, String password, String image) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.image = image;
+        this.role = DEFAULT_ROLE;
+        this.interactions = 0;
+    }
+
+
 
     public void addBadge(Badge badge) {
         this.badges.add(badge);

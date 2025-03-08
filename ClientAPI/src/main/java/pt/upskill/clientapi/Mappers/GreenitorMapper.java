@@ -9,10 +9,10 @@ import pt.upskill.clientapi.Models.Greenitor;
  */
 public class GreenitorMapper {
     public static Greenitor fromRegisterDTO(RegisterUserDTO dto) {
-        return new Greenitor(dto.getUsername(), dto.getEmail(), dto.getPassword());
+        return new Greenitor(dto.getUsername(), dto.getEmail(), dto.getPassword(), dto.getImage());
     }
 
     public static GreenitorDTO fromGreenitor(Greenitor greenitor) {
-        return new GreenitorDTO(greenitor.getUsername(), greenitor.getEmail(), greenitor.getRole(), greenitor.getInteractions(), greenitor.getBadges().stream().map(BadgeMapper::toDescriptionDTO).toList());
+        return new GreenitorDTO(greenitor.getUsername(), greenitor.getEmail(), greenitor.getRole(), greenitor.getInteractions(), greenitor.getImage(), greenitor.getBadges().stream().map(BadgeMapper::toDescriptionDTO).toList());
     }
 }

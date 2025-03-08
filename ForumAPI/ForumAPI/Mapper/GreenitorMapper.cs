@@ -11,8 +11,20 @@ namespace ForumAPI.Mapper
                 Username = dto.Username,
                 Email = dto.Email,
                 Interactions = dto.Interactions,
-                Badges = dto.Badges
+                Badges = dto.Badges,
+                Image = dto.Image
             };
         }
+
+        public static RegisterUserWithImageDTO toRegisterUserWithImageDTO(RegisterUserDTO dto)
+        {
+            return new RegisterUserWithImageDTO
+            {
+                Username = dto.Username,
+                Email = dto.Email,
+                Password = dto.Password,
+            };
+        }
+
     }
 }

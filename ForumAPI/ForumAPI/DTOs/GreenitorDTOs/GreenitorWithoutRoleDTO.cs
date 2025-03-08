@@ -10,6 +10,8 @@ namespace ForumAPI.DTOs.GreenitorDTOs
 
         public int Interactions { get; set; }
 
+        public string Image { get; set; }
+
         public List<BadgeDescriptionDTO> Badges { get; set; }
     }
 }

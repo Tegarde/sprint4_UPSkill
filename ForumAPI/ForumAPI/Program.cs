@@ -3,6 +3,7 @@ using ForumAPI.Data;
 using ForumAPI.Interfaces;
 using ForumAPI.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace ForumAPI
 {
@@ -31,13 +32,18 @@ namespace ForumAPI
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ForumAPI", Version = "v1" });
+
+            });
 
             builder.Services.AddScoped<GreenitorDAO, GreenitorClient>();
             builder.Services.AddScoped<PostDAO, PostService>();
             builder.Services.AddScoped<EventDAO, EventService>();
             builder.Services.AddScoped<CommentDAO, CommentService>();
             builder.Services.AddScoped<CategoryDAO, CategoryClient>();
+            builder.Services.AddScoped<FileUploadService>();
 
             var app = builder.Build();
 

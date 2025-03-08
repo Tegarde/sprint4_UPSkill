@@ -57,6 +57,8 @@ namespace ForumAPI.Models
         [Range(0, int.MaxValue)]
         public int Interactions { get; set; }
 
+        public string? Image { get;set; }
+
         /// <summary>
         /// The unique identifiers for the comments on the post.
         /// </summary>

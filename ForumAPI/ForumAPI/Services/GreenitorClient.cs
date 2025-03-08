@@ -16,7 +16,7 @@ namespace ForumAPI.Services
             client = new HttpClient();
         }
 
-        public async Task<ResponseMessage> RegisterUser(RegisterUserDTO registerUserDTO)
+        public async Task<ResponseMessage> RegisterUser(RegisterUserWithImageDTO registerUserDTO)
         {
             var request = await client.PostAsJsonAsync(BaseUrl, registerUserDTO);
             var message = await request.Content.ReadFromJsonAsync<ResponseMessage>();
@@ -49,17 +49,14 @@ namespace ForumAPI.Services
 
             if (request.IsSuccessStatusCode)
             {
-                var content = await request.Content.ReadAsStringAsync();
-                var user = JsonSerializer.Deserialize<GreenitorDTO>(content, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
+                var user = await request.Content.ReadFromJsonAsync<GreenitorDTO>();
 
                 return user!;
             }
             else
             {
                 var message = await request.Content.ReadFromJsonAsync<ResponseMessage>();
+
                 throw new ResponseStatusException(request.StatusCode, message!);
             }
         }

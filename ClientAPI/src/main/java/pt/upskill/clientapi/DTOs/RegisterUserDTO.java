@@ -29,4 +29,9 @@ public class RegisterUserDTO {
      */
     private String password;
 
+    /**
+     * User image to be registered
+     */
+    private String image;
+
 }
