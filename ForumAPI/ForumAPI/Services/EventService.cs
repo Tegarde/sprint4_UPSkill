@@ -109,7 +109,15 @@ namespace ForumAPI.Services
                 throw new NotFoundException("Event not found");
             }
 
+            if (context.Attendances.Any(a => a.EventId == ev.Id && a.User == attendance.User))
+            {
+                throw new ArgumentException("User is already attending this event");
+            }
+
             attendance.Event = ev;
+
+            await greenitorClient.IncrementUserInteractions(attendance.User);
+
             context.Attendances.Add(attendance);
             await context.SaveChangesAsync();
             return attendance;
@@ -126,6 +134,8 @@ namespace ForumAPI.Services
             {
                 throw new NotFoundException("Attendance not found");
             }
+
+            await greenitorClient.DecrementUserInteractions(attendance.User);
 
             context.Attendances.Remove(attendanceToDelete);
             await context.SaveChangesAsync();

@@ -105,10 +105,24 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpGet("favoritePosts")]
-        public async Task<List<Post>> GetFavoritePosts([FromBody] string username)
+        [HttpGet("favoritePosts/{username}")]
+        public async Task<ActionResult> GetFavoritePosts(string username)
         {
-            return await service.GetFavoritePosts(username);
+            try
+            {
+                var posts = await service.GetFavoritePosts(username);
+                var postDTOs = posts.Select(p => PostMapper.ToDTO(p)).ToList();
+                return Ok(postDTOs);
+            }
+            catch (ResponseStatusException ex)
+            {
+                return StatusCode((int) ex.StatusCode, ex.ResponseMessage);
+            } catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = "Something went wrong" });
+            }
+
+
         }
 
         [HttpGet("between-dates")]

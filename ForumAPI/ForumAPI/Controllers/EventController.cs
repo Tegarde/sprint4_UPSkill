@@ -97,11 +97,21 @@ namespace ForumAPI.Controllers
             try{
                 var attendance = await service.CreateAttendance(EventMapper.ToEntity(attendEventDTO));
                 return Ok(new ResponseMessage { Message = "Event attended successfully" });
-            }catch(NotFoundException ex){
+            }
+            catch(NotFoundException ex)
+            {
                 return NotFound(new ResponseMessage { Message = ex.Message });
-            }catch(ResponseStatusException ex){
+            }
+            catch(ResponseStatusException ex)
+            {
                 return StatusCode((int) ex.StatusCode, ex.ResponseMessage);
-            }catch(Exception ex){
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new ResponseMessage { Message = ex.Message });
+            }
+            catch(Exception ex)
+            {
                 return BadRequest(new ResponseMessage { Message = "An error occurred while attending the event" });
             }
         }

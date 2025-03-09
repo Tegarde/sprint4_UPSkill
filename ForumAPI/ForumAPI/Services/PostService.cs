@@ -87,23 +87,18 @@ namespace ForumAPI.Services
         {
             return await context.Posts
                 .Where(p => p.Status)
-                .OrderByDescending(p => p.LikedBy.Count + p.Comments.Count + p.FavoritedBy.Count)
+                .OrderByDescending(p => p.LikedBy.Count + p.Comments.Count + p.FavoritedBy.Count + p.DislikedBy.Count)
                 .Take(topN)
                 .ToListAsync();
         }
 
         public async Task<List<Post>> GetFavoritePosts([FromBody] string username)
         {
-            GreenitorDTO? user = await greenitorClient.GetUserByUsername(username);
-            if (user == null)
-            {
-                throw new Exception("User does not exist.");
-            }
-
+            await greenitorClient.GetUserByUsername(username);
+            
             var favoritePosts = await context.PostFavorites
                 .Where(pf => pf.User == username)
                 .Include(pf => pf.Post)
-                .ThenInclude(p => p.Comments)
                 .ToListAsync();
 
             return favoritePosts.Select(pf => pf.Post).ToList();
@@ -254,40 +249,43 @@ namespace ForumAPI.Services
                     p.LikedBy.Count +
                     p.FavoritedBy.Count +
                     p.Comments.Count +
-                    context.Comments.Count(c => c.ParentPostId == p.Id)) // Ordena por HOTNESS
+                    context.Comments.Count(c => c.ParentPostId == p.Id) + 
+                    p.DislikedBy.Count)
                 .Take(topN)
-                //.AsSplitQuery() // Otimiza a consulta
+                .AsSplitQuery() // Otimiza a consulta
                 //.Include(p => p.Comments)
                 //.Include(p => p.LikedBy)
                 //.Include(p => p.FavoritedBy)
                 .ToListAsync();
         }
 
-        //public async Task<List<Post>> GetHottestPosts(int topN)
-        //{
-        //    DateTime lastMonth = DateTime.UtcNow.AddMonths(-1); // ultimo mes
+        public async Task<List<Post>> GetHottestPostsFromLastMonth(int topN)
+        {
+            DateTime lastMonth = DateTime.UtcNow.AddMonths(-1); // ultimo mes
 
-        //    var hottestPosts = await context.Posts
-        //        .Where(p => p.Status) // Only active posts
-        //        .Where(p =>
-        //            p.LikedBy.Any(like => like.CreatedAt >= lastMonth) ||  
-        //            p.Comments.Any(comment => comment.CreatedAt >= lastMonth)
-        //        )
-        //        .Select(p => new
-        //        {
-        //            Post = p,
-        //            InteractionScore = p.LikedBy.Count +
-        //                               p.FavoritedBy.Count +
-        //                               p.Comments.Count +
-        //                               context.Comments.Count(c => c.ParentPostId == p.Id)
-        //        })
-        //        .OrderByDescending(p => p.InteractionScore) // Order by hotness
-        //        .Take(topN)
-        //        .Select(p => p.Post) // Extract post object
-        //        .ToListAsync();
+            var hottestPosts = await context.Posts
+                .Where(p => p.Status) // Only active posts
+                .Where(p =>
+                    p.CreatedAt >= lastMonth ||
+                    p.LikedBy.Any(like => like.LikedAt >= lastMonth) ||
+                    p.Comments.Any(comment => comment.CreatedAt >= lastMonth) ||
+                    p.DislikedBy.Any(dislike => dislike.DislikedAt >= lastMonth)
+                )
+                .Select(p => new
+                {
+                    Post = p,
+                    InteractionScore = p.LikedBy.Count +
+                                       p.FavoritedBy.Count +
+                                       p.Comments.Count +
+                                       context.Comments.Count(c => c.ParentPostId == p.Id)
+                })
+                .OrderByDescending(p => p.InteractionScore) // Order by hotness
+                .Take(topN)
+                .Select(p => p.Post) // Extract post object
+                .ToListAsync();
 
-        //    return hottestPosts;
-        //}
+            return hottestPosts;
+        }
 
         public async Task<List<Post>> GetNotificationsByUser(string username)
         {
