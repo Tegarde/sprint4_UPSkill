@@ -9,8 +9,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class BadgeDescriptionDTO {
-    private String description;
+public class ImageResponseDTO {
 
-    private String image;
+    public String message;
+
+    public String fileName;
 }

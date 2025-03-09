@@ -263,6 +263,32 @@ namespace ForumAPI.Services
                 .ToListAsync();
         }
 
+        //public async Task<List<Post>> GetHottestPosts(int topN)
+        //{
+        //    DateTime lastMonth = DateTime.UtcNow.AddMonths(-1); // ultimo mes
+
+        //    var hottestPosts = await context.Posts
+        //        .Where(p => p.Status) // Only active posts
+        //        .Where(p =>
+        //            p.LikedBy.Any(like => like.CreatedAt >= lastMonth) ||  
+        //            p.Comments.Any(comment => comment.CreatedAt >= lastMonth)
+        //        )
+        //        .Select(p => new
+        //        {
+        //            Post = p,
+        //            InteractionScore = p.LikedBy.Count +
+        //                               p.FavoritedBy.Count +
+        //                               p.Comments.Count +
+        //                               context.Comments.Count(c => c.ParentPostId == p.Id)
+        //        })
+        //        .OrderByDescending(p => p.InteractionScore) // Order by hotness
+        //        .Take(topN)
+        //        .Select(p => p.Post) // Extract post object
+        //        .ToListAsync();
+
+        //    return hottestPosts;
+        //}
+
         public async Task<List<Post>> GetNotificationsByUser(string username)
         {
             await greenitorClient.GetUserByUsername(username);

@@ -17,6 +17,6 @@ public class BadgeMapper {
     }
 
     public static BadgeDescriptionDTO toDescriptionDTO(Badge badge) {
-        return new BadgeDescriptionDTO(badge.getDescription());
+        return new BadgeDescriptionDTO(badge.getDescription(), badge.getImage());
     }
 }
