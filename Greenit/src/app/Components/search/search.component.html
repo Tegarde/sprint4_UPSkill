@@ -1,7 +1,5 @@
 @if (posts) {
-    @for (post of posts; track post) {
-        <h1>{{post.title}}</h1>
-    }
+    <app-post-listing [posts]="posts"></app-post-listing>
 } @else {
     <h1>Nothing could be found with "{{query}}"</h1>
 }

@@ -5,6 +5,7 @@ import { CommentDetailsComponent } from '../../comment-details/comment-details.c
 import { PostService } from '../../../Services/post.service';
 import { LikeDislikeComponent } from '../../like-dislike/like-dislike.component';
 import { MakeCommentComponent } from "../../make-comment/make-comment.component";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-post-details',
@@ -18,17 +19,21 @@ export class PostDetailsComponent implements OnInit {
 
   makingAComment = false;
 
-  constructor(private postService : PostService) { }
+  constructor(private postService : PostService, private route : ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.postService.getPostById(5).subscribe({
-      next : (post) => {
-        this.post = post;
-      },
-      error : (error) => {
-        console.log(error);
+    this.route.queryParams.subscribe({
+      next : (params) => {
+        this.postService.getPostById(params['id']).subscribe({
+          next : (post) => {
+            this.post = post;
+          },
+          error : (error) => {
+            console.log(error);
+          }
+        });
       }
-    });
+    })
   }
 
   toggleMakingAComment() {

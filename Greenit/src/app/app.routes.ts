@@ -8,7 +8,7 @@ import { SearchComponent } from './Components/search/search.component';
 
 export const routes: Routes = [
     { path : '', component : AppComponent },
-    {path : 'posts', component : PostDetailsComponent},
+    {path : 'post', component : PostDetailsComponent},
     {path : 'search/:query', component : SearchComponent},
     {path : 'login', component : SignInComponent},
     {path : 'register', component : SignUpComponent},

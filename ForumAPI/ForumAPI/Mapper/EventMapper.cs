@@ -1,4 +1,4 @@
-﻿using ForumAPI.DTOs;
+﻿using ForumAPI.DTOs.EventDTOs;
 using ForumAPI.DTOs.PostDTOs;
 using ForumAPI.Enums;
 using ForumAPI.Models;
@@ -7,37 +7,35 @@ namespace ForumAPI.Mapper
 {
     public class EventMapper
     {
-        public static CreateEventDTO toDTO(Event ev)
+        public static EventDTO ToDTO(Event ev)
         {
-            return new CreateEventDTO
+            return new EventDTO
             {
+                Id = ev.Id,
                 Description = ev.Description,
                 Location = ev.Location,
                 Date = ev.Date,
-                Status = ev.Status.ToString()
+                Status = ev.Status
             };
         }
 
-        public static Event toEntity(CreateEventDTO evDTO)
+        public static Event ToEntity(CreateEventDTO evDTO)
         {
             return new Event
             {
                 Description = evDTO.Description,
                 Location = evDTO.Location,
                 Date = evDTO.Date,
-                Status = Enum.Parse<EventStatus>(evDTO.Status)
+                Status = EventStatus.OPEN
             };
         }
 
-        public static Post FromUpdatePostDTO(UpdatePostDTO updatePostDTO)
+        public static Attendance ToEntity(EventAttendanceDTO evDTO)
         {
-            return new Post
+            return new Attendance
             {
-                Id = updatePostDTO.Id,
-                Title = updatePostDTO.Title,
-                Content = updatePostDTO.Content,
-                CreatedBy = updatePostDTO.CreatedBy,
-
+                EventId = evDTO.EventId,
+                User = evDTO.Username
             };
         }
     }

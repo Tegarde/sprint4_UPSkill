@@ -13,9 +13,12 @@ namespace ForumAPI.Services
     {
         private readonly DataContext context;
 
-        public EventService(DataContext context)
+        private readonly GreenitorDAO greenitorClient;
+
+        public EventService(DataContext context, GreenitorDAO greenitorClient)
         {
             this.context = context;
+            this.greenitorClient = greenitorClient;
         }
         public Event CreateEvent(Event ev)
         {
@@ -93,6 +96,39 @@ namespace ForumAPI.Services
                 .CountAsync();
 
             return attendanceCount;
+        }
+
+        public async Task<Attendance> CreateAttendance(Attendance attendance)
+        {
+
+            await greenitorClient.GetUserByUsername(attendance.User);
+
+            var ev = await context.Events.FirstOrDefaultAsync(e => e.Id == attendance.EventId);
+            if (ev == null)
+            {
+                throw new NotFoundException("Event not found");
+            }
+
+            attendance.Event = ev;
+            context.Attendances.Add(attendance);
+            await context.SaveChangesAsync();
+            return attendance;
+        }
+
+        public async Task UnattendEvent(Attendance attendance)
+        {
+
+            await greenitorClient.GetUserByUsername(attendance.User);
+
+            var attendanceToDelete = await context.Attendances.FirstOrDefaultAsync(a => a.EventId == attendance.EventId && a.User == attendance.User);
+
+            if (attendanceToDelete == null)
+            {
+                throw new NotFoundException("Attendance not found");
+            }
+
+            context.Attendances.Remove(attendanceToDelete);
+            await context.SaveChangesAsync();
         }
 
 

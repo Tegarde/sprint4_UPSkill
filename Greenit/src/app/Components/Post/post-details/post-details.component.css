@@ -35,10 +35,11 @@
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
     background-color: rgba(170, 202, 172, 0.938);
-    max-width: max-content;
+    max-width: 174.5vh;
+    min-height: 80vh;
     overflow-x: auto;
     padding: 20px;
     border-radius: 8px;

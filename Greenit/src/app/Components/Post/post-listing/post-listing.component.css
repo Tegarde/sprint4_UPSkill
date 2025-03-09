@@ -1,0 +1,26 @@
+.post {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    border: 1px solid black;
+    max-width: max-content;
+    max-height: fit-content;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: linear-gradient(45deg, rgb(217, 218, 196), rgb(212, 214, 164));
+}
+
+.post h1 {
+    margin: 0px;
+}
+
+.post p {
+    margin: 10px 5px 0 5px;
+}
+
+.post:hover {
+    background: linear-gradient(135deg, #CFE58B, rgb(212, 214, 164));
+}
