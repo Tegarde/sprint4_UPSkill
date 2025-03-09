@@ -51,4 +51,8 @@ export class PostService {
   searchPosts(query : string) : Observable<Post[]> {
     return this.client.get<Post[]>(`${this.endpoint}/search/${query}`);
   }
+
+  createPost(post : any) : Observable<any> {
+    return this.client.post<any>(this.endpoint, post);
+  }
 }

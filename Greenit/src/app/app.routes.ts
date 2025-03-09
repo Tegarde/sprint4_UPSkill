@@ -5,9 +5,10 @@ import { LikeDislikeComponent } from './Components/like-dislike/like-dislike.com
 import { SignUpComponent } from './Components/sign-up/sign-up.component';
 import { SignInComponent } from './Components/sign-in/sign-in.component';
 import { SearchComponent } from './Components/search/search.component';
+import { HomeComponent } from './Components/home/home.component';
 
 export const routes: Routes = [
-    { path : '', component : AppComponent },
+    { path : '', component : HomeComponent },
     {path : 'post', component : PostDetailsComponent},
     {path : 'search/:query', component : SearchComponent},
     {path : 'login', component : SignInComponent},

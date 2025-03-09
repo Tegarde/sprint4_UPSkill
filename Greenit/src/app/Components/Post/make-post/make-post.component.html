@@ -1,0 +1,18 @@
+<div class="container">
+    <form [formGroup]="postForm" class="form" (ngSubmit)="submitPost()">
+        <h2 class="form-title">Create a Post</h2>
+        <div class="form-group">
+            <input (click)="toggleForm()"  type="text" placeholder="Title" formControlName="title" class="form-control-title">
+        </div>
+        <div class="form-group" *ngIf="showForm">
+            <textarea rows="3" cols="30" placeholder="Content" formControlName="content" class="form-control"></textarea>
+        </div>
+        <div class="form-group" *ngIf="showForm">
+            <select formControlName="category" class="form-control">
+                <option disabled value="">Select a category</option>
+                <option *ngFor="let category of categories" [value]="category.description">{{category.description}}</option>
+            </select>
+        </div>
+        <button *ngIf="showForm" [disabled]="postForm.invalid" type="submit" class="submit-button">Submit</button>
+    </form>
+</div>

@@ -1,0 +1,101 @@
+.container {
+    display: flex;
+    justify-content: center;
+    max-width: max-content;
+    margin-left: 42%;
+}
+
+.form {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #CFE58B;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 0px;
+    width: 100%;
+    height: max-content;
+    border: 1px solid gray;
+}
+
+.form-control-title {
+    background: none;
+    border: none;
+    border-bottom: 2px solid gray;
+    font-size: 20px;
+}
+
+.form-control-title:focus {
+    outline: none;
+}
+
+textarea {
+    resize: none;
+    background: none;
+    border: none;
+    border-bottom: 2px solid gray;
+    font-size: 15px;
+    align-content: end;
+}
+
+textarea:focus {
+    outline: none;
+}
+
+.form-group select {
+    background: none;
+    border: none;
+    border-bottom: 2px solid gray;
+    font-size: 15px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.form-group select:focus {
+    outline: none;
+}
+
+.form-group input:invalid {
+    border-left:1px solid red;
+}
+
+button {
+    background-color: #8CC592;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    width: 70%;
+}
+
+button:hover {
+    background-color: #3E9F4D;
+}
+
+button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+option:disabled {
+    display: none;
+}
+
+.form-title {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 30px;
+    background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(rgb(244, 8, 4), rgb(58, 52, 52));
+}
