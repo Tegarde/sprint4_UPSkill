@@ -1,4 +1,4 @@
-﻿namespace ForumAPI.DTOs
+﻿namespace ForumAPI.DTOs.EventDTOs
 {
     public class CreateEventDTO
     {
@@ -9,9 +9,5 @@
 
 
         public DateTime Date { get; set; } = DateTime.UtcNow;
-
-
-        public string Status { get; set; }
-
     }
 }

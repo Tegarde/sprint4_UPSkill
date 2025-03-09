@@ -2,11 +2,11 @@
 {
     public enum EventStatus
     {
-        Open,
+        OPEN,
 
-        Closed,
+        CLOSED,
 
-        Canceled,
+        CANCELED,
 
     }
 }
