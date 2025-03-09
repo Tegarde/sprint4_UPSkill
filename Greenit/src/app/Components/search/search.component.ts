@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { Post } from '../../Models/post';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from '../../Services/post.service';
+import { PostListingComponent } from '../Post/post-listing/post-listing.component';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [],
+  imports: [PostListingComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
