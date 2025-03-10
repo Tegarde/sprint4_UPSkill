@@ -1,12 +1,31 @@
 /* Estiliza o container principal */
 .event-detail-card {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    border: 1px solid black;
+    min-width: 350px;
+    max-height: fit-content;
+    padding: 10px;
+    margin: 5px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
-    text-align: center;
+    cursor: pointer;
+    background: linear-gradient(45deg, rgb(217, 218, 196), rgb(212, 214, 164));
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    justify-content: flex-start;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 5px;
 }
 
 /* Título do evento */
@@ -40,31 +59,61 @@
 }
 
 /* Cores diferentes para cada status */
-.event-status.Open {
+.Open {
     background-color: #d4edda;
     color: #155724;
+    width: max-content;
+    padding: 5px;
+    border-radius: 5px;
 }
 
-.event-status.Closed {
+.Closed {
     background-color: #f8d7da;
     color: #721c24;
+    width: max-content;
+    padding: 5px;
+    border-radius: 5px;
 }
 
-.event-status.Canceled {
+.Canceled {
     background-color: #ffeeba;
     color: #856404;
+    width: max-content;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 /* Botão de voltar */
 .event-detail-card button {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
+    background: none;
+    border-radius: 20px;
+    border: 1px solid #8CC592;
+    padding: 10px;
+    color: gray;
+    font-weight: 600;
     cursor: pointer;
-   
+    transition: all 0.2s ease-in-out;  
+}
+
+.event-detail-card button:hover {
+    background-color: #8CC592;
+}
+
+.event-detail-card button:active {
+    padding: 9.5px;
+}
+
+.comments {
+    margin-left: 30px;
+    position: relative;
+}
+
+.comments::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    bottom: 0;
+    left: 0px;
+    width: 2px;
+    background-color: gray;
 }

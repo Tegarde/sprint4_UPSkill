@@ -1,31 +1,30 @@
-<div *ngIf="isLoading">A carregar...</div>
-<div *ngIf="errorMessage">{{ errorMessage }}</div>
+<div class="container">
+  <div *ngIf="isLoading">A carregar...</div>
+  <div *ngIf="errorMessage">{{ errorMessage }}</div>
 
-<div *ngIf="evento" class="event-detail-card">
-  <h2>{{ evento.description }}</h2>
-  <p><strong>Local:</strong> {{ evento.location }}</p>
-  <p><strong>Data:</strong> {{ evento.date | date: 'dd/MM/yyyy HH:mm' }}</p>
-  <p><strong>Status:</strong> {{ evento.status }}</p>
-  <p><img *ngIf="evento.image" [src]="'http://localhost:5000/' + evento.image" alt="Event Image" class="event-image"></p>
-  <!-- Botão para mostrar/esconder o componente de comentário -->
-  <button (click)="toggleMakingAComment()">
-    {{ makingAComment ? 'Cancelar Comentário' : 'Comentar Evento' }}
-  </button>
+  <div *ngIf="evento" class="event-detail-card">
+    <h2>{{ evento.description }}</h2>
+    <p><strong>Local:</strong> {{ evento.location }}</p>
+    <p><strong>Data:</strong> {{ evento.date | date: 'dd/MM/yyyy HH:mm' }}</p>
+    <p [class]="(evento.status == 0) ? 'Open' : (evento.status) == 1 ? 'Closed' : 'Canceled'" ><strong>Status:</strong> {{(evento.status == 0) ? 'Aberto' : (evento.status) == 1 ? 'Fechado' : 'Cancelado' }}</p>
+    <p><img *ngIf="evento.image" [src]="'http://localhost:5000/' + evento.image" alt="Event Image" class="event-image"></p>
+    <!-- Botão para mostrar/esconder o componente de comentário -->
+    <div class="buttons">
+      <button (click)="toggleMakingAComment()">
+        {{ makingAComment ? 'Cancelar Comentário' : 'Comentar Evento' }}
+      </button>
+      <button routerLink="/listEvents">Voltar à lista</button>
+    </div>
+    <!-- Componente para fazer comentário (aparece apenas quando makingAComment for true) -->
+    <app-make-comment *ngIf="makingAComment" [id]="evento.id" [type]="'event'"></app-make-comment>
+    
 
-  <!-- Componente para fazer comentário (aparece apenas quando makingAComment for true) -->
-  <app-make-comment *ngIf="makingAComment" [id]="evento.id" [type]="'event'"></app-make-comment>
-  <button routerLink="listEvents">Voltar à lista</button>
-
+    
+  </div>
   <!-- Listagem de comentários -->
-  <div *ngIf="evento.comments && evento.comments.length > 0">
-    <h3>Comentários</h3>
-    <div *ngFor="let comment of evento.comments">
+  <div *ngIf="evento!.comments && evento!.comments.length > 0">
+    <div *ngFor="let comment of evento!.comments" class="comments">
       <app-comment-details [comment]="comment"></app-comment-details>
     </div>
-  </div>
-  
-  <!-- Mensagem caso não haja comentários -->
-  <div *ngIf="evento.comments?.length === 0">
-    <p>Sem comentários ainda.</p>
   </div>
 </div>

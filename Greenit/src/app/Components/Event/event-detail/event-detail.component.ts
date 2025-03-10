@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Evento } from '../../../Models/evento';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EventService } from '../../../Services/event.service';
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { MakeCommentComponent } from '../../make-comment/make-comment.component';
@@ -9,7 +9,7 @@ import { CommentDetailsComponent } from '../../comment-details/comment-details.c
 @Component({
   selector: 'app-event-detail',
   standalone: true,
-  imports: [NgIf,DatePipe,MakeCommentComponent,CommentDetailsComponent,NgFor],
+  imports: [NgIf,DatePipe,MakeCommentComponent,CommentDetailsComponent,NgFor, RouterLink],
   templateUrl: './event-detail.component.html',
   styleUrl: './event-detail.component.css'
 })
