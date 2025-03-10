@@ -4,7 +4,6 @@ using ForumAPI.DTOs.GreenitorDTOs;
 using ForumAPI.Interfaces;
 using ForumAPI.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
 
 namespace ForumAPI.Services
 {
@@ -23,18 +22,15 @@ namespace ForumAPI.Services
 
         public async Task<Comment> CommentAComment(Comment comment)
         {
-            //Check if parent comment exists
             var parentComment = context.Comments.FirstOrDefault(c => c.Id == comment.ParentCommentId);
 
-            //If parent comment does not exist, throw exception
             if (parentComment == null)
             {
                 throw new NotFoundException("Parent comment not found.");
             }
 
-            GreenitorDTO user = await greenitorDAO.GetUserByUsername(comment.CreatedBy);
+            await greenitorDAO.GetUserByUsername(comment.CreatedBy);
 
-            // Set parent comment
             comment.ParentComment = parentComment;
 
             if (parentComment.ParentPostId != null)
@@ -42,10 +38,7 @@ namespace ForumAPI.Services
                 comment.ParentPostId = parentComment.ParentPostId;
             }
 
-            // Set created at
             comment.CreatedAt = DateTime.UtcNow;
-
-
 
             context.Comments.Add(comment);
 
@@ -64,12 +57,7 @@ namespace ForumAPI.Services
                 throw new NotFoundException("Event not found");
             }
 
-            //Get user from greenitorDAO
-            GreenitorDTO user = await greenitorDAO.GetUserByUsername(comment.CreatedBy);
-            if (user == null)
-            {
-                throw new UserNotFoundException("User not found");
-            }
+            await greenitorDAO.GetUserByUsername(comment.CreatedBy);
 
             comment.Event = ev;
             comment.CreatedAt = DateTime.UtcNow;
@@ -85,11 +73,8 @@ namespace ForumAPI.Services
             if (post == null)
             { throw new NotFoundException("Post not found"); }
 
-            GreenitorDTO user = await greenitorDAO.GetUserByUsername(comment.CreatedBy);
-            if (user == null)
-            {
-                throw new UserNotFoundException("User not found");
-            }
+            await greenitorDAO.GetUserByUsername(comment.CreatedBy);
+
             comment.Post = post;
             comment.ParentPostId = post.Id;
 
@@ -126,11 +111,7 @@ namespace ForumAPI.Services
                 throw new NotFoundException("Comment not found");
             }
 
-            GreenitorDTO user = await greenitorDAO.GetUserByUsername(commentLike.User);
-            if (user == null)
-            {
-                throw new UserNotFoundException("User not found");
-            }
+            await greenitorDAO.GetUserByUsername(commentLike.User);
 
             CommentLike? like = context.CommentLikes.FirstOrDefault(cl => cl.CommentId == commentLike.CommentId && cl.User == commentLike.User);
             if (like != null)
@@ -153,11 +134,7 @@ namespace ForumAPI.Services
                 throw new NotFoundException("Comment not found");
             }
 
-            GreenitorDTO user = await greenitorDAO.GetUserByUsername(commentLike.User);
-            if (user == null)
-            {
-                throw new UserNotFoundException("User not found");
-            }
+            await greenitorDAO.GetUserByUsername(commentLike.User);
 
             CommentLike? like = context.CommentLikes.FirstOrDefault(cl => cl.CommentId == commentLike.CommentId && cl.User == commentLike.User);
             if (like == null)

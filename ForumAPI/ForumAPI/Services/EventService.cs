@@ -1,6 +1,5 @@
 ﻿using ForumAPI.CustomExceptions;
 using ForumAPI.Data;
-using ForumAPI.DTOs;
 using ForumAPI.Enums;
 using ForumAPI.Interfaces;
 using ForumAPI.Models;
@@ -83,7 +82,11 @@ namespace ForumAPI.Services
             if(!Enum.TryParse<EventStatus>(status, true, out EventStatus eventStatus))
             {
                 throw new ArgumentException("Invalid event status.", nameof(status));
-            }   
+            } 
+            if(ev.Status == eventStatus)
+            {
+                throw new ArgumentException("Event is already in that status");
+            }
             ev.Status = eventStatus;
             context.SaveChangesAsync();
             return "Event status updated successfully";

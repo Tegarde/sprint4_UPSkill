@@ -6,7 +6,6 @@ using ForumAPI.Mapper;
 using ForumAPI.Models;
 using ForumAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace ForumAPI.Controllers
 {

@@ -4,7 +4,6 @@ using ForumAPI.DTOs.CommentDTOs;
 using ForumAPI.Interfaces;
 using ForumAPI.Mapper;
 using ForumAPI.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForumAPI.Controllers
@@ -29,6 +28,10 @@ namespace ForumAPI.Controllers
                 Comment comment = await service.CommentAComment(CommentMapper.FromCommentACommentDTO(commentDTO));
                 return CreatedAtAction(nameof(CommentAComment), new ResponseMessage { Message = "Comment successfully created" });
             }
+            catch (ResponseStatusException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
+            }
             catch (NotFoundException ex)
             {
                 return StatusCode(404, new ResponseMessage { Message = ex.Message });
@@ -51,9 +54,9 @@ namespace ForumAPI.Controllers
             {
                 return StatusCode(404, new ResponseMessage { Message = ex.Message });
             }
-            catch (UserNotFoundException ex)
+            catch (ResponseStatusException ex)
             {
-                return StatusCode(404, new ResponseMessage { Message = ex.Message });
+                return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
             }
             catch (Exception ex)
             {
@@ -73,9 +76,9 @@ namespace ForumAPI.Controllers
             {
                 return NotFound(new ResponseMessage { Message = ex.Message });
             }
-            catch (UserNotFoundException ex)
+            catch (ResponseStatusException ex)
             {
-                return NotFound(new ResponseMessage { Message = ex.Message });
+                return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
             }
             catch (Exception ex)
             {
@@ -96,9 +99,9 @@ namespace ForumAPI.Controllers
             {
                 return NotFound(new ResponseMessage { Message = ex.Message });
             }
-            catch (UserNotFoundException ex)
+            catch (ResponseStatusException ex)
             {
-                return NotFound(new ResponseMessage { Message = ex.Message });
+                return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
             }
             catch (ArgumentException ex)
             {
@@ -122,9 +125,9 @@ namespace ForumAPI.Controllers
             {
                 return NotFound(new ResponseMessage { Message = ex.Message });
             }
-            catch (UserNotFoundException ex)
+            catch (ResponseStatusException ex)
             {
-                return NotFound(new ResponseMessage { Message = ex.Message });
+                return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
             }
             catch (ArgumentException ex)
             {
@@ -162,6 +165,10 @@ namespace ForumAPI.Controllers
             {
                 int likes = await service.GetCommentInteractionsByUser(id,username);
                 return Ok(likes);
+            }
+            catch (ResponseStatusException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
             }
             catch (NotFoundException ex)
             {

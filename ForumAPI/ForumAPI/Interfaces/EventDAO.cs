@@ -1,6 +1,4 @@
-﻿using ForumAPI.DTOs;
-using ForumAPI.Models;
-using Microsoft.EntityFrameworkCore.Diagnostics;
+﻿using ForumAPI.Models;
 
 namespace ForumAPI.Interfaces
 {
