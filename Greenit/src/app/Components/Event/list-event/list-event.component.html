@@ -22,8 +22,5 @@
       <p><strong>Local:</strong> {{ event.location }}</p>
       <p><strong>Data:</strong> {{ event.date | date: 'dd/MM/yyyy HH:mm' }}</p>
       <p><strong>Status:</strong> {{ event.status }}</p>
-      <!-- Only show image if it exists -->
-      <img *ngIf="event.image" [src]="'http://localhost:5000/' + event.image" alt="Event Image" class="event-image">
-
     </div>
 </div>
