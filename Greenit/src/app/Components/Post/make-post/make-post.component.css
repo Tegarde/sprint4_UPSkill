@@ -126,3 +126,36 @@ input[type="file"]::-webkit-file-upload-button {
     cursor: pointer;
     text-indent: -9999px;
 }
+
+.form-group, .image-submit {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 0px;
+    width: 100%;
+    border: 1px solid gray;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.6s ease-in-out, opacity 0.6s ease-in-out, margin 0.6s ease-in-out;
+}
+
+.form-group-title{
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    width: 100%;
+    height: fit-content;
+    border: 1px solid gray;
+}
+
+.show {
+    max-height: 200px; /* Adjust as needed */
+    opacity: 1;
+}
+
+.hide {
+    margin: 0;
+    max-height: 0;
+    opacity: 0;
+}

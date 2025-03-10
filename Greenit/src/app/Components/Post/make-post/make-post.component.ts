@@ -3,13 +3,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { PostService } from '../../../Services/post.service';
 import { SignInService } from '../../../Services/sign-in.service';
 import { CategoryService } from '../../../Services/category.service';
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-make-post',
   standalone: true,
-  imports: [ReactiveFormsModule, NgFor, NgIf],
+  imports: [ReactiveFormsModule, NgFor, NgClass],
   templateUrl: './make-post.component.html',
   styleUrl: './make-post.component.css'
 })
