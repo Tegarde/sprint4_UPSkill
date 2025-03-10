@@ -39,6 +39,8 @@ namespace ForumAPI.Models
         [Required]
         public EventStatus Status { get; set; }
 
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+
         /// <summary>
         /// The attendance of the event.
         /// </summary>

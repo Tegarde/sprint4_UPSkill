@@ -1,0 +1,70 @@
+/* Estiliza o container principal */
+.event-detail-card {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    text-align: center;
+}
+
+/* Título do evento */
+.event-detail-card h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Informação geral */
+.event-detail-card p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;
+    margin: 8px 0;
+}
+
+/* Labels em negrito */
+.event-detail-card p strong {
+    color: #222;
+}
+
+/* Estilo do status do evento */
+.event-status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+/* Cores diferentes para cada status */
+.event-status.Open {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.event-status.Closed {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.event-status.Canceled {
+    background-color: #ffeeba;
+    color: #856404;
+}
+
+/* Botão de voltar */
+.event-detail-card button {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+   
+}

@@ -1,0 +1,66 @@
+/* Container principal */
+.event-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Filtro dropdown */
+  .filter-container {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+  }
+  
+  label {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  
+  select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+  
+  /* Mensagens de status */
+  .loading,
+  .error,
+  .no-events {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+  
+  .error {
+    color: red;
+  }
+  
+  .no-events {
+    color: gray;
+  }
+  
+  /* Estilos para cada evento */
+  .event-card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .event-card h3 {
+    margin: 0;
+    color: #007bff;
+  }
+  
+  .event-card p {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+  

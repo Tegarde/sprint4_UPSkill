@@ -1,0 +1,26 @@
+<div class="event-container">
+    <h2>Lista de Eventos</h2>
+  
+    <!-- Dropdown para escolher o filtro -->
+    <div class="filter-container">
+      <label for="filter">Filtrar por estado:</label>
+      <select id="filter" (change)="onFilterChange($event)">
+        <option value="Open">Abertos</option>
+        <option value="Closed">Fechados</option>
+        <option value="Canceled">Cancelados</option>
+      </select>
+    </div>
+  
+    <!-- Mensagens de estado -->
+    <div *ngIf="isLoading" class="loading">A carregar eventos...</div>
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+    <div *ngIf="events.length === 0 && !isLoading" class="no-events">Nenhum evento encontrado.</div>
+  
+    <!-- Lista de eventos -->
+    <div *ngFor="let event of events" class="event-card">
+      <h3><a [routerLink]="['/events', event.id]">{{ event.description }}</a></h3>
+      <p><strong>Local:</strong> {{ event.location }}</p>
+      <p><strong>Data:</strong> {{ event.date | date: 'dd/MM/yyyy HH:mm' }}</p>
+      <p><strong>Status:</strong> {{ event.status }}</p>
+    </div>
+</div>

@@ -2,6 +2,7 @@
 using ForumAPI.DTOs.PostDTOs;
 using ForumAPI.Enums;
 using ForumAPI.Models;
+using Microsoft.Extensions.Hosting;
 
 namespace ForumAPI.Mapper
 {
@@ -18,6 +19,23 @@ namespace ForumAPI.Mapper
                 Status = ev.Status
             };
         }
+
+
+        public static EventWithCommentsDTO toEventWithCommentsDTO(Event ev)
+        {
+            return new EventWithCommentsDTO
+            {
+                Id = ev.Id,
+                Description = ev.Description,
+                Location = ev.Location,
+                Date = ev.Date,
+                Status = ev.Status,
+                Comments = ev.Comments
+                    .Select(CommentMapper.ToCommentFromEventDTO)
+                    .ToList()
+            };
+        }
+
 
         public static Event ToEntity(CreateEventDTO evDTO)
         {

@@ -21,11 +21,11 @@ namespace ForumAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateEvent([FromBody] CreateEventDTO eventDTO)
+        public async Task<ActionResult> CreateEvent([FromBody] CreateEventDTO eventDTO)
         {
             try
             {
-                Event ev = service.CreateEvent(EventMapper.ToEntity(eventDTO));
+                Event ev = await service.CreateEventAsync(EventMapper.ToEntity(eventDTO));
                 return CreatedAtAction(nameof(CreateEvent), new ResponseMessage { Message = "Event created successfully" });
             }
             catch (ArgumentException ex)
@@ -54,7 +54,7 @@ namespace ForumAPI.Controllers
             try
             {
                 var ev = service.GetEventById(id);
-                return Ok(EventMapper.ToDTO(ev));
+                return Ok(EventMapper.toEventWithCommentsDTO(ev));
             }
             catch (NotFoundException ex){
                 return NotFound(new ResponseMessage { Message = ex.Message });
@@ -68,7 +68,7 @@ namespace ForumAPI.Controllers
         public ActionResult GetEventsByStatus( [FromRoute] string status){
             try{
                 var events = service.GetEventsByStatus(status);
-                return Ok(events);
+                return Ok(events.Select(e => EventMapper.ToDTO(e)).ToList());
             }catch (NotFoundException ex){
                 return NotFound(new ResponseMessage { Message = ex.Message });
             }catch (ArgumentException ex){

@@ -20,12 +20,12 @@ namespace ForumAPI.Services
             this.context = context;
             this.greenitorClient = greenitorClient;
         }
-        public Event CreateEvent(Event ev)
+        public async Task<Event> CreateEventAsync(Event ev)
         {
             if (ev.Date > DateTime.Now)
             {
                 context.Events.Add(ev);
-                context.SaveChangesAsync();
+                await context.SaveChangesAsync();
                 return ev;
             }
             else
@@ -35,7 +35,7 @@ namespace ForumAPI.Services
         }
 
         public Event GetEventById(int id){
-            var ev = context.Events.FirstOrDefault(e => e.Id == id);
+            var ev = context.Events.Include(e => e.Comments).ThenInclude(c => c.Replies).FirstOrDefault(e => e.Id == id);
             if(ev == null)
             {
                 throw new NotFoundException("Event not found");

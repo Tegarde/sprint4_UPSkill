@@ -12,7 +12,7 @@ namespace ForumAPI.Interfaces
         /// <param name="ev">The data for the new event.</param>
         /// <returns>A response message indicating the success or failure of the operation.</returns>
         
-        public Event CreateEvent(Event ev);
+        public Task<Event> CreateEventAsync(Event ev);
 
         public List<Event> GetAllEvents();
 
