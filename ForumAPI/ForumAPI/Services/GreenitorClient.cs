@@ -7,13 +7,12 @@ namespace ForumAPI.Services
 {
     public class GreenitorClient : GreenitorDAO
     {
-        private static HttpClient client;
-
+        private readonly HttpClient client;
         private static readonly string BaseUrl = "http://localhost:8080/api/greenitor";
 
-        public GreenitorClient()
+        public GreenitorClient(HttpClient httpClient)
         {
-            client = new HttpClient();
+            client = httpClient;
         }
 
         public async Task<ResponseMessage> RegisterUser(RegisterUserWithImageDTO registerUserDTO)
@@ -23,20 +22,22 @@ namespace ForumAPI.Services
             if (request.IsSuccessStatusCode)
             {
                 return message!;
-            } else
-            { 
+            }
+            else
+            {
                 throw new ResponseStatusException(request.StatusCode, message!);
             }
         }
 
         public async Task<TokenDTO> Login(LoginDTO loginDTO)
         {
-            var request = await client.PostAsJsonAsync($"{BaseUrl}/login",loginDTO);
-            if(request.IsSuccessStatusCode)
+            var request = await client.PostAsJsonAsync($"{BaseUrl}/login", loginDTO);
+            if (request.IsSuccessStatusCode)
             {
                 var token = await request.Content.ReadFromJsonAsync<TokenDTO>();
                 return token!;
-            }else
+            }
+            else
             {
                 var message = await request.Content.ReadFromJsonAsync<ResponseMessage>();
                 throw new ResponseStatusException(request.StatusCode, message!);
