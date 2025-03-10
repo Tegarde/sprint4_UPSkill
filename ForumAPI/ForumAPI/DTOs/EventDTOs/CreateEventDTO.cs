@@ -24,5 +24,7 @@
             Date = date;
             Image = image;
         }
+
+        public CreateEventDTO() { }
     }
 }

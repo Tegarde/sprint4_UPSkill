@@ -21,8 +21,7 @@ export class CreateEventComponent {
     this.eventForm = this.fb.group({
       description: ['', Validators.required],
       location: ['', Validators.required],
-      date: ['', Validators.required],
-      image: [null]
+      date: ['', Validators.required]
     });
   }
 
@@ -40,16 +39,16 @@ export class CreateEventComponent {
 
     this.isSubmitting = true;
 
-    // Create FormData object
-    const formData = new FormData();
-    formData.append('description', this.eventForm.value.description);
-    formData.append('location', this.eventForm.value.location);
-    formData.append('date', this.eventForm.value.date);
-    if (this.selectedFile) {
-      formData.append('image', this.selectedFile); // Add the image file
-    }
 
-    
+  const formData = new FormData();
+  formData.append('description', this.eventForm.value.description);
+  formData.append('location', this.eventForm.value.location);
+  formData.append('date',this.eventForm.value.date); 
+  if (this.selectedFile) {
+    formData.append('image', this.selectedFile); 
+  } else {
+    formData.append('image', ''); 
+  }
 
     this.eventService.createEvent(formData).subscribe({
       next: (response) => {

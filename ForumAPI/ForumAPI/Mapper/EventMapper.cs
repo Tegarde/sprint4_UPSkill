@@ -16,6 +16,7 @@ namespace ForumAPI.Mapper
                 Description = ev.Description,
                 Location = ev.Location,
                 Date = ev.Date,
+                Image = ev.Image,
                 Status = ev.Status
             };
         }

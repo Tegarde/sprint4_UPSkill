@@ -67,14 +67,14 @@
       <!-- Image Upload Input -->
       <div class="form-group">
         <label for="image">Upload Image</label>
-        <input id="image" type="file" class="form-control-file" (change)="onFileSelected($event)" accept="image/*" required>
+        <input id="image" type="file" class="form-control-file" (change)="onFileSelected($event)" accept="image/*">
         <small class="error" *ngIf="!selectedFile">
 
         </small>
       </div>
 
       <!-- Submit Button -->
-      <button type="submit" class="btn btn-primary" [disabled]="isSubmitting || eventForm.invalid || !selectedFile">
+      <button type="submit" class="btn btn-primary" [disabled]="isSubmitting || eventForm.invalid">
         {{ isSubmitting ? 'Submitting...' : 'Create Event' }}
       </button>
 

@@ -3,6 +3,7 @@ using ForumAPI.Data;
 using ForumAPI.Interfaces;
 using ForumAPI.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
 
 namespace ForumAPI
@@ -25,6 +26,8 @@ namespace ForumAPI
                     });
             });
 
+
+
             builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             // Add services to the container.
@@ -46,6 +49,14 @@ namespace ForumAPI
             builder.Services.AddScoped<FileUploadService>();
 
             var app = builder.Build();
+
+            app.UseStaticFiles();    //Serve files from wwwroot
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                        Path.Combine(builder.Environment.ContentRootPath, "uploads")),
+                RequestPath = "/Uploads"
+            });
 
             app.UseCors("AllowSpecificOrigins");
 

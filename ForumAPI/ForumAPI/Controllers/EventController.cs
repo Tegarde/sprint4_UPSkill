@@ -25,16 +25,12 @@ namespace ForumAPI.Controllers
 
         [HttpPost]
         [ApiExplorerSettings(IgnoreApi = true)]
-        public async Task<ActionResult> CreateEvent(
-            [FromForm] string description,
-            [FromForm] string location,
-            [FromForm] DateTime date,
-            [FromForm] IFormFile image)
+        public async Task<ActionResult> CreateEvent(CreateEventDTO eventDTO)
         {
 
             try
             {   
-                CreateEventDTO eventDTO = new CreateEventDTO(description, location, date, image);
+                //CreateEventDTO eventDTO = new CreateEventDTO(description, location, date, image);
                 Event ev = await service.CreateEventAsync(EventMapper.ToEntity(eventDTO));
                 if (eventDTO.Image!= null) 
                 { 
