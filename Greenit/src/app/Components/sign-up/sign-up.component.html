@@ -13,6 +13,13 @@
             <label for = "password">Password</label>
             <input type="password" formControlName="password" class="form-control">
         </div>
+        <!-- Image Upload Input -->
+      <div class="form-group">
+        <label for="image">Upload Image</label>
+        <input id="image" type="file" class="form-control-file" (change)="onFileSelected($event)" accept="image/*">
+        <small class="error" *ngIf="!selectedFile">
+        </small>
+      </div>
         <div class = "button-container">
             <button [disabled] = "signUpForm.invalid" type = "submit" class = "btn btn-primary">Submit</button>
             @if (message) {

@@ -34,11 +34,16 @@ namespace ForumAPI.Controllers
             try
             {   
                 RegisterUserWithImageDTO user = GreenitorMapper.toRegisterUserWithImageDTO(greenitor);
+
                 if (greenitor.Image!= null) 
                 { 
-                    user.Image = await fileUploadService.UploadFileAsync(greenitor.Image); 
+                    user.Image = await fileUploadService.UploadFileAsync(greenitor.Image);
                 }
-                ResponseMessage message = await service.RegisterUser(user);
+                else
+                {
+                    user.Image = "uploads/f83f0f0a-d7ed-40f4-901b-d68b3b431879.jpg";
+                }
+                    ResponseMessage message = await service.RegisterUser(user);
                 return CreatedAtAction(nameof(RegisterUser), message);
 
             }

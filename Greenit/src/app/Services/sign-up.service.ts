@@ -12,7 +12,7 @@ export class SignUpService {
 
   private endpoint : string = "http://localhost:5000/api/Greenitor";
 
-  register(greenitor : GreenitorRegister) : Observable<any> {
+  register(greenitor : any) : Observable<any> {
     return this.client.post<any>(this.endpoint, greenitor);
   }
 
