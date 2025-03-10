@@ -188,7 +188,7 @@ namespace ForumAPI.Controllers
                   post.Image = await fileUploadService.UploadFileAsync(postDTO.Image); 
                 }
                 var createdPost = await service.CreatePost(post);
-                return CreatedAtAction(nameof(CreatePost), new ResponseMessage { Message = "Post created successfully." });
+                return CreatedAtAction(nameof(CreatePost), new { id = createdPost.Id }, PostMapper.ToDTO(createdPost));
             }
             catch(ArgumentException ex)
             {

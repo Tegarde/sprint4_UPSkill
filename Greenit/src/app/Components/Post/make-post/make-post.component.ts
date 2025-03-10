@@ -4,6 +4,7 @@ import { PostService } from '../../../Services/post.service';
 import { SignInService } from '../../../Services/sign-in.service';
 import { CategoryService } from '../../../Services/category.service';
 import { NgFor, NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-make-post',
@@ -25,7 +26,8 @@ export class MakePostComponent implements OnInit {
     private fb : FormBuilder,
     private authService : SignInService,
     private categoryService : CategoryService,
-    private eRef : ElementRef
+    private eRef : ElementRef,
+    private router : Router
   ) {
     this.postForm = this.fb.group({
       'title' : ['', Validators.required],
@@ -41,18 +43,20 @@ export class MakePostComponent implements OnInit {
   }
 
   submitPost() {
-    if (!this.selectedFile) {
-      this.postService.createPost(this.postForm.value).subscribe(() => window.location.reload());
-    } else {
       let formData = new FormData();
       formData.append('title', this.postForm.value.title);
       formData.append('content', this.postForm.value.content);
       formData.append('createdBy', this.postForm.value.createdBy);
       formData.append('category', this.postForm.value.category);
-      formData.append('image', this.selectedFile);
-
-      this.postService.createPost(formData).subscribe(() => window.location.reload());
-    }
+      if (this.selectedFile) {
+        formData.append('image', this.selectedFile);
+      }
+      this.postService.createPost(formData).subscribe({
+        next : (response) => {
+          console.log(response.id);
+          this.router.navigate(['/post'], { queryParams: { id: response.id } });
+        }
+      });
   }
 
   toggleForm() {
