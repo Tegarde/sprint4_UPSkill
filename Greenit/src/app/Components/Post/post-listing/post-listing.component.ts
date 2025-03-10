@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Post } from '../../../Models/post';
-import { DatePipe, NgFor } from '@angular/common';
+import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({

@@ -26,6 +26,7 @@ namespace ForumAPI.Mapper
                 Status = post.Status,
                 Category = post.Category,
                 Interactions = post.Interactions,
+                Image = post.Image,
                 LikedBy = post.LikedBy.Count,
                 DislikedBy = post.DislikedBy.Count,
                 Comments = post.Comments

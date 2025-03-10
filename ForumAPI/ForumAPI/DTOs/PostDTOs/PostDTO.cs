@@ -48,6 +48,8 @@ namespace ForumAPI.DTOs
         /// </summary>
         public int Interactions { get; set; }
 
+        public string? Image { get; set; }
+
         /// <summary>
         /// The comments associated with the post.
         /// </summary>
