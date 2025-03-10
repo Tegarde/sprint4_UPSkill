@@ -65,22 +65,9 @@ namespace ForumAPI.Services
                     throw new NotFoundException("Event not found");
                 }
 
-<<<<<<< Updated upstream
-            await greenitorDAO.GetUserByUsername(comment.CreatedBy);
 
-            comment.Event = ev;
-            comment.CreatedAt = DateTime.UtcNow;
-            context.Comments.Add(comment);
-            await context.SaveChangesAsync();
-            await greenitorDAO.IncrementUserInteractions(comment.CreatedBy);
-            return comment;
-=======
                 //Get user from greenitorDAO
                 GreenitorDTO user = await greenitorDAO.GetUserByUsername(comment.CreatedBy);
-                if (user == null)
-                {
-                    throw new UserNotFoundException("User not found");
-                }
 
                 comment.Event = ev;
                 comment.CreatedAt = DateTime.UtcNow;
@@ -95,29 +82,12 @@ namespace ForumAPI.Services
                 transaction.Rollback();
                 throw ex;
             }
-            
->>>>>>> Stashed changes
         }
 
         public async Task<Comment> CommentAPost(Comment comment)
         {
 
-<<<<<<< Updated upstream
-            await greenitorDAO.GetUserByUsername(comment.CreatedBy);
 
-            comment.Post = post;
-            comment.ParentPostId = post.Id;
-
-            comment.CreatedAt = DateTime.UtcNow;
-
-            context.Comments.Add(comment);
-
-            await context.SaveChangesAsync();
-
-            await greenitorDAO.IncrementUserInteractions(comment.CreatedBy);
-
-            return comment;
-=======
             using var transaction = await context.Database.BeginTransactionAsync();
             try
             {
@@ -128,10 +98,7 @@ namespace ForumAPI.Services
                 }
 
                 GreenitorDTO user = await greenitorDAO.GetUserByUsername(comment.CreatedBy);
-                if (user == null)
-                {
-                    throw new UserNotFoundException("User not found");
-                }
+               
                 comment.Post = post;
                 comment.ParentPostId = post.Id;
 
@@ -152,8 +119,6 @@ namespace ForumAPI.Services
                 transaction.Rollback();
                 throw ex;
             }
-            
->>>>>>> Stashed changes
         }
 
         public async Task<GreenitorStatisticsDTO> GetCommentStatisticsByUsername(string username)
