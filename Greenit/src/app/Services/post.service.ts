@@ -12,6 +12,10 @@ export class PostService {
 
   constructor(private client : HttpClient) { }
 
+  resetPostInteractions(postId : number) : Observable<any> {
+    return this.client.patch<any>(`${this.endpoint}/reset/${postId}`, {});
+  }
+
   getTrendingPosts() : Observable<Post[]> {
     return this.client.get<Post[]>(`${this.endpoint}/top/5`);
   }

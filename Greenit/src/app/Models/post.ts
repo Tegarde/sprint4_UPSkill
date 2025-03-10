@@ -12,4 +12,5 @@ export interface Post {
     likedBy : number;
     dislikedBy : number;
     comments : Comment[];
+    image? : string
 }

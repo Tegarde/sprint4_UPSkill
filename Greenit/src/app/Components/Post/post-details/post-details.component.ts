@@ -6,6 +6,7 @@ import { PostService } from '../../../Services/post.service';
 import { LikeDislikeComponent } from '../../like-dislike/like-dislike.component';
 import { MakeCommentComponent } from "../../make-comment/make-comment.component";
 import { ActivatedRoute } from '@angular/router';
+import { SignInService } from '../../../Services/sign-in.service';
 
 @Component({
   selector: 'app-post-details',
@@ -19,7 +20,7 @@ export class PostDetailsComponent implements OnInit {
 
   makingAComment = false;
 
-  constructor(private postService : PostService, private route : ActivatedRoute) { }
+  constructor(private authService : SignInService, private postService : PostService, private route : ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe({
@@ -27,6 +28,13 @@ export class PostDetailsComponent implements OnInit {
         this.postService.getPostById(params['id']).subscribe({
           next : (post) => {
             this.post = post;
+            this.authService.getUserSubject().subscribe({
+              next : (user) => {
+                if (user != null && user.username == post.createdBy) {
+                  this.postService.resetPostInteractions(post.id).subscribe();
+                }
+              }
+            })
           },
           error : (error) => {
             console.log(error);

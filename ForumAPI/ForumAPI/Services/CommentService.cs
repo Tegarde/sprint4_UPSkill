@@ -35,6 +35,11 @@ namespace ForumAPI.Services
 
             if (parentComment.ParentPostId != null)
             {
+                var post = context.Posts.FirstOrDefault(p => p.Id == parentComment.ParentPostId);
+                if (post != null)
+                {
+                    post.Interactions++;
+                }
                 comment.ParentPostId = parentComment.ParentPostId;
             }
 
@@ -51,12 +56,16 @@ namespace ForumAPI.Services
 
         public async Task<Comment> CommentAnEvent(Comment comment)
         {
-            var ev = context.Events.FirstOrDefault(e => e.Id == comment.EventId);
-            if (ev == null)
+            using var transaction = await context.Database.BeginTransactionAsync();
+            try
             {
-                throw new NotFoundException("Event not found");
-            }
+                var ev = context.Events.FirstOrDefault(e => e.Id == comment.EventId);
+                if (ev == null)
+                {
+                    throw new NotFoundException("Event not found");
+                }
 
+<<<<<<< Updated upstream
             await greenitorDAO.GetUserByUsername(comment.CreatedBy);
 
             comment.Event = ev;
@@ -65,14 +74,35 @@ namespace ForumAPI.Services
             await context.SaveChangesAsync();
             await greenitorDAO.IncrementUserInteractions(comment.CreatedBy);
             return comment;
+=======
+                //Get user from greenitorDAO
+                GreenitorDTO user = await greenitorDAO.GetUserByUsername(comment.CreatedBy);
+                if (user == null)
+                {
+                    throw new UserNotFoundException("User not found");
+                }
+
+                comment.Event = ev;
+                comment.CreatedAt = DateTime.UtcNow;
+                context.Comments.Add(comment);
+                await context.SaveChangesAsync();
+                await greenitorDAO.IncrementUserInteractions(comment.CreatedBy);
+
+                transaction.Commit();
+                return comment;
+            } catch (Exception ex)
+            {
+                transaction.Rollback();
+                throw ex;
+            }
+            
+>>>>>>> Stashed changes
         }
 
         public async Task<Comment> CommentAPost(Comment comment)
         {
-            var post = context.Posts.FirstOrDefault(p => p.Id == comment.PostId);
-            if (post == null)
-            { throw new NotFoundException("Post not found"); }
 
+<<<<<<< Updated upstream
             await greenitorDAO.GetUserByUsername(comment.CreatedBy);
 
             comment.Post = post;
@@ -87,6 +117,43 @@ namespace ForumAPI.Services
             await greenitorDAO.IncrementUserInteractions(comment.CreatedBy);
 
             return comment;
+=======
+            using var transaction = await context.Database.BeginTransactionAsync();
+            try
+            {
+                var post = context.Posts.FirstOrDefault(p => p.Id == comment.PostId);
+                if (post == null)
+                {
+                    throw new NotFoundException("Post not found");
+                }
+
+                GreenitorDTO user = await greenitorDAO.GetUserByUsername(comment.CreatedBy);
+                if (user == null)
+                {
+                    throw new UserNotFoundException("User not found");
+                }
+                comment.Post = post;
+                comment.ParentPostId = post.Id;
+
+                comment.CreatedAt = DateTime.UtcNow;
+
+                context.Comments.Add(comment);
+
+                post.Interactions++;
+
+                await context.SaveChangesAsync();
+
+                await greenitorDAO.IncrementUserInteractions(comment.CreatedBy);
+
+                transaction.Commit();
+                return comment;
+            } catch (Exception ex)
+            {
+                transaction.Rollback();
+                throw ex;
+            }
+            
+>>>>>>> Stashed changes
         }
 
         public async Task<GreenitorStatisticsDTO> GetCommentStatisticsByUsername(string username)
