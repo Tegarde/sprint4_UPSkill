@@ -179,7 +179,7 @@ namespace ForumAPI.Controllers
         /// <param name="postDTO">The post details.</param>
         /// <returns>The created post.</returns>
         [HttpPost]
-        public async Task<ActionResult> CreatePost([FromBody] CreatePostDTO postDTO)
+        public async Task<ActionResult> CreatePost(CreatePostDTO postDTO)
         {
             try
             {   
@@ -318,8 +318,43 @@ namespace ForumAPI.Controllers
         [HttpGet("hottest/{topN}")]
         public async Task<IActionResult> GetHottestPosts(int topN)
         {
-            var posts = await service.GetHottestPosts(topN);
-            return Ok(posts);
+            try
+            {
+                var posts = await service.GetHottestPosts(topN);
+                return (posts.Any()) ? Ok(posts.Select(post => PostMapper.ToDTO(post)).ToList()) : NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = "Something went wrong" });
+            }
+        }
+
+        [HttpGet("monthly/{topN}")]
+        public async Task<IActionResult> GetMonthlyPosts(int topN)
+        {
+            try
+            {
+                var posts = await service.GetHottestPostsFromLastMonth(topN);
+                return (posts.Any()) ? Ok(posts.Select(post => PostMapper.ToDTO(post)).ToList()) : NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = "Something went wrong" });
+            }
+        }
+
+        [HttpGet("daily/{topN}")]
+        public async Task<IActionResult> GetDailyPosts(int topN)
+        {
+            try
+            {
+                var posts = await service.GetHottestPostsFromLastDay(topN);
+                return (posts.Any()) ? Ok(posts.Select(post => PostMapper.ToDTO(post)).ToList()) : NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = "Something went wrong" });
+            }
         }
 
         [HttpPatch("reset/{id}")]

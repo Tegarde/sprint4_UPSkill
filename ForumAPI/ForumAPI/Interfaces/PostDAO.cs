@@ -37,6 +37,10 @@ namespace ForumAPI.Interfaces
 
         Task<List<Post>> GetHottestPosts(int topN);
 
+        Task<List<Post>> GetHottestPostsFromLastMonth(int topN);
+
+        Task<List<Post>> GetHottestPostsFromLastDay(int topN);
+
         Task<List<Post>> GetNotificationsByUser(string username);
 
         Task ResetPostInteractionCount(int postId);

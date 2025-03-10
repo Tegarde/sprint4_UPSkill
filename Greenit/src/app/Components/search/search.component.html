@@ -1,5 +1,10 @@
-@if (posts) {
-    <app-post-listing [posts]="posts"></app-post-listing>
-} @else {
-    <h1>Nothing could be found with "{{query}}"</h1>
-}
+<div class="container">
+    <h1>Search results for "{{query}}":</h1>
+    <div class="posts">
+        @if (posts) {
+            <app-post-listing [posts]="posts"></app-post-listing>
+        } @else {
+            <h1>Nothing could be found with "{{query}}"</h1>
+        }
+    </div>
+</div>

@@ -13,6 +13,9 @@
                 <option *ngFor="let category of categories" [value]="category.description">{{category.description}}</option>
             </select>
         </div>
-        <button *ngIf="showForm" [disabled]="postForm.invalid" type="submit" class="submit-button">Submit</button>
+        <div *ngIf="showForm" class="image-submit">
+            <input type="file" (change)="onFileSelected($event)" accept="image/*">
+            <button [disabled]="postForm.invalid" type="submit" class="submit-button">Submit</button>
+        </div>
     </form>
 </div>

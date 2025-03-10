@@ -4,7 +4,7 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     border: 1px solid black;
-    max-width: max-content;
+    min-width: 350px;
     max-height: fit-content;
     padding: 5px;
     margin: 5px;
@@ -23,4 +23,12 @@
 
 .post:hover {
     background: linear-gradient(135deg, #CFE58B, rgb(212, 214, 164));
+}
+
+.container {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-height: 90vh;
 }
