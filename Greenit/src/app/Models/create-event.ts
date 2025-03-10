@@ -6,4 +6,6 @@ export interface CreateEvent {
    
     date: Date;
 
+    image: File;
+
 }

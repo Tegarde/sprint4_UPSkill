@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
     <h2>Create Event</h2>
     
     <form [formGroup]="eventForm" (ngSubmit)="createEvent()">
@@ -31,5 +31,56 @@
       </button>
       <div *ngIf=msg class="message">{{ msg }}</div>
     </form>
-  </div>
+  </div> -->
+
+  <div class="container">
+    <h2>Create Event</h2>
+    
+    <form [formGroup]="eventForm" (ngSubmit)="createEvent()" enctype="multipart/form-data">
+      <!-- Description Input -->
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input id="description" formControlName="description" class="form-control" type="text" required>
+        <small class="error" *ngIf="eventForm.controls['description'].invalid && eventForm.controls['description'].touched">
+          Description is required.
+        </small>
+      </div>
+  
+      <!-- Location Input -->
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input id="location" formControlName="location" class="form-control" type="text" required>
+        <small class="error" *ngIf="eventForm.controls['location'].invalid && eventForm.controls['location'].touched">
+          Location is required.
+        </small>
+      </div>
+  
+      <!-- Date Input -->
+      <div class="form-group">
+        <label for="date">Date</label>
+        <input id="date" formControlName="date" class="form-control" type="datetime-local" required>
+        <small class="error" *ngIf="eventForm.controls['date'].invalid && eventForm.controls['date'].touched">
+          Date is required.
+        </small>
+      </div>
+
+      <!-- Image Upload Input -->
+      <div class="form-group">
+        <label for="image">Upload Image</label>
+        <input id="image" type="file" class="form-control-file" (change)="onFileSelected($event)" accept="image/*" required>
+        <small class="error" *ngIf="!selectedFile">
+
+        </small>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary" [disabled]="isSubmitting || eventForm.invalid || !selectedFile">
+        {{ isSubmitting ? 'Submitting...' : 'Create Event' }}
+      </button>
+
+      <!-- Message Display -->
+      <div *ngIf="msg" class="message">{{ msg }}</div>
+    </form>
+</div>
+
   

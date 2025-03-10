@@ -15,13 +15,22 @@ export class CreateEventComponent {
   eventForm: FormGroup;
   isSubmitting = false;
   msg = '';
+  selectedFile: File | null = null;
 
   constructor(private fb: FormBuilder, private eventService: EventService, private router: Router) {
     this.eventForm = this.fb.group({
       description: ['', Validators.required],
       location: ['', Validators.required],
-      date: ['', Validators.required]
+      date: ['', Validators.required],
+      image: [null]
     });
+  }
+
+  onFileSelected(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files.length > 0) {
+      this.selectedFile = inputElement.files[0];
+    }
   }
 
   createEvent() {
@@ -31,7 +40,18 @@ export class CreateEventComponent {
 
     this.isSubmitting = true;
 
-    this.eventService.createEvent(this.eventForm.value).subscribe({
+    // Create FormData object
+    const formData = new FormData();
+    formData.append('description', this.eventForm.value.description);
+    formData.append('location', this.eventForm.value.location);
+    formData.append('date', this.eventForm.value.date);
+    if (this.selectedFile) {
+      formData.append('image', this.selectedFile); // Add the image file
+    }
+
+    
+
+    this.eventService.createEvent(formData).subscribe({
       next: (response) => {
         this.msg=response.message;
         this.router.navigate(['/events']); // Redirect to events list

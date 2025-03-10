@@ -30,6 +30,7 @@ namespace ForumAPI.Mapper
                 Location = ev.Location,
                 Date = ev.Date,
                 Status = ev.Status,
+                Image = ev.Image,
                 Comments = ev.Comments
                     .Select(CommentMapper.ToCommentFromEventDTO)
                     .ToList()

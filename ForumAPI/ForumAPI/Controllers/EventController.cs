@@ -4,6 +4,7 @@ using ForumAPI.DTOs.EventDTOs;
 using ForumAPI.Interfaces;
 using ForumAPI.Mapper;
 using ForumAPI.Models;
+using ForumAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -14,18 +15,33 @@ namespace ForumAPI.Controllers
     public class EventController : ControllerBase
     {
         private readonly EventDAO service;
+        private readonly FileUploadService fileUploadService;
 
-        public EventController(EventDAO service)
+        public EventController(EventDAO service, FileUploadService fileUploadService)
         {
             this.service = service;
+            this.fileUploadService = fileUploadService;
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateEvent([FromBody] CreateEventDTO eventDTO)
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public async Task<ActionResult> CreateEvent(
+            [FromForm] string description,
+            [FromForm] string location,
+            [FromForm] DateTime date,
+            [FromForm] IFormFile image)
         {
+
             try
-            {
+            {   
+                CreateEventDTO eventDTO = new CreateEventDTO(description, location, date, image);
                 Event ev = await service.CreateEventAsync(EventMapper.ToEntity(eventDTO));
+                if (eventDTO.Image!= null) 
+                { 
+                    string url = await fileUploadService.UploadFileAsync(eventDTO.Image);
+                    await service.AddImage(ev.Id, url);
+                }
+                
                 return CreatedAtAction(nameof(CreateEvent), new ResponseMessage { Message = "Event created successfully" });
             }
             catch (ArgumentException ex)

@@ -141,6 +141,17 @@ namespace ForumAPI.Services
             await context.SaveChangesAsync();
         }
 
+        public async Task AddImage(int eventId, string url)
+        {
+            var ev = await context.Events.FirstOrDefaultAsync(e => e.Id == eventId);
+            if (ev == null)
+            {
+                throw new NotFoundException("Event not found");
+            }
+            ev.Image = url;
+            await context.SaveChangesAsync();
+        }
+
 
     }
 }

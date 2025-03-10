@@ -14,6 +14,8 @@ namespace ForumAPI.DTOs.EventDTOs
 
         public EventStatus Status { get; set; }
 
+        public string Image { get; set; }
+
         public List<CommentFromEventDTO> Comments { get; set; }
     }
 }

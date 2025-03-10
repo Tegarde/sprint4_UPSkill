@@ -12,8 +12,8 @@ export class EventService {
 
   constructor(private client : HttpClient) { }
 
-  createEvent(event : CreateEvent) {
-    return this.client.post<any>(`${this.endpoint}`, event);
+  createEvent(formData: FormData): Observable<any> {
+    return this.client.post<any>(`${this.endpoint}`, formData);
   }
 
   getEventsByStatus(status: string): Observable<Evento[]> {

@@ -27,5 +27,7 @@ namespace ForumAPI.Interfaces
         Task<Attendance> CreateAttendance(Attendance attendance);
 
         Task UnattendEvent(Attendance attendance);
+
+        Task AddImage(int eventId, string url);
     }
 }

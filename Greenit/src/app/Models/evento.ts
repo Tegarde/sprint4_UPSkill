@@ -12,5 +12,7 @@ export interface Evento {
 
     status : string;
 
+    image? : string;
+
     comments: Comment[];
 }

@@ -27,6 +27,8 @@ namespace ForumAPI.Models
         [MaxLength(100)]
         public string Location { get; set; }
 
+        public string? Image { get; set; }
+
         /// <summary>
         /// The date of the event.
         /// </summary>
