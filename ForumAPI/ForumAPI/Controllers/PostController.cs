@@ -179,7 +179,7 @@ namespace ForumAPI.Controllers
         /// <param name="postDTO">The post details.</param>
         /// <returns>The created post.</returns>
         [HttpPost]
-        public async Task<ActionResult> CreatePost([FromBody] CreatePostDTO postDTO)
+        public async Task<ActionResult> CreatePost(CreatePostDTO postDTO)
         {
             try
             {   

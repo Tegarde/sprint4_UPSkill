@@ -19,6 +19,8 @@ export class MakePostComponent implements OnInit {
 
   showForm = false;
 
+  selectedFile? : File
+
   constructor(private postService : PostService,
     private fb : FormBuilder,
     private authService : SignInService,
@@ -39,7 +41,18 @@ export class MakePostComponent implements OnInit {
   }
 
   submitPost() {
-    this.postService.createPost(this.postForm.value).subscribe(() => window.location.reload());
+    if (!this.selectedFile) {
+      this.postService.createPost(this.postForm.value).subscribe(() => window.location.reload());
+    } else {
+      let formData = new FormData();
+      formData.append('title', this.postForm.value.title);
+      formData.append('content', this.postForm.value.content);
+      formData.append('createdBy', this.postForm.value.createdBy);
+      formData.append('category', this.postForm.value.category);
+      formData.append('image', this.selectedFile);
+
+      this.postService.createPost(formData).subscribe(() => window.location.reload());
+    }
   }
 
   toggleForm() {
@@ -50,6 +63,17 @@ export class MakePostComponent implements OnInit {
   handleClickOutside(event: Event) {
     if (!this.eRef.nativeElement.contains(event.target)) {
       this.showForm = false;
+      this.postForm.get('title')?.reset();
+      this.postForm.get('content')?.reset();
+      this.postForm.get('category')?.patchValue('');
+      this.selectedFile = undefined;
+    }
+  }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
     }
   }
 }
