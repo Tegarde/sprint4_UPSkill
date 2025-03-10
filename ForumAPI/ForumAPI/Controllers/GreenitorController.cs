@@ -29,7 +29,7 @@ namespace ForumAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ResponseMessage>> RegisterUser( RegisterUserDTO greenitor)
+        public async Task<ActionResult<ResponseMessage>> RegisterUser([FromForm] RegisterUserDTO greenitor)
         {
             try
             {   
