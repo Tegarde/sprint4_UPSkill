@@ -1,13 +1,11 @@
 ﻿using ForumAPI.CustomExceptions;
 using ForumAPI.Data;
-using ForumAPI.DTOs;
 using ForumAPI.DTOs.GreenitorDTOs;
 using ForumAPI.DTOs.PostDTOs;
 using ForumAPI.Interfaces;
 using ForumAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Any;
 
 namespace ForumAPI.Services
 {
@@ -60,13 +58,7 @@ namespace ForumAPI.Services
 
         public async Task<List<Post>> GetPostsByUser(string username)
         {
-
-            GreenitorDTO? user = await greenitorClient.GetUserByUsername(username);
-            if (user == null)
-            {
-                throw new Exception("User does not exist.");
-            }
-
+            await greenitorClient.GetUserByUsername(username);
 
             var posts = await context.Posts
                 .Where(p => p.CreatedBy == username && p.Status)
@@ -531,11 +523,7 @@ namespace ForumAPI.Services
 
         public async Task<int> GetPostInteractionsByUser(int postId, string username)
         {
-            var user = await greenitorClient.GetUserByUsername(username);
-            if (user == null)
-            {
-                throw new UserNotFoundException("User not found.");
-            }
+            await greenitorClient.GetUserByUsername(username);
 
             var postExists = await context.Posts.AnyAsync(p => p.Id == postId);
             if (!postExists)
