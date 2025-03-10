@@ -11,7 +11,7 @@ public interface GreenitorDAO {
 
     Greenitor registerUser(Greenitor greenitor);
 
-    Token loginUser(LoginDTO loginDTO) throws AccountNotFoundException;
+    Token loginUser(LoginDTO loginDTO);
 
     Greenitor getGreenitorByUsername(String username);
 
