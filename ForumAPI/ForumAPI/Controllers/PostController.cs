@@ -4,7 +4,6 @@ using ForumAPI.Mapper;
 using ForumAPI.Interfaces;
 using ForumAPI.CustomExceptions;
 using ForumAPI.DTOs.PostDTOs;
-using ForumAPI.Models;
 using ForumAPI.Services;
 
 namespace ForumAPI.Controllers
@@ -68,6 +67,10 @@ namespace ForumAPI.Controllers
                 var posts = await service.GetPostsByUser(username);
                 var postDTOs = posts.Select(p => PostMapper.ToDTO(p)).ToList();
                 return Ok(postDTOs);
+            }
+            catch (ResponseStatusException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
             }
             catch (Exception ex)
             {
@@ -188,7 +191,7 @@ namespace ForumAPI.Controllers
                   post.Image = await fileUploadService.UploadFileAsync(postDTO.Image); 
                 }
                 var createdPost = await service.CreatePost(post);
-                return CreatedAtAction(nameof(CreatePost), new ResponseMessage { Message = "Post created successfully." });
+                return CreatedAtAction(nameof(CreatePost), new { id = createdPost.Id }, PostMapper.ToDTO(createdPost));
             }
             catch(ArgumentException ex)
             {
@@ -487,9 +490,9 @@ namespace ForumAPI.Controllers
                 int likes = await service.GetPostInteractionsByUser(id,username);
                 return Ok(new { Interaction = likes });
             }
-            catch(UserNotFoundException ex)
+            catch (ResponseStatusException ex)
             {
-                return NotFound(new ResponseMessage { Message = ex.Message });
+                return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
             }
             catch (NotFoundException ex)
             {

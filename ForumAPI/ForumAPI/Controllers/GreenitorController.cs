@@ -73,7 +73,6 @@ namespace ForumAPI.Controllers
             {
                 return StatusCode(400, ex.Message);
             }
-
         }
 
         [HttpGet("username/{username}")]
