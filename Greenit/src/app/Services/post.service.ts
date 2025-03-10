@@ -55,4 +55,16 @@ export class PostService {
   createPost(post : any) : Observable<any> {
     return this.client.post<any>(this.endpoint, post);
   }
+
+  getMonthlyTrendingPosts(topN : number) : Observable<any> {
+    return this.client.get<any>(`${this.endpoint}/monthly/${topN}`);
+  }
+
+  getHottestPosts(topN : number) : Observable<any> {
+    return this.client.get<any>(`${this.endpoint}/hottest/${topN}`);
+  }
+
+  getDailyTrendingPosts(topN : number) : Observable<any> {
+    return this.client.get<any>(`${this.endpoint}/daily/${topN}`);
+  }
 }

@@ -1,0 +1,20 @@
+.container {
+    border: 1px solid black;
+    margin: 0;
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #CFE58B;
+}
+
+.title {
+    margin: 0;
+}
+
+.posts {
+    margin: 0;
+}

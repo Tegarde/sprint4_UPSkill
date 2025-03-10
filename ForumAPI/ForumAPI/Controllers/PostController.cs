@@ -343,6 +343,20 @@ namespace ForumAPI.Controllers
             }
         }
 
+        [HttpGet("daily/{topN}")]
+        public async Task<IActionResult> GetDailyPosts(int topN)
+        {
+            try
+            {
+                var posts = await service.GetHottestPostsFromLastDay(topN);
+                return (posts.Any()) ? Ok(posts.Select(post => PostMapper.ToDTO(post)).ToList()) : NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = "Something went wrong" });
+            }
+        }
+
         [HttpPatch("reset/{id}")]
         public async Task<ActionResult> ResetPost([FromRoute] int id)
         {
