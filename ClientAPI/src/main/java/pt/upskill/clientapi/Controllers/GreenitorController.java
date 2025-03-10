@@ -40,7 +40,7 @@ public class GreenitorController {
     public ResponseEntity<?> loginUser(@RequestBody LoginDTO loginDTO) {
         try {
             return new ResponseEntity<>(service.loginUser(loginDTO), HttpStatus.OK);
-        } catch (AccountNotFoundException e) {
+        } catch (UserNotFoundException e) {
             return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.NOT_FOUND);
         }catch (IllegalArgumentException e) {
             return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.UNAUTHORIZED);
