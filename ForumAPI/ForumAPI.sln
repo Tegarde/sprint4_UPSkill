@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35818.85 d17.13
+VisualStudioVersion = 17.13.35818.85
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForumAPI", "ForumAPI\ForumAPI.csproj", "{B4E7B763-6828-4F0F-9B22-30756778BB38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForumAPI.Tests", "ForumAPITests\ForumAPI.Tests.csproj", "{61B9CD52-8681-478D-AC74-CB9C6DE150C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B4E7B763-6828-4F0F-9B22-30756778BB38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4E7B763-6828-4F0F-9B22-30756778BB38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4E7B763-6828-4F0F-9B22-30756778BB38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61B9CD52-8681-478D-AC74-CB9C6DE150C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61B9CD52-8681-478D-AC74-CB9C6DE150C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61B9CD52-8681-478D-AC74-CB9C6DE150C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61B9CD52-8681-478D-AC74-CB9C6DE150C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
