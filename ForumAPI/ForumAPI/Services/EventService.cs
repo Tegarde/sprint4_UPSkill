@@ -155,6 +155,16 @@ namespace ForumAPI.Services
             await context.SaveChangesAsync();
         }
 
+        public async Task<bool> isAtending(int eventId, string username)
+        {
+            var ev = await context.Events.FirstOrDefaultAsync(e => e.Id == eventId);
+            if (ev == null)
+            {
+                throw new NotFoundException("Event not found");
+            }
+            return context.Attendances.Any(a => a.EventId == ev.Id && a.User == username);
+        }
+
 
     }
 }

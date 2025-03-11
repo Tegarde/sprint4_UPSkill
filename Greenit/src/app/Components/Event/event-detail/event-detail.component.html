@@ -13,6 +13,10 @@
       <button (click)="toggleMakingAComment()">
         {{ makingAComment ? 'Cancelar Comentário' : 'Comentar Evento' }}
       </button>
+      <button *ngIf="evento.status==0" (click)="toggleAttendEvent()" [disabled]="isLoading" 
+        [ngClass]="{'attending': isAttending, 'not-attending': !isAttending}">
+  {{ isAttending ? 'Desistir' : 'Participar' }}
+</button>
       <button routerLink="/listEvents">Voltar à lista</button>
     </div>
     <!-- Componente para fazer comentário (aparece apenas quando makingAComment for true) -->

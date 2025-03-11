@@ -5,6 +5,7 @@ using ForumAPI.Interfaces;
 using ForumAPI.Mapper;
 using ForumAPI.Models;
 using ForumAPI.Services;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForumAPI.Controllers
@@ -103,7 +104,7 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpPost("attendance")]
+        [HttpPost("attend")]
         public async Task<ActionResult> AttendEvent([FromBody] EventAttendanceDTO attendEventDTO){
             try{
                 var attendance = await service.CreateAttendance(EventMapper.ToEntity(attendEventDTO));
@@ -127,8 +128,8 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpDelete("attendance")]
-        public async Task<ActionResult> CancelEventAttendance([FromBody] EventAttendanceDTO attendEventDTO){
+        [HttpDelete("unattend")]
+        public async Task<ActionResult> UnattendEvent([FromBody] EventAttendanceDTO attendEventDTO){
             try{
                 await service.UnattendEvent(EventMapper.ToEntity(attendEventDTO));
                 return Ok(new ResponseMessage { Message = "Event attendance canceled successfully" });
@@ -138,6 +139,24 @@ namespace ForumAPI.Controllers
                 return StatusCode((int) ex.StatusCode, ex.ResponseMessage);
             }catch(Exception ex){
                 return BadRequest(new ResponseMessage { Message = "An error occurred while canceling the event attendance" });
+            }
+        }
+
+        [HttpGet("isAttending/{eventId}/{username}")]
+        public async Task<ActionResult> isAttending(int eventId,string username)
+        {
+            try
+            {
+                return Ok(await service.isAtending(eventId, username));
+
+            }
+            catch(NotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(new ResponseMessage { Message = "Something went wrong" });
             }
         }
         
