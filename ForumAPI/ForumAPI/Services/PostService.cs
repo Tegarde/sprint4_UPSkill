@@ -561,6 +561,22 @@ namespace ForumAPI.Services
             return new PostInteractionsDTO { Likes = postLikes, Dislikes = postDislikes };
         }
 
+        public async Task<int> GetPostFavoriteByUsername(PostFavorite postFavorite)
+        {
+            await greenitorClient.GetUserByUsername(postFavorite.User);
+
+            var post = await context.Posts.FirstOrDefaultAsync(p => p.Id == postFavorite.PostId);
+
+            if (post == null)
+            {
+                throw new NotFoundException("Post not found.");
+            }
+
+            var postFav = await context.PostFavorites.FirstOrDefaultAsync(p => p.PostId == postFavorite.PostId && p.User == postFavorite.User);
+
+            return (postFav != null) ? 1 : 0;
+        }
+
 
 
     }

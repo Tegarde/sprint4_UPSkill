@@ -5,7 +5,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    background-color: #cee58b9a;
+    background-color: rgba(170, 202, 172, 0.711);
     min-height: 90vh;
     width: 180vh;
     border-radius: 10px;

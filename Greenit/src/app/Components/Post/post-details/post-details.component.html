@@ -10,6 +10,7 @@
         </div>
         <div class="buttons">
             <app-like-dislike class="like-dislike" [postId]="post.id"></app-like-dislike>
+            <app-favorite-button class="favorite-button" [postId]="post.id"></app-favorite-button>
         </div>
         <div class="comment-section">
             <button *ngIf="!makingAComment" (click)="toggleMakingAComment()" class="comment-btn">Comment on this post</button>

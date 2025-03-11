@@ -71,4 +71,16 @@ export class PostService {
   getDailyTrendingPosts(topN : number) : Observable<any> {
     return this.client.get<any>(`${this.endpoint}/daily/${topN}`);
   }
+
+  addFavoritePost(id : number, username : string) : Observable<any> {
+    return this.client.post<any>(`${this.endpoint}/favorite`, {postId : id, user : username});
+  }
+
+  removeFavoritePost(id : number, username : string) : Observable<any> {
+    return this.client.delete<any>(`${this.endpoint}/favorite`, {body : {postId : id, user : username}});
+  }
+
+  isPostFavorite(id : number, username : string) : Observable<any> {
+    return this.client.get<any>(`${this.endpoint}/${id}/favorite/${username}`);
+  }
 }

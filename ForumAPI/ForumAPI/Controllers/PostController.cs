@@ -5,6 +5,7 @@ using ForumAPI.Interfaces;
 using ForumAPI.CustomExceptions;
 using ForumAPI.DTOs.PostDTOs;
 using ForumAPI.Services;
+using ForumAPI.Models;
 
 namespace ForumAPI.Controllers
 {
@@ -252,12 +253,12 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpPost("favorite/add/{id}")]
-        public async Task<ActionResult> AddPostToFavorites([FromRoute] int id, [FromBody] string username)
+        [HttpPost("favorite")]
+        public async Task<ActionResult> AddPostToFavorites(PostFavoriteDTO dto)
         {
             try
             {
-                await service.AddPostToFavorites(id, username);
+                await service.AddPostToFavorites(dto.PostId, dto.User);
                 return Ok(new ResponseMessage { Message = "Post added to favorites successfully." });
             }
             catch (KeyNotFoundException ex)
@@ -270,12 +271,12 @@ namespace ForumAPI.Controllers
             }
         }
 
-        [HttpDelete("favorite/remove/{id}")]
-        public async Task<ActionResult> RemovePostFromFavorites([FromRoute] int id, [FromBody] string username)
+        [HttpDelete("favorite")]
+        public async Task<ActionResult> RemovePostFromFavorites(PostFavoriteDTO dto)
         {
             try
             {
-                await service.RemovePostFromFavorites(id, username);
+                await service.RemovePostFromFavorites(dto.PostId, dto.User);
                 return Ok(new ResponseMessage { Message = "Post removed from favorites successfully." });
             }
             catch (KeyNotFoundException ex)
@@ -517,6 +518,25 @@ namespace ForumAPI.Controllers
                 return NotFound(new ResponseMessage { Message = ex.Message });
             }
             catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = "Something went wrong" });
+            }
+        }
+
+        [HttpGet("{postId}/favorite/{username}")]
+        public async Task<ActionResult> IsPostFavorite([FromRoute] int postId, [FromRoute] string username)
+        {
+            try
+            {
+                int favorite = await service.GetPostFavoriteByUsername(new PostFavorite { PostId = postId, User = username });
+                return Ok(new { Favorite = favorite });
+            } catch (NotFoundException ex)
+            {
+                return NotFound(new ResponseMessage { Message = ex.Message });
+            } catch (ResponseStatusException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
+            } catch (Exception ex)
             {
                 return StatusCode(400, new ResponseMessage { Message = "Something went wrong" });
             }

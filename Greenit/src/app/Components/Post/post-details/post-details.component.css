@@ -37,7 +37,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    background-color: rgba(170, 202, 172, 0.938);
+    background-color: rgba(170, 202, 172, 0.711);
     max-width: 174.5vh;
     min-height: 80vh;
     overflow-x: auto;
@@ -82,4 +82,24 @@
 .create-content {
     font-size: 15px;
     font-style: italic;
+}
+
+.favorite-button {
+    border: 0.5px solid #8CC592;
+    padding: 7px;
+    border-radius: 20px;
+    width: 50px;
+    height: fit-content;
+    display: flex;
+    margin-left: -15px;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.favorite-button:hover {
+    background-color: #8CC592;
+}
+
+.favorite-button:active {
+    padding: 6.5px;
 }

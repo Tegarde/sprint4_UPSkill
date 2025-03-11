@@ -57,5 +57,7 @@ namespace ForumAPI.Interfaces
         Task<int> GetPostInteractionsByUser(int id, string username);
 
         Task<PostInteractionsDTO> GetLikesAndDislikesByPostId(int postId);
+
+        Task<int> GetPostFavoriteByUsername(PostFavorite postFavorite);
     }
 }
