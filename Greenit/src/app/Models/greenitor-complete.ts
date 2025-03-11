@@ -6,5 +6,6 @@ export interface GreenitorComplete {
     password : string
     role : string
     interections : number
+    image : string
     badges : Badge[]
 }

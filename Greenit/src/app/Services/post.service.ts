@@ -71,4 +71,8 @@ export class PostService {
   getDailyTrendingPosts(topN : number) : Observable<any> {
     return this.client.get<any>(`${this.endpoint}/daily/${topN}`);
   }
+
+  getPostsByUser(username : string) : Observable<Post[]> {
+    return this.client.get<Post[]>(`${this.endpoint}/user/${username}`);
+  }
 }

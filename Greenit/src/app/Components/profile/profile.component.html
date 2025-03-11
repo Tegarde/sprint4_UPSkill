@@ -1,0 +1,28 @@
+<div class="profile-header">
+    <div class="profile-banner"></div>
+    <img class="profile-avatar" [src]="'http://localhost:5000/' + user?.image" alt="User Avatar">
+    <div><h2>{{ user?.username }}</h2></div>
+    <div class="username-container">
+      <h2 >{{ user?.username }}</h2>
+    </div>
+    
+    
+    <div class="profile-stats">
+      <div>
+        <h3>{{ user?.badges }}</h3>
+        <p>posts</p>
+      </div>
+      <div>
+        <h3>{{ user?.interections | number }}</h3>
+        <p></p>
+      </div>
+      <div>
+        <h3>{{ user?.badges }}</h3>
+        <p>following</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="Posts">
+    <app-post-listing [posts]="posts"></app-post-listing>
+  </div>
