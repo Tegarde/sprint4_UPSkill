@@ -1,0 +1,40 @@
+<div class="profile-header">
+    <div class="profile-banner"></div>
+    <img class="profile-avatar" [src]="'http://localhost:5000/' + user?.image" alt="User Avatar">
+
+    <div class="username-container">
+      <h2 >{{ user?.username }}</h2>
+    </div>
+    
+    
+    <div class="profile-stats">
+      <div>
+        <h3>{{ stats.comments }}</h3>
+        <p>COmmented</p>
+      </div>
+      <div>
+        <h3>{{ stats.dislikesInPosts }}</h3>
+        <p>Disliked</p>
+      </div>
+      <div>
+        <h3>{{ stats.eventAttendances }}</h3>
+        <p>Attended Event</p>
+      </div>
+      <div>
+        <h3>{{stats.favoritePosts }}</h3>
+        <p>Favorited</p>
+      </div>
+      <div>
+        <h3>{{ stats.posts }}</h3>
+        <p>Posted</p>
+      </div>
+      <div>
+        <h3>{{stats.likesInComments + stats.likesInPosts }}</h3>
+        <p>Likes</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="Posts">
+    <app-post-listing [posts]="posts"></app-post-listing>
+  </div>

@@ -83,4 +83,9 @@ export class PostService {
   isPostFavorite(id : number, username : string) : Observable<any> {
     return this.client.get<any>(`${this.endpoint}/${id}/favorite/${username}`);
   }
+  
+  getPostsByUser(username : string) : Observable<Post[]> {
+    return this.client.get<Post[]>(`${this.endpoint}/user/${username}`);
+
+  }
 }

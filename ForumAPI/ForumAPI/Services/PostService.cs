@@ -61,6 +61,8 @@ namespace ForumAPI.Services
             await greenitorClient.GetUserByUsername(username);
 
             var posts = await context.Posts
+                .Include(p => p.Comments)
+                .ThenInclude(p => p.Replies)
                 .Where(p => p.CreatedBy == username && p.Status)
                 .ToListAsync();
 
