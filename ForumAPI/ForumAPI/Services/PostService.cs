@@ -149,7 +149,6 @@ namespace ForumAPI.Services
             post.Title = updatedPost.Title;
             post.Content = updatedPost.Content;
 
-
             await context.SaveChangesAsync();
             return post;
         }
@@ -161,6 +160,8 @@ namespace ForumAPI.Services
             {
                 throw new KeyNotFoundException("Post not found.");
             }
+
+            await greenitorClient.GetUserByUsername(username);
 
             var favorite = new PostFavorite
             {
@@ -182,6 +183,9 @@ namespace ForumAPI.Services
             {
                 throw new KeyNotFoundException("Favorite not found.");
             }
+
+            await greenitorClient.GetUserByUsername(username);
+
             context.PostFavorites.Remove(favorite);
             await context.SaveChangesAsync();
             await greenitorClient.DecrementUserInteractions(favorite.User);
@@ -332,6 +336,7 @@ namespace ForumAPI.Services
             post.Interactions = 0;
             await context.SaveChangesAsync();
         }
+
         public async Task<GreenitorStatisticsDTO> GetPostStatisticsByUsername(string username)
         {
             await greenitorClient.GetUserByUsername(username);
@@ -372,11 +377,7 @@ namespace ForumAPI.Services
                     throw new NotFoundException("Post not found.");
                 }
 
-                GreenitorDTO user = await greenitorClient.GetUserByUsername(postLike.User);
-                if (user == null)
-                {
-                    throw new UserNotFoundException("User not found.");
-                }
+                await greenitorClient.GetUserByUsername(postLike.User);
 
                 PostLike? like = await context.PostLikes.FirstOrDefaultAsync(pl => pl.PostId == postLike.PostId && pl.User == postLike.User);
 
@@ -397,7 +398,6 @@ namespace ForumAPI.Services
                     {
                         await greenitorClient.IncrementUserInteractions(postLike.User);
                     }
-
                     
                     return postLike;
                 }
@@ -425,11 +425,7 @@ namespace ForumAPI.Services
                     throw new NotFoundException("Post not found.");
                 }
 
-                GreenitorDTO user = await greenitorClient.GetUserByUsername(postDislike.User);
-                if (user == null)
-                {
-                    throw new UserNotFoundException("User not found.");
-                }
+                await greenitorClient.GetUserByUsername(postDislike.User);
 
                 PostDislike? dislike = await context.PostDislikes.FirstOrDefaultAsync(pl => pl.PostId == postDislike.PostId && pl.User == postDislike.User);
 
@@ -472,11 +468,7 @@ namespace ForumAPI.Services
                 throw new NotFoundException("Post not found.");
             }
 
-            GreenitorDTO user = await greenitorClient.GetUserByUsername(postLike.User);
-            if (user == null)
-            {
-                throw new UserNotFoundException("User not found.");
-            }
+            await greenitorClient.GetUserByUsername(postLike.User);
 
             PostLike? like = await context.PostLikes.FirstOrDefaultAsync(pl => pl.PostId == postLike.PostId && pl.User == postLike.User);
 
@@ -502,11 +494,7 @@ namespace ForumAPI.Services
                 throw new NotFoundException("Post not found.");
             }
 
-            GreenitorDTO user = await greenitorClient.GetUserByUsername(postDislike.User);
-            if (user == null)
-            {
-                throw new UserNotFoundException("User not found.");
-            }
+            await greenitorClient.GetUserByUsername(postDislike.User);
 
             PostDislike? dislike = await context.PostDislikes.FirstOrDefaultAsync(pl => pl.PostId == postDislike.PostId && pl.User == postDislike.User);
 
@@ -578,8 +566,5 @@ namespace ForumAPI.Services
 
             return (postFav != null) ? 1 : 0;
         }
-
-
-
     }
 }

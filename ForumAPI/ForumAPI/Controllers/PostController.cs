@@ -125,8 +125,6 @@ namespace ForumAPI.Controllers
             {
                 return StatusCode(400, new ResponseMessage { Message = "Something went wrong" });
             }
-
-
         }
 
         [HttpGet("between-dates")]
@@ -265,6 +263,11 @@ namespace ForumAPI.Controllers
             {
                 return NotFound(new ResponseMessage { Message = ex.Message });
             }
+            catch (ResponseStatusException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
+            }
+
             catch (Exception ex)
             {
                 return StatusCode(400, new ResponseMessage { Message = ex.Message });
@@ -282,6 +285,10 @@ namespace ForumAPI.Controllers
             catch (KeyNotFoundException ex)
             {
                 return NotFound(new ResponseMessage { Message = ex.Message });
+            }
+            catch (ResponseStatusException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
             }
             catch (Exception ex)
             {
@@ -391,6 +398,10 @@ namespace ForumAPI.Controllers
             {
                 return NotFound(new ResponseMessage { Message = ex.Message });
             }
+            catch (ResponseStatusException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
+            }
             catch(UserNotFoundException ex)
             {
                 return NotFound(new ResponseMessage { Message = ex.Message });
@@ -417,9 +428,8 @@ namespace ForumAPI.Controllers
             {
                 return NotFound(new ResponseMessage { Message = ex.Message });
             }
-            catch (UserNotFoundException ex)
-            {
-                return NotFound(new ResponseMessage { Message = ex.Message });
+            catch (ResponseStatusException ex) {
+                return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
             }
             catch (ArgumentException ex)
             {
@@ -443,9 +453,9 @@ namespace ForumAPI.Controllers
             {
                 return NotFound(new ResponseMessage { Message = ex.Message });
             }
-            catch (UserNotFoundException ex)
+            catch (ResponseStatusException ex)
             {
-                return NotFound(new ResponseMessage { Message = ex.Message });
+                return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
             }
             catch (ArgumentException ex)
             {
@@ -469,9 +479,9 @@ namespace ForumAPI.Controllers
             {
                 return NotFound(new ResponseMessage { Message = ex.Message });
             }
-            catch (UserNotFoundException ex)
+            catch (ResponseStatusException ex)
             {
-                return NotFound(new ResponseMessage { Message = ex.Message });
+                return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
             }
             catch (ArgumentException ex)
             {
