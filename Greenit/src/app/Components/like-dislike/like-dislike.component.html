@@ -3,7 +3,7 @@
       <div class="icons">
         <label class="btn-label" for="like-checkbox">
           <span class="like-text-content">{{likesCount}}</span>
-          <input (click)="toggleLike()" [(ngModel)]="isLiked" class="input-box" id="like-checkbox" type="checkbox" />
+          <input [disabled]="user === null || user.role === 'Moderator'" (click)="toggleLike()" [(ngModel)]="isLiked" class="input-box" id="like-checkbox" type="checkbox" />
           <svg
             class="svgs"
             id="icon-like-solid"
@@ -31,7 +31,7 @@
       </div>
       <div class="icons">
         <label class="btn-label" for="dislike-checkbox">
-          <input (click)="toggleDislike()" [(ngModel)]="isDisliked" class="input-box" id="dislike-checkbox" type="checkbox" />
+          <input [disabled]="user === null || user.role === 'Moderator'" (click)="toggleDislike()" [(ngModel)]="isDisliked" class="input-box" id="dislike-checkbox" type="checkbox" />
           <div class="fireworks">
             <div class="checked-dislike-fx"></div>
           </div>

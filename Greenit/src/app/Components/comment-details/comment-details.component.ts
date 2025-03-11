@@ -1,10 +1,12 @@
 import { DatePipe, NgFor, NgIf } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Comment } from '../../Models/comment';
 import { LikeCommentComponent } from "../like-comment/like-comment.component";
 import { CommentService } from '../../Services/comment.service';
 import { MakeCommentComponent } from '../make-comment/make-comment.component';
 import { RouterLink } from '@angular/router';
+import { SignInService } from '../../Services/sign-in.service';
+import { TokenInfo } from '../../Models/token-info';
 
 @Component({
   selector: 'app-comment-details',
@@ -13,14 +15,20 @@ import { RouterLink } from '@angular/router';
   templateUrl: './comment-details.component.html',
   styleUrl: './comment-details.component.css'
 })
-export class CommentDetailsComponent {
+export class CommentDetailsComponent implements OnInit {
   @Input() comment! : Comment;
 
   makingAComment : boolean = false;
 
-  constructor(private commentService : CommentService) { }
-
+  user : TokenInfo | null = null;
+ 
   replies? : Comment[];
+ 
+  constructor(private commentService : CommentService, private authService : SignInService) { }
+
+ ngOnInit(): void {
+   this.authService.getUserSubject().subscribe((user) => this.user = user);
+ } 
 
   showReplies() {
     this.commentService.getCommentsFromComment(this.comment.id).subscribe({

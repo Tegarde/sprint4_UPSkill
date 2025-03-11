@@ -10,13 +10,16 @@
       <img class="menu-icon" src="../assets/menu-icon2.png" (click)="isSideBarOpen.next(!isSideBarOpen.value)">
       <div *ngIf="isSideBarOpen | async" class="main-buttons">
         <img (click)="goHome()" class="logo" src="./assets/Logo6.jpg" alt="Logo">
-        <app-notifications class="notifications"></app-notifications>
-        <label class="button" routerLink="/login">Login</label>
-        <label class="button" routerLink="/register">Register</label>
+        <p [routerLink]="['/profile', user!.username]" class="welcome" *ngIf="user !== null">Welcome, {{ user.username }}!</p>
+        <app-notifications *ngIf="user !== null && user.role === 'User'" class="notifications"></app-notifications>
+        <label *ngIf="user === null" class="button" routerLink="/login">Login</label>
+        <label *ngIf="user === null" class="button" routerLink="/register">Register</label>
+        <label *ngIf="user !== null && user.role === 'Moderator'" class="button" routerLink="/createEvent">Create Event</label>
+        <label routerLink="/listEvents" class="button">See Events</label>
       </div>
     </div>
     <div *ngIf="isSideBarOpen | async" class="main-buttons">
-      <label (click)="logout()" class="button">Logout</label>
+      <label *ngIf="user !== null" (click)="logout()" class="button">Logout</label>
     </div>
   </nav>
   <div class="content">

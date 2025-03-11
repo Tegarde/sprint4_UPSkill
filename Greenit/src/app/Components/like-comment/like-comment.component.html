@@ -3,7 +3,7 @@
       <div class="icons">
         <label class="btn-label" [for]="'like-comment-checkbox-' + commentId">
           <span class="like-text-content">{{likesCount}}</span>
-          <input (click)="toggleLikeInComment()" [(ngModel)]="isCommentLiked" class="input-box" [id]="'like-comment-checkbox-' + commentId" type="checkbox" />
+          <input [disabled]="user === null || user.role === 'Moderator'" (click)="toggleLikeInComment()" [(ngModel)]="isCommentLiked" class="input-box" [id]="'like-comment-checkbox-' + commentId" type="checkbox" />
           <svg
             class="svgs"
             id="icon-like-solid"

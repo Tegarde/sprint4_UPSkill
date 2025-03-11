@@ -10,9 +10,9 @@
         </div>
         <div class="buttons">
             <app-like-dislike class="like-dislike" [postId]="post.id"></app-like-dislike>
-            <app-favorite-button class="favorite-button" [postId]="post.id"></app-favorite-button>
+            <app-favorite-button *ngIf="user !== null && user.role === 'User'" class="favorite-button" [postId]="post.id"></app-favorite-button>
         </div>
-        <div class="comment-section">
+        <div *ngIf="user !== null" class="comment-section">
             <button *ngIf="!makingAComment" (click)="toggleMakingAComment()" class="comment-btn">Comment on this post</button>
             <button *ngIf="makingAComment" (click)="toggleMakingAComment()" class="comment-btn">Stop commenting on this post</button>
             <app-make-comment *ngIf="makingAComment" [id]="post.id" [type]="'post'"></app-make-comment>

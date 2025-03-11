@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommentService } from '../../Services/comment.service';
 import { SignInService } from '../../Services/sign-in.service';
+import { TokenInfo } from '../../Models/token-info';
 
 @Component({
   selector: 'app-like-comment',
@@ -15,6 +16,8 @@ export class LikeCommentComponent implements OnInit {
 
   username? : string;
 
+  user : TokenInfo | null = null;
+
   isCommentLiked = false;
 
   likesCount : number = 0;
@@ -24,6 +27,7 @@ export class LikeCommentComponent implements OnInit {
   ngOnInit(): void {
      this.authService.getUserSubject().subscribe({
        next : (user) => {
+         this.user = user;
          this.username = user!.username;
          this.getLikesCount();
          this.getLikeFromUser();

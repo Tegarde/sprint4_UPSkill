@@ -8,6 +8,7 @@ import { MakeCommentComponent } from "../../make-comment/make-comment.component"
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SignInService } from '../../../Services/sign-in.service';
 import { FavoriteButtonComponent } from "../../favorite-button/favorite-button.component";
+import { TokenInfo } from '../../../Models/token-info';
 
 @Component({
   selector: 'app-post-details',
@@ -21,9 +22,17 @@ export class PostDetailsComponent implements OnInit {
 
   makingAComment = false;
 
+  user : TokenInfo | null = null;
+
   constructor(private authService : SignInService, private postService : PostService, private route : ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.authService.getUserSubject().subscribe({
+      next : (user) => {
+        this.user = user;
+      }
+    })
+
     this.route.queryParams.subscribe({
       next : (params) => {
         this.postService.getPostById(params['id']).subscribe({

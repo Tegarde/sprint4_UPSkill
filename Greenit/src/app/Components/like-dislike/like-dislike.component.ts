@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PostService } from '../../Services/post.service';
 import { SignInService } from '../../Services/sign-in.service';
+import { TokenInfo } from '../../Models/token-info';
 
 @Component({
   selector: 'app-like-dislike',
@@ -15,6 +16,8 @@ export class LikeDislikeComponent implements OnInit {
 
   username? : string;
 
+  user : TokenInfo | null = null;
+
   likesCount : number = 0;
   dislikesCount : number = 0;
 
@@ -27,6 +30,7 @@ export class LikeDislikeComponent implements OnInit {
     this.getPostInteractions();
     this.authService.getUserSubject().subscribe({
       next : (user) => {
+        this.user = user;
         this.username = user!.username;
         this.getUserInteractionsOnPost();
       }

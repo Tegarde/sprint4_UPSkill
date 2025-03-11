@@ -10,7 +10,7 @@
             <app-like-comment class="like-btn" [commentId]="comment.id"></app-like-comment>
             <button class="reply-btn" *ngIf="comment.commentsCounter > 0" (click)="showReplies()">Replies</button>
         </div>
-        <div class="comment-section">
+        <div *ngIf="user !== null" class="comment-section">
             <button *ngIf="!makingAComment" (click)="toggleMakingAComment()" class="comment-btn">Reply to this comment</button>
             <button *ngIf="makingAComment" (click)="toggleMakingAComment()" class="comment-btn">Stop replying to this comment</button>
             <app-make-comment *ngIf="makingAComment" [id]="comment.id" [type]="'comment'"></app-make-comment>
