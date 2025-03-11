@@ -10,9 +10,9 @@ namespace ForumAPI.Services
         private readonly HttpClient client;
         private static readonly string BaseUrl = "http://localhost:8080/api/greenitor";
 
-        public GreenitorClient(HttpClient httpClient)
+        public GreenitorClient()
         {
-            client = httpClient;
+            client = new HttpClient();
         }
 
         public async Task<ResponseMessage> RegisterUser(RegisterUserWithImageDTO registerUserDTO)

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ForumAPI.DTOs;
 using ForumAPI.DTOs.BadgeDTOs;
 using ForumAPI.DTOs.GreenitorDTOs;
+using ForumAPI.Interfaces;
 using ForumAPI.Services;
 using Moq;
 using Moq.Protected;
@@ -16,8 +17,9 @@ namespace ForumAPI.Tests.Services
 {
     public class GreenitorClientTests
     {
-        private readonly GreenitorClient _greenitorClient;
+        private readonly GreenitorDAO _greenitorClient;
         private readonly Mock<HttpMessageHandler> _httpMessageHandlerMock;
+
 
         public GreenitorClientTests()
         {
@@ -26,7 +28,7 @@ namespace ForumAPI.Tests.Services
             {
                 BaseAddress = new Uri("http://localhost:8080/api/greenitor")
             };
-            _greenitorClient = new GreenitorClient(httpClient);
+            _greenitorClient = new GreenitorClient();
         }
 
         [Fact]
@@ -78,8 +80,8 @@ namespace ForumAPI.Tests.Services
         public async Task GetUserByUsername_ValidRequest_ReturnsGreenitorDTO()
         {
             // Arrange
-            var username = "testuser";
-            var greenitorDTO = new GreenitorDTO(username, "test@example.com", 5)
+            var username = "tegarde";
+            var greenitorDTO = new GreenitorDTO(username, "bruno@gmail.com", 61)
             {
                 Role = "user",
                 Image = null,
