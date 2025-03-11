@@ -92,6 +92,11 @@
     gap: 10px;
 }
 
+.create-content p:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .comment-btn {
     background: none;
     border-radius: 20px;

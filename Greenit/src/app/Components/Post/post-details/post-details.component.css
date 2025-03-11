@@ -45,6 +45,11 @@
     border-radius: 8px;
 }
 
+.create-content p:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .comment-btn {
     background: none;
     border-radius: 20px;
@@ -81,7 +86,6 @@
 
 .create-content {
     font-size: 15px;
-    font-style: italic;
 }
 
 .favorite-button {

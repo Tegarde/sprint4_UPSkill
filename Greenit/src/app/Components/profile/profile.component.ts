@@ -6,6 +6,8 @@ import { Post } from '../../Models/post';
 import { PostService } from '../../Services/post.service';
 import { PostListingComponent } from '../Post/post-listing/post-listing.component';
 import { GreenitorService } from '../../Services/greenitor.service';
+import { SignInService } from '../../Services/sign-in.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -17,8 +19,9 @@ import { GreenitorService } from '../../Services/greenitor.service';
 export class ProfileComponent implements OnInit {
   user? : GreenitorComplete;
   posts: Post[] =[];
-  
-  constructor(private userService: SignUpService, private postService: PostService, private greenitorService: GreenitorService) { }
+
+  username? : string
+
   stats = {
     likesInPosts: 0,
     dislikesInPosts: 0,
@@ -28,29 +31,51 @@ export class ProfileComponent implements OnInit {
     comments: 0,
     favoritePosts: 0
   }
+  
+  constructor(private userService: SignUpService, private route : ActivatedRoute, private postService: PostService, private greenitorService: GreenitorService) { }
+  
+  
 
-  async ngOnInit() {
-  // ✅ Get user data
-  this.userService.getUserByUsername('tegarde').subscribe({
-    next: (user) => {
-      this.user = user;
-    },
-    error: (err) => console.error("Error fetching user:", err)
-  });
-
-  // ✅ Get posts
-  this.postService.getPostsByUser('tegarde').subscribe({
-    next: (posts) => {
-      this.posts = posts;
-      console.log("Posts:", posts);
-    },
-    error: (err) => console.error("Error fetching posts:", err)
-  });
-
-  this.greenitorService.getGreenitorStats('tegarde').subscribe({next: (stats) => {this.stats = stats;},error: (err) => console.error("Error fetching stats:", err)});
-  // ✅ Get user notifications    
-  this.greenitorService.getGreenitorNotifications('tegarde').subscribe({next: (notifications) => {console.log("Notifications:", notifications);},error: (err) => console.error("Error fetching notifications:", err)});
+  ngOnInit() {
+    this.route.params.subscribe({
+      next: (params) => {
+        this.username = params['username'];
+        this.getUserByUsername();
+        this.getPostsFromUser();
+        this.getStats();
+      }
+    })
   }
+
+  getUserByUsername() {
+    this.userService.getUserByUsername(this.username!).subscribe({
+      next: (user) => {
+        this.user = user;
+      },
+      error: (err) => console.error("Error fetching user:", err)
+    });
   }
+
+  getPostsFromUser() {
+    this.postService.getPostsByUser(this.username!).subscribe({
+      next: (posts) => {
+        this.posts = posts;
+        console.log("Posts:", posts);
+      },
+      error: (err) => console.error("Error fetching posts:", err)
+    });
+  }
+
+  getStats() {
+    this.greenitorService.getGreenitorStats(this.username!).subscribe({
+      next: (stats) => {this.stats = stats;
+
+      },
+      error: (err) => console.error("Error fetching stats:", err)
+    });
+  }
+
+
+}
 
 

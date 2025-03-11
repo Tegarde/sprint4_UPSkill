@@ -16,6 +16,11 @@
     white-space: normal;
 }
 
+.username:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .post h1 {
     margin: 0px;
 }

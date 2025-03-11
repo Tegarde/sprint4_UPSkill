@@ -20,5 +20,5 @@ export const routes: Routes = [
     {path : 'createEvent', component : CreateEventComponent},
     {path : 'listEvents', component : ListEventComponent},
     { path: 'events/:id', component: EventDetailComponent },
-    { path: 'profile', component: ProfileComponent }
+    { path: 'profile/:username', component: ProfileComponent }
 ];

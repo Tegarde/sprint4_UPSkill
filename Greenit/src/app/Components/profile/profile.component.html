@@ -44,8 +44,10 @@
       
         <h3>Badges</h3>
         <div class="badge-list">
-          <img *ngFor="let badge of user?.badges" [src]="'http://localhost:5000/' + badge.image"
+          <div *ngFor="let badge of user?.badges" class="badge-item">
+            <img  [src]="'http://localhost:5000/' + badge.image"
             [alt]="badge.description" class="badge-image">
+          </div>          
         </div>
       
 

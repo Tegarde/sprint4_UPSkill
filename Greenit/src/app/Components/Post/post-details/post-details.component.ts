@@ -5,14 +5,14 @@ import { CommentDetailsComponent } from '../../comment-details/comment-details.c
 import { PostService } from '../../../Services/post.service';
 import { LikeDislikeComponent } from '../../like-dislike/like-dislike.component';
 import { MakeCommentComponent } from "../../make-comment/make-comment.component";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SignInService } from '../../../Services/sign-in.service';
 import { FavoriteButtonComponent } from "../../favorite-button/favorite-button.component";
 
 @Component({
   selector: 'app-post-details',
   standalone: true,
-  imports: [NgIf, NgFor, DatePipe, CommentDetailsComponent, LikeDislikeComponent, MakeCommentComponent, FavoriteButtonComponent],
+  imports: [NgIf, NgFor, DatePipe, CommentDetailsComponent, LikeDislikeComponent, MakeCommentComponent, FavoriteButtonComponent, RouterLink],
   templateUrl: './post-details.component.html',
   styleUrl: './post-details.component.css'
 })
