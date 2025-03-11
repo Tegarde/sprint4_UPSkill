@@ -45,5 +45,6 @@ export class NotificationsComponent implements OnInit {
   seePost(id : number) {
     this.router.navigate(['/post'], { queryParams: { id: id } });
     this.notifications = this.notifications.filter(notification => notification.postId !== id);
+    
   }
 }

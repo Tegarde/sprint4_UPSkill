@@ -9,7 +9,7 @@
         <div [ngClass]="(showNotifications) ? 'arrow-rotated' : 'arrow'">›</div>
         <div *ngIf="notifications.length > 0" class="dot"></div>
       </button>
-      <div class="notifications-container" [ngClass]="{'hidden' : !showNotifications}">
+      <div class="notifications-container" [ngClass]="{'hidden' : !showNotifications || notifications.length == 0}">
         <p (click)="seePost(notification.postId)" *ngFor="let notification of notifications" class="notification-item">{{notification.title}} has {{notification.interactions}} interactions</p>
     </div>
 </div>
