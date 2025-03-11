@@ -10,6 +10,7 @@
       <img class="menu-icon" src="../assets/menu-icon2.png" (click)="isSideBarOpen.next(!isSideBarOpen.value)">
       <div *ngIf="isSideBarOpen | async" class="main-buttons">
         <img (click)="goHome()" class="logo" src="./assets/Logo6.jpg" alt="Logo">
+        <app-notifications class="notifications"></app-notifications>
         <label class="button" routerLink="/login">Login</label>
         <label class="button" routerLink="/register">Register</label>
       </div>

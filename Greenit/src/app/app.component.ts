@@ -4,11 +4,12 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { SignInService } from './Services/sign-in.service';
 import { FormsModule } from '@angular/forms';
+import { NotificationsComponent } from "./Components/notifications/notifications.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, NgClass, NgIf, AsyncPipe, FormsModule],
+  imports: [RouterOutlet, RouterLink, NgClass, NgIf, AsyncPipe, FormsModule, NotificationsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
