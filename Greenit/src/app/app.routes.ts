@@ -10,6 +10,7 @@ import { CreateEventComponent } from './Components/Event/create-event/create-eve
 import { ListEventComponent } from './Components/Event/list-event/list-event.component';
 import { EventDetailComponent } from './Components/Event/event-detail/event-detail.component';
 import { ProfileComponent } from './Components/profile/profile.component';
+import { SeePostsWithFiltersComponent } from './Components/Post/see-posts-with-filters/see-posts-with-filters.component';
 
 export const routes: Routes = [
     { path : '', component : HomeComponent },
@@ -20,5 +21,6 @@ export const routes: Routes = [
     {path : 'createEvent', component : CreateEventComponent},
     {path : 'listEvents', component : ListEventComponent},
     { path: 'events/:id', component: EventDetailComponent },
-    { path: 'profile/:username', component: ProfileComponent }
+    { path: 'profile/:username', component: ProfileComponent },
+    {path: 'listPosts', component: SeePostsWithFiltersComponent}
 ];

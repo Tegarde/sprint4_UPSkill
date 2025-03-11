@@ -15,6 +15,7 @@
         <label *ngIf="user === null" class="button" routerLink="/login">Login</label>
         <label *ngIf="user === null" class="button" routerLink="/register">Register</label>
         <label *ngIf="user !== null && user.role === 'Moderator'" class="button" routerLink="/createEvent">Create Event</label>
+        <label class="button" routerLink="listPosts">See Posts</label>
         <label routerLink="/listEvents" class="button">See Events</label>
       </div>
     </div>

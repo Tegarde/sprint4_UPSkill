@@ -1,0 +1,6 @@
+<div class="container">
+  <nav [ngClass]="(isSideBarOpen) ? 'filters' : 'filters-closed'">
+    <label *ngIf="isSideBarOpen" class="closer" (click)="isSideBarOpen = !isSideBarOpen">X</label>
+    <label *ngIf="!isSideBarOpen" class="toggler" (click)="isSideBarOpen = !isSideBarOpen">Filters</label>
+  </nav>
+</div>
