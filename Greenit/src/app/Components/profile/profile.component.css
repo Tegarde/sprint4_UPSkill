@@ -10,10 +10,11 @@
   }
   
   .profile-banner {
-    background-color: black;
-    height: 120px;
+    background-color: #3E9F4D;
+    height: 200px;
     width: 100%;
-    border-radius: 0;
+    border-radius: 1%;
+    
   }
   
   .profile-avatar {
@@ -37,6 +38,7 @@
   
   .profile-stats div {
     text-align: center;
+    height: 50px;
   }
   
   .profile-stats h3 {

@@ -5,6 +5,7 @@ import { GreenitorComplete } from '../../Models/greenitor-complete';
 import { Post } from '../../Models/post';
 import { PostService } from '../../Services/post.service';
 import { PostListingComponent } from '../Post/post-listing/post-listing.component';
+import { GreenitorService } from '../../Services/greenitor.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +17,17 @@ import { PostListingComponent } from '../Post/post-listing/post-listing.componen
 export class ProfileComponent implements OnInit {
   user? : GreenitorComplete;
   posts: Post[] =[];
-  constructor(private userService: SignUpService,private postService : PostService) { }
+  
+  constructor(private userService: SignUpService, private postService: PostService, private greenitorService: GreenitorService) { }
+  stats = {
+    likesInPosts: 0,
+    dislikesInPosts: 0,
+    likesInComments: 0,
+    eventAttendances: 0,
+    posts: 0,
+    comments: 0,
+    favoritePosts: 0
+  }
 
   async ngOnInit() {
   // ✅ Get user data
@@ -35,6 +46,10 @@ export class ProfileComponent implements OnInit {
     },
     error: (err) => console.error("Error fetching posts:", err)
   });
+
+  this.greenitorService.getGreenitorStats('tegarde').subscribe({next: (stats) => {this.stats = stats;},error: (err) => console.error("Error fetching stats:", err)});
+  // ✅ Get user notifications    
+  this.greenitorService.getGreenitorNotifications('tegarde').subscribe({next: (notifications) => {console.log("Notifications:", notifications);},error: (err) => console.error("Error fetching notifications:", err)});
   }
   }
 
