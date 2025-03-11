@@ -51,4 +51,8 @@ export class SignInService {
     this.service.deleteToken('user');
     this.userSubject.next(null);
   }
+
+  getUserNotifications() : Observable<any> {
+    return this.client.get<any>(`${this.endpoint}/notifications/${this.userSubject.value?.username}`);    
+  }
 }

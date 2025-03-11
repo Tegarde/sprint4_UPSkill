@@ -85,7 +85,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 80%;
+    width: 90%;
     padding: 10px;
     gap: 10px;
     margin-top: 50px;
@@ -105,7 +105,7 @@
 
 .button {
     cursor: pointer;
-    width: 100%;
+    width: 90%;
     border-radius: 8px;
     text-align: center;
     padding: 10px;
@@ -119,6 +119,11 @@
 .button:hover {
     background-color: #9EBC48;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.notifications {
+    margin-left: 15px;
+    margin-top: 10px;
 }
 
 @keyframes rotate {
