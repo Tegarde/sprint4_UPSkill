@@ -10,7 +10,7 @@ import { GreenitorService } from '../../Services/greenitor.service';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule,PostListingComponent],
+  imports: [CommonModule,PostListingComponent,NgFor],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
