@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ForumAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250308175153_image")]
-    partial class image
+    [Migration("20250312221708_first")]
+    partial class first
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -115,6 +115,9 @@ namespace ForumAPI.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("text");
 
                     b.Property<string>("Location")
                         .IsRequired()
@@ -236,7 +239,7 @@ namespace ForumAPI.Migrations
             modelBuilder.Entity("ForumAPI.Models.Comment", b =>
                 {
                     b.HasOne("ForumAPI.Models.Event", "Event")
-                        .WithMany()
+                        .WithMany("Comments")
                         .HasForeignKey("EventId");
 
                     b.HasOne("ForumAPI.Models.Comment", "ParentComment")
@@ -308,6 +311,8 @@ namespace ForumAPI.Migrations
             modelBuilder.Entity("ForumAPI.Models.Event", b =>
                 {
                     b.Navigation("Attendance");
+
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("ForumAPI.Models.Post", b =>

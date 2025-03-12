@@ -20,6 +20,7 @@ namespace ForumAPI.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     Location = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Image = table.Column<string>(type: "text", nullable: true),
                     Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -40,7 +41,8 @@ namespace ForumAPI.Migrations
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Status = table.Column<bool>(type: "boolean", nullable: false),
                     Category = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    Interactions = table.Column<int>(type: "integer", nullable: false)
+                    Interactions = table.Column<int>(type: "integer", nullable: false),
+                    Image = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -76,7 +78,8 @@ namespace ForumAPI.Migrations
                     EventId = table.Column<int>(type: "integer", nullable: true),
                     Content = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     CreatedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ParentPostId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -103,7 +106,8 @@ namespace ForumAPI.Migrations
                 columns: table => new
                 {
                     PostId = table.Column<int>(type: "integer", nullable: false),
-                    User = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
+                    User = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    DislikedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -139,7 +143,8 @@ namespace ForumAPI.Migrations
                 columns: table => new
                 {
                     PostId = table.Column<int>(type: "integer", nullable: false),
-                    User = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
+                    User = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    LikedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -157,7 +162,8 @@ namespace ForumAPI.Migrations
                 columns: table => new
                 {
                     CommentId = table.Column<int>(type: "integer", nullable: false),
-                    User = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
+                    User = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    LikedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
