@@ -1,17 +1,17 @@
 ﻿namespace ForumAPI.DTOs
 {
     /// <summary>
-    /// Data Transfer Object for the PostLike entity.
+    /// Data Transfer Object (DTO) for the PostLike entity.
     /// </summary>
     public class PostLikeDTO
     {
         /// <summary>
-        /// The post ID associated with the like.
+        /// Gets or sets the unique identifier of the post associated with the like.
         /// </summary>
         public int PostId { get; set; }
 
         /// <summary>
-        /// The user associated with the like.
+        /// Gets or sets the username of the user who liked the post.
         /// </summary>
         public string User { get; set; }
     }
