@@ -153,5 +153,27 @@ namespace ForumAPI.Controllers
                 return StatusCode(400, new ResponseMessage{ Message = "Something went wrong" });
             }
         }
+
+        [HttpPut("update/{username}")]
+        public async Task<ActionResult<ResponseMessage>> UpdateUserProfile(string username, [FromForm] UpdateUserDTO userDTO)
+        {
+            try
+            {
+              
+                var response = await service.UpdateUserProfile(username, userDTO);
+                return Ok(response);
+            }
+            catch (ResponseStatusException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.ResponseMessage);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage { Message = ex.Message });
+            }
+        }
+
+
+
     }
 }

@@ -1,6 +1,8 @@
 ﻿using ForumAPI.DTOs;
 using ForumAPI.DTOs.GreenitorDTOs;
 using ForumAPI.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System.Net;
 using System.Text.Json;
 
 namespace ForumAPI.Services
@@ -89,6 +91,18 @@ namespace ForumAPI.Services
             var request = await client.GetAsync($"{BaseUrl}");
             var greenitors = await request.Content.ReadFromJsonAsync<List<GreenitorWithoutRoleDTO>>();
             return greenitors!;
+        }
+        public async Task<ResponseMessage> UpdateUserProfile(string username, UpdateUserDTO userDTO)
+        {
+            
+            var request = await client.PutAsJsonAsync($"{BaseUrl}/{username}", userDTO);
+            var message = await request.Content.ReadFromJsonAsync<ResponseMessage>();
+            if (!request.IsSuccessStatusCode)
+            {
+                
+                throw new ResponseStatusException(request.StatusCode, message!);
+            }
+            return message!;
         }
     }
 }

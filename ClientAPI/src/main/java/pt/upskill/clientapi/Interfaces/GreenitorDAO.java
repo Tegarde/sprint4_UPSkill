@@ -2,6 +2,7 @@ package pt.upskill.clientapi.Interfaces;
 
 import pt.upskill.clientapi.DTOs.LoginDTO;
 import pt.upskill.clientapi.DTOs.ResponseMessage;
+import pt.upskill.clientapi.DTOs.UpdateGreenitorDTO;
 import pt.upskill.clientapi.Models.Greenitor;
 import pt.upskill.clientapi.Models.Token;
 
@@ -61,4 +62,6 @@ public interface GreenitorDAO {
      * @return A list of Greenitor objects.
      */
     List<Greenitor> getAllGreenitors();
+
+    ResponseMessage updateGreenitor(String username, UpdateGreenitorDTO greenitor);
 }

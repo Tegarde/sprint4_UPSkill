@@ -1,0 +1,43 @@
+<div *ngIf="user" class="profile-container">
+    <div class="sidebar">
+      <img [src]="'http://localhost:5000/' + user.image" alt="Profile Picture" class="profile-pic" />
+      <h3>{{ username }}</h3>
+      <span class="role">Role</span>
+      <p>{{ role }}</p>
+    </div>
+  
+    <div class="profile-content">
+      <h2>Profile</h2>
+  
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <!-- Profile Picture Upload -->
+        <div class="form-group">
+          <label>Update Profile Picture</label>
+          <input type="file" (change)="onFileSelected($event)" />
+          <!-- <button type="button" (click)="updateProfilePicture()">Update Image</button> -->
+        </div>
+  
+        <!-- Email -->
+        <div class="form-group">
+          <label>Email:</label>
+          <input type="email" formControlName="email" />
+        </div>
+  
+        <!-- Password -->
+        <div class="form-group">
+          <label>New Password:</label>
+          <input type="password" formControlName="password" />
+        </div>
+  
+        <!-- Confirm Password -->
+        <div class="form-group">
+          <label>Confirm Password:</label>
+          <input type="password" formControlName="confirmPassword" />
+        </div>
+  
+        <!-- Submit Button -->
+        <button type="submit" [disabled]="profileForm.invalid">Update Profile</button>
+      </form>
+    </div>
+  </div>
+  

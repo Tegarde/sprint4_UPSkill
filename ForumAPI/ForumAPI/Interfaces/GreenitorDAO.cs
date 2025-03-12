@@ -17,5 +17,7 @@ namespace ForumAPI.Interfaces
 
         Task<List<GreenitorWithoutRoleDTO>> GetAllGreenitors();
 
+        Task<ResponseMessage> UpdateUserProfile(string username, UpdateUserDTO userDTO);
+
     }
 }

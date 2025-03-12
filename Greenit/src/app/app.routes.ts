@@ -13,6 +13,8 @@ import { ProfileComponent } from './Components/profile/profile.component';
 import { SeePostsWithFiltersComponent } from './Components/Post/see-posts-with-filters/see-posts-with-filters.component';
 import { ListGreenitorComponent } from './Components/list-greenitor/list-greenitor.component';
 import { moderatorGuardGuard } from './Guards/moderator-guard.guard';
+import { ProfileUpdateComponent } from './Components/profile-update/profile-update.component';
+
 
 export const routes: Routes = [
     { path : '', component : HomeComponent },
@@ -25,5 +27,6 @@ export const routes: Routes = [
     { path: 'events/:id', component: EventDetailComponent },
     { path: 'profile/:username', component: ProfileComponent },
     {path: 'listPosts', component: SeePostsWithFiltersComponent},
-    {path: 'users', component: ListGreenitorComponent}
+    {path: 'users', component: ListGreenitorComponent},
+    {path: 'update', component: ProfileUpdateComponent}
 ];

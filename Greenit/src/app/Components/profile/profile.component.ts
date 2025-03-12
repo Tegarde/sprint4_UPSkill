@@ -1,4 +1,4 @@
-import { CommonModule, NgFor } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { SignUpService } from '../../Services/sign-up.service';
 import { GreenitorComplete } from '../../Models/greenitor-complete';

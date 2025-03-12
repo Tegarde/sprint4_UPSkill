@@ -13,6 +13,7 @@ import pt.upskill.clientapi.CustomExceptions.UserNotFoundException;
 import pt.upskill.clientapi.DTOs.*;
 import pt.upskill.clientapi.Interfaces.GreenitorDAO;
 import pt.upskill.clientapi.Mappers.GreenitorMapper;
+import pt.upskill.clientapi.Models.Token;
 
 /**
  * Controller class to manage Greenitor operations.
@@ -52,7 +53,7 @@ public class GreenitorController {
                     content = @Content(schema = @Schema(implementation = ResponseMessage.class)))
     })
     @PostMapping
-    public ResponseEntity<ResponseMessage> registerUser(@RequestBody RegisterUserDTO greenitor) {
+    public ResponseEntity<ResponseMessage> registerUser(RegisterUserDTO greenitor) {
         try {
             service.registerUser(GreenitorMapper.fromRegisterDTO(greenitor));
             return new ResponseEntity<>(new ResponseMessage("User registered successfully"), HttpStatus.CREATED);
@@ -86,7 +87,7 @@ public class GreenitorController {
             return new ResponseEntity<>(service.loginUser(loginDTO), HttpStatus.OK);
         } catch (UserNotFoundException e) {
             return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.NOT_FOUND);
-        } catch (IllegalArgumentException e) {
+        }catch (IllegalArgumentException e) {
             return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.UNAUTHORIZED);
         } catch (Exception e) {
             return new ResponseEntity<>(new ResponseMessage("Something went wrong"), HttpStatus.BAD_REQUEST);
@@ -192,4 +193,16 @@ public class GreenitorController {
             return new ResponseEntity<>(new ResponseMessage("Something went wrong"), HttpStatus.BAD_REQUEST);
         }
     }
-}
+
+    @PutMapping("/{username}")
+    public ResponseEntity<ResponseMessage> updateGreenitor(@PathVariable String username, @RequestBody UpdateGreenitorDTO greenitor) {
+        try {
+            return new ResponseEntity<>(service.updateGreenitor(username, greenitor), HttpStatus.OK);
+        } catch (UserNotFoundException e) {
+            return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ResponseMessage("Something went wrong"), HttpStatus.BAD_REQUEST);
+        }
+
+    }}
+

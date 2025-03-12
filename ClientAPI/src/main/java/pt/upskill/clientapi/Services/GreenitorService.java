@@ -3,8 +3,10 @@ package pt.upskill.clientapi.Services;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import pt.upskill.clientapi.CustomExceptions.UserNotFoundException;
+import pt.upskill.clientapi.DTOs.GreenitorDTO;
 import pt.upskill.clientapi.DTOs.LoginDTO;
 import pt.upskill.clientapi.DTOs.ResponseMessage;
+import pt.upskill.clientapi.DTOs.UpdateGreenitorDTO;
 import pt.upskill.clientapi.Interfaces.GreenitorDAO;
 import pt.upskill.clientapi.JPARepositories.BadgeRepository;
 import pt.upskill.clientapi.JPARepositories.GreenitorRepository;
@@ -24,6 +26,7 @@ import java.util.List;
 public class GreenitorService implements GreenitorDAO {
 
     private final GreenitorRepository greenitorRepository;
+
     private final BadgeRepository badgeRepository;
 
     /**
@@ -33,8 +36,8 @@ public class GreenitorService implements GreenitorDAO {
      * @param badgeRepository the BadgeRepository used to interact with the Badge data
      */
     public GreenitorService(GreenitorRepository greenitorRepository, BadgeRepository badgeRepository) {
-        this.greenitorRepository = greenitorRepository;
         this.badgeRepository = badgeRepository;
+        this.greenitorRepository = greenitorRepository;
     }
 
     /**
@@ -69,6 +72,7 @@ public class GreenitorService implements GreenitorDAO {
      * @throws IllegalArgumentException if the provided password is incorrect
      */
     @Override
+
     public Token loginUser(LoginDTO loginDTO) {
         Greenitor greenitor = greenitorRepository.findByEmail(loginDTO.getEmail());
 
@@ -168,5 +172,24 @@ public class GreenitorService implements GreenitorDAO {
         }
 
         return users;
+    }
+
+    public ResponseMessage updateGreenitor(String username, UpdateGreenitorDTO greenitor){
+        Greenitor toUpdate = greenitorRepository.findByUsername(username);
+        if (toUpdate == null){
+            throw new UserNotFoundException("User not found");
+        }
+        if (!greenitor.getEmail().isEmpty() && !greenitor.getEmail().equals(toUpdate.getEmail())){
+            toUpdate.setEmail(greenitor.getEmail());
+        }
+        if(greenitor.getPassword()!=null && !greenitor.getPassword().isEmpty()){
+            toUpdate.setPassword(greenitor.getPassword());
+        }
+        if(greenitor.getImage()!=null && !greenitor.getImage().isEmpty()){
+            toUpdate.setImage(greenitor.getImage());
+        }
+        greenitorRepository.save(toUpdate);
+        return new ResponseMessage( "User successfully updated" );
+
     }
 }

@@ -1,0 +1,68 @@
+.profile-container {
+    display: flex;
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sidebar {
+    flex: 1;
+    text-align: center;
+    padding: 20px;
+    background: #f8f9fa;
+    border-right: 2px solid #ddd;
+  }
+  
+  .profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  
+  .role {
+    display: block;
+    background: #007bff;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+  }
+  
+  .profile-content {
+    flex: 2;
+    padding: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+  }
+  
+  input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  button {
+    padding: 10px;
+    border: none;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  button:disabled {
+    background: gray;
+    cursor: not-allowed;
+  }
+  
