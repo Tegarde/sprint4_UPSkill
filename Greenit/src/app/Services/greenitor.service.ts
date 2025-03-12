@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { GreenitorComplete } from '../Models/greenitor-complete';
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +18,7 @@ export class GreenitorService {
   getGreenitorNotifications(username : string) : Observable<any> {
     return this.client.get<any>(`${this.endpoint}/notifications/${username}`);
   }
-  
+  getAllGreenitors() : Observable<GreenitorComplete[]> {
+    return this.client.get<GreenitorComplete[]>(`${this.endpoint}/all`);
+  }
 }

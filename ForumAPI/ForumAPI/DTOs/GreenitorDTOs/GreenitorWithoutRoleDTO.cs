@@ -8,7 +8,7 @@ namespace ForumAPI.DTOs.GreenitorDTOs
 
         public string Email { get; set; }
 
-        public int Interactions { get; set; }
+        public int? Interactions { get; set; }
 
         public string Image { get; set; }
 

@@ -139,5 +139,19 @@ namespace ForumAPI.Controllers
                 return StatusCode(400, ex.Message);
             }
         }
+
+
+        [HttpGet("all")]
+        public async Task<ActionResult<List<GreenitorWithoutRoleDTO>>> GetAllGreenitors()
+        {
+            try
+            {
+                return Ok( await service.GetAllGreenitors());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new ResponseMessage{ Message = "Something went wrong" });
+            }
+        }
     }
 }

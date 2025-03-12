@@ -4,15 +4,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.upskill.clientapi.CustomExceptions.UserNotFoundException;
-import pt.upskill.clientapi.DTOs.GreenitorDTO;
-import pt.upskill.clientapi.DTOs.LoginDTO;
-import pt.upskill.clientapi.DTOs.RegisterUserDTO;
-import pt.upskill.clientapi.DTOs.ResponseMessage;
+import pt.upskill.clientapi.DTOs.*;
 import pt.upskill.clientapi.Interfaces.GreenitorDAO;
 import pt.upskill.clientapi.Mappers.GreenitorMapper;
 import pt.upskill.clientapi.Models.Token;
 
 import javax.security.auth.login.AccountNotFoundException;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/greenitor")
@@ -78,6 +76,15 @@ public class GreenitorController {
             return new ResponseEntity<>(service.decrementInteractions(username), HttpStatus.OK);
         } catch (UserNotFoundException e) {
             return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ResponseMessage("Something went wrong"), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("")
+    public ResponseEntity<?> getAllGreenitors() {
+        try {
+            return new ResponseEntity<>(service.getAllGreenitors().stream().map(GreenitorMapper::toGreenitorSearchDTO).toList(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new ResponseMessage("Something went wrong"), HttpStatus.BAD_REQUEST);
         }

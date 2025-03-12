@@ -11,6 +11,7 @@ import { ListEventComponent } from './Components/Event/list-event/list-event.com
 import { EventDetailComponent } from './Components/Event/event-detail/event-detail.component';
 import { ProfileComponent } from './Components/profile/profile.component';
 import { SeePostsWithFiltersComponent } from './Components/Post/see-posts-with-filters/see-posts-with-filters.component';
+import { ListGreenitorComponent } from './Components/list-greenitor/list-greenitor.component';
 
 export const routes: Routes = [
     { path : '', component : HomeComponent },
@@ -22,5 +23,6 @@ export const routes: Routes = [
     {path : 'listEvents', component : ListEventComponent},
     { path: 'events/:id', component: EventDetailComponent },
     { path: 'profile/:username', component: ProfileComponent },
-    {path: 'listPosts', component: SeePostsWithFiltersComponent}
+    {path: 'listPosts', component: SeePostsWithFiltersComponent},
+    {path: 'users', component: ListGreenitorComponent}
 ];

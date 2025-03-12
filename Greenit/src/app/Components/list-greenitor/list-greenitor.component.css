@@ -1,0 +1,90 @@
+/* Main container for all user cards */
+.greenitors-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Grid layout for arranging user cards */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+    gap: 40px;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  /* Individual card container */
+  .container {
+    width: 240px;
+    height: 300px;
+    perspective: 1000px;
+    
+  }
+  
+  /* Flipping card styles */
+  .card {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    transition: transform 1000ms;
+    transform-style: preserve-3d;
+    border-radius: 1.5rem;
+  }
+  
+  .container:hover > .card {
+    cursor: pointer;
+    transform: rotateY(180deg);
+  }
+  
+  /* Common front and back styles */
+  .front, .back {
+    height: 100%;
+    width: 100%;
+    border-radius: 1.5rem;
+    position: absolute;
+    box-shadow: 0 0 10px 2px rgba(50, 50, 50, 0.3);
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+    padding: 20px;
+  }
+  
+  /* Front side with user info */
+  .front {
+    background: linear-gradient(-135deg, #4CAF50, #0AA4F8);
+    color: white;
+  }
+  
+  /* Back side with additional details */
+  .back {
+    background: linear-gradient(-135deg, #0AA4F8, #4CAF50);
+    color: white;
+    transform: rotateY(180deg);
+  }
+  
+  /* User profile image */
+  .user-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+  }
+  
+  /* Username styling */
+  .front-heading, .back-heading {
+    font-size: 22px;
+    font-weight: bold;
+  }
+  
+  /* Smaller details like email and interactions */
+  .user-details {
+    font-size: 14px;
+    font-weight: normal;
+    color: #f1f1f1;
+  }
+  

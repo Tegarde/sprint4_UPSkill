@@ -14,5 +14,8 @@ namespace ForumAPI.Interfaces
         Task IncrementUserInteractions(string username);
 
         Task DecrementUserInteractions(string username);
+
+        Task<List<GreenitorWithoutRoleDTO>> GetAllGreenitors();
+
     }
 }

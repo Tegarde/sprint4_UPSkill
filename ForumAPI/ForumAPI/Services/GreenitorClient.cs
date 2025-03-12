@@ -83,5 +83,12 @@ namespace ForumAPI.Services
                 throw new ResponseStatusException(request.StatusCode, message!);
             }
         }
+
+        public async Task<List<GreenitorWithoutRoleDTO>> GetAllGreenitors()
+        {
+            var request = await client.GetAsync($"{BaseUrl}");
+            var greenitors = await request.Content.ReadFromJsonAsync<List<GreenitorWithoutRoleDTO>>();
+            return greenitors!;
+        }
     }
 }

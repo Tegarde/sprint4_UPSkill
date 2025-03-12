@@ -6,6 +6,7 @@ import pt.upskill.clientapi.Models.Greenitor;
 import pt.upskill.clientapi.Models.Token;
 
 import javax.security.auth.login.AccountNotFoundException;
+import java.util.List;
 
 public interface GreenitorDAO {
 
@@ -18,4 +19,6 @@ public interface GreenitorDAO {
     ResponseMessage incrementInteractions(String username);
 
     ResponseMessage decrementInteractions(String username);
+
+    List<Greenitor> getAllGreenitors();
 }

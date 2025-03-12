@@ -104,4 +104,8 @@ public class GreenitorService implements GreenitorDAO {
         greenitorRepository.save(greenitor);
         return new ResponseMessage("Interactions decremented");
     }
+
+    public List<Greenitor> getAllGreenitors() {
+        return greenitorRepository.findAll();
+    }
 }

@@ -1,6 +1,7 @@
 package pt.upskill.clientapi.Mappers;
 
 import pt.upskill.clientapi.DTOs.GreenitorDTO;
+import pt.upskill.clientapi.DTOs.GreenitorSearchDTO;
 import pt.upskill.clientapi.DTOs.RegisterUserDTO;
 import pt.upskill.clientapi.Models.Greenitor;
 
@@ -14,5 +15,9 @@ public class GreenitorMapper {
 
     public static GreenitorDTO fromGreenitor(Greenitor greenitor) {
         return new GreenitorDTO(greenitor.getUsername(), greenitor.getEmail(), greenitor.getRole(), greenitor.getInteractions(), greenitor.getImage(), greenitor.getBadges().stream().map(BadgeMapper::toDescriptionDTO).toList());
+    }
+
+    public static GreenitorSearchDTO toGreenitorSearchDTO(Greenitor greenitor) {
+        return new GreenitorSearchDTO(greenitor.getUsername(), greenitor.getEmail(), greenitor.getImage() , greenitor.getBadges().stream().map(BadgeMapper::toDescriptionDTO).toList());
     }
 }
