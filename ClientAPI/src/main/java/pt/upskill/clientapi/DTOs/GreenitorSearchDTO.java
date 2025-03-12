@@ -37,6 +37,10 @@ public class GreenitorSearchDTO {
     public String image;
 
 
+    /**
+     * Interactions of the Greenitor.
+     * This field represents the number of interactions the Greenitor has performed in the application.
+     */
     public int interactions;
 
     /**
