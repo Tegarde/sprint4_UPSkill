@@ -12,6 +12,7 @@ import { EventDetailComponent } from './Components/Event/event-detail/event-deta
 import { ProfileComponent } from './Components/profile/profile.component';
 import { SeePostsWithFiltersComponent } from './Components/Post/see-posts-with-filters/see-posts-with-filters.component';
 import { ListGreenitorComponent } from './Components/list-greenitor/list-greenitor.component';
+import { moderatorGuardGuard } from './Guards/moderator-guard.guard';
 
 export const routes: Routes = [
     { path : '', component : HomeComponent },
@@ -19,7 +20,7 @@ export const routes: Routes = [
     {path : 'search/:query', component : SearchComponent},
     {path : 'login', component : SignInComponent},
     {path : 'register', component : SignUpComponent},
-    {path : 'createEvent', component : CreateEventComponent},
+    {path : 'createEvent', component : CreateEventComponent, canActivate: [moderatorGuardGuard]},
     {path : 'listEvents', component : ListEventComponent},
     { path: 'events/:id', component: EventDetailComponent },
     { path: 'profile/:username', component: ProfileComponent },
