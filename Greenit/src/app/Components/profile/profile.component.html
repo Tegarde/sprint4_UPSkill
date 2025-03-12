@@ -56,5 +56,11 @@
 </div>
 
 <div class="Posts">
+  <h2>{{username}}'s Posts</h2>
   <app-post-listing [posts]="posts"></app-post-listing>
+</div>
+
+<div *ngIf="loggedUser !== null && loggedUser.username === username" class="Posts">
+  <h2>My Favorite Posts</h2>
+  <app-post-listing [posts]="favoritePosts"></app-post-listing>
 </div>

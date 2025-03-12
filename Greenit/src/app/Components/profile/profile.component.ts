@@ -8,6 +8,7 @@ import { PostListingComponent } from '../Post/post-listing/post-listing.componen
 import { GreenitorService } from '../../Services/greenitor.service';
 import { SignInService } from '../../Services/sign-in.service';
 import { ActivatedRoute } from '@angular/router';
+import { TokenInfo } from '../../Models/token-info';
 
 @Component({
   selector: 'app-profile',
@@ -18,9 +19,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
   user? : GreenitorComplete;
-  posts: Post[] =[];
+  posts: Post[] = [];
+
+  favoritePosts: Post[] = [];
 
   username? : string
+
+  loggedUser : TokenInfo | null = null;
 
   stats = {
     likesInPosts: 0,
@@ -32,7 +37,7 @@ export class ProfileComponent implements OnInit {
     favoritePosts: 0
   }
   
-  constructor(private userService: SignUpService, private route : ActivatedRoute, private postService: PostService, private greenitorService: GreenitorService) { }
+  constructor(private authService : SignInService, private userService: SignUpService, private route : ActivatedRoute, private postService: PostService, private greenitorService: GreenitorService) { }
   
   
 
@@ -43,7 +48,18 @@ export class ProfileComponent implements OnInit {
         this.getUserByUsername();
         this.getPostsFromUser();
         this.getStats();
+        this.getFavoritePosts();
+        this.authService.getUserSubject().subscribe(u => this.loggedUser = u);
       }
+    })
+  }
+
+  getFavoritePosts() {
+    this.postService.getFavoritePosts(this.username!).subscribe({
+      next : (posts) => {
+        this.favoritePosts = posts;
+      },
+      error : (err) => console.error("Error fetching favorite posts")
     })
   }
 

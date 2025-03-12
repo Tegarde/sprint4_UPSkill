@@ -90,6 +90,9 @@ export class PostService {
   
   getPostsByUser(username : string) : Observable<Post[]> {
     return this.client.get<Post[]>(`${this.endpoint}/user/${username}`);
+  }
 
+  getFavoritePosts(username : string) : Observable<Post[]> {
+    return this.client.get<Post[]>(`${this.endpoint}/favoritePosts/${username}`);
   }
 }
