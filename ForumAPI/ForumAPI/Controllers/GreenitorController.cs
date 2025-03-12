@@ -9,6 +9,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace ForumAPI.Controllers
 {
+    /// <summary>
+    /// Controller for managing Greenitor (user) operations such as registration, login, retrieving user data, notifications, and statistics.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class GreenitorController : ControllerBase
@@ -19,6 +22,14 @@ namespace ForumAPI.Controllers
         private readonly EventDAO eventService;
         private readonly FileUploadService fileUploadService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GreenitorController"/> class.
+        /// </summary>
+        /// <param name="service">Service for user-related operations.</param>
+        /// <param name="postService">Service for handling posts.</param>
+        /// <param name="commentService">Service for managing comments.</param>
+        /// <param name="eventService">Service for tracking event participation.</param>
+        /// <param name="fileUploadService">Service for handling file uploads.</param>
         public GreenitorController(GreenitorDAO service, PostDAO postService, CommentDAO commentService, EventDAO eventService, FileUploadService fileUploadService)
         {
             this.service = service;
@@ -215,6 +226,12 @@ namespace ForumAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Updates a user’s profile.
+        /// </summary>
+        /// <param name="username">The username of the user to update.</param>
+        /// <param name="userDTO">The updated user data.</param>
+        /// <returns>A response message indicating success or failure.</returns>
         [HttpPut("update/{username}")]
         public async Task<ActionResult<ResponseMessage>> UpdateUserProfile(string username, [FromForm] UpdateUserDTO userDTO)
         {
@@ -233,8 +250,5 @@ namespace ForumAPI.Controllers
                 return StatusCode(400, new ResponseMessage { Message = ex.Message });
             }
         }
-
-
-
     }
 }
