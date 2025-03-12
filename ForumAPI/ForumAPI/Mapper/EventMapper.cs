@@ -1,13 +1,19 @@
 ﻿using ForumAPI.DTOs.EventDTOs;
-using ForumAPI.DTOs.PostDTOs;
 using ForumAPI.Enums;
 using ForumAPI.Models;
-using Microsoft.Extensions.Hosting;
 
 namespace ForumAPI.Mapper
 {
+    /// <summary>
+    /// A helper class to map between various DTOs and the Event model.
+    /// </summary>
     public class EventMapper
     {
+        /// <summary>
+        /// Converts an Event model to an EventDTO.
+        /// </summary>
+        /// <param name="ev">The Event model to be mapped.</param>
+        /// <returns>An EventDTO with data from the provided Event model.</returns>
         public static EventDTO ToDTO(Event ev)
         {
             return new EventDTO
@@ -21,7 +27,11 @@ namespace ForumAPI.Mapper
             };
         }
 
-
+        /// <summary>
+        /// Converts an Event model to an EventWithCommentsDTO, which includes the event's comments.
+        /// </summary>
+        /// <param name="ev">The Event model to be mapped.</param>
+        /// <returns>An EventWithCommentsDTO with data from the provided Event model, including comments.</returns>
         public static EventWithCommentsDTO toEventWithCommentsDTO(Event ev)
         {
             return new EventWithCommentsDTO
@@ -38,7 +48,11 @@ namespace ForumAPI.Mapper
             };
         }
 
-
+        /// <summary>
+        /// Converts a CreateEventDTO to an Event entity.
+        /// </summary>
+        /// <param name="evDTO">The CreateEventDTO to be mapped.</param>
+        /// <returns>An Event entity with data from the provided CreateEventDTO.</returns>
         public static Event ToEntity(CreateEventDTO evDTO)
         {
             return new Event
@@ -50,6 +64,11 @@ namespace ForumAPI.Mapper
             };
         }
 
+        /// <summary>
+        /// Converts an EventAttendanceDTO to an Attendance entity.
+        /// </summary>
+        /// <param name="evDTO">The EventAttendanceDTO to be mapped.</param>
+        /// <returns>An Attendance entity with data from the provided EventAttendanceDTO.</returns>
         public static Attendance ToEntity(EventAttendanceDTO evDTO)
         {
             return new Attendance
