@@ -26,8 +26,15 @@ export class ListEventComponent {
   loadEvents(): void {
     this.isLoading = true;
     this.eventService.getEventsByStatus(this.selectedFilter).subscribe({
-        next: (data) => this.handleSuccess(data),
-        error: () => this.handleError(),
+        next: (data) => {
+          this.events = data;
+          this.isLoading = false;
+          this.errorMessage = '';
+        },
+        error: () => {
+          this.errorMessage = 'Erro ao carregar eventos!';
+          this.isLoading = false;
+        },
       });
     
   }
@@ -53,6 +60,4 @@ export class ListEventComponent {
     this.selectedFilter = selectedValue;
     this.loadEvents();
   }
-  
-
 }

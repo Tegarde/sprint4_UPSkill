@@ -1,6 +1,6 @@
 <div class="greenitors-container">
     <h2>Greenitors</h2>
-  
+    <h4 *ngIf="isLoading">Loading...</h4>
     <div class="grid">
       <div *ngFor="let user of greenitors" class="container">
         <div class="card">
@@ -10,11 +10,13 @@
             <img [src]="'http://localhost:5000/' + user.image" alt="User Avatar" class="user-avatar">
             <p class="front-heading">{{ user.username }}</p>
             <p class="front-heading">{{ user.email }}</p>
-            <p class="front-heading">{{user.interections}} interactions made</p>
+            <p class="front-heading">{{user.interactions}} interactions made</p>
           </div>
   
           <!-- Back Side -->
           <div class="back">
+            <p class="user-details">{{ user.username }}'s Badges:</p>
+            <p *ngFor="let badge of user.badges" class="back-heading">{{ badge.description }}</p>
             <p [routerLink]="['/profile', user.username]" class="user-details">Click to view details</p>
           </div>
         </div>

@@ -7,12 +7,12 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-list-greenitor',
   standalone: true,
-  imports: [NgFor,RouterLink],
+  imports: [NgFor,RouterLink, NgIf],
   templateUrl: './list-greenitor.component.html',
   styleUrl: './list-greenitor.component.css'
 })
 export class ListGreenitorComponent {
-  greenitors: GreenitorComplete[] = [];
+  greenitors: any[] = [];
   isLoading = true;
   errorMessage = '';
 

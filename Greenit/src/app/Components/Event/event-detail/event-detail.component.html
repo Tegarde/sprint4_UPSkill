@@ -1,23 +1,23 @@
 <div class="container">
-  <div *ngIf="isLoading">A carregar...</div>
+  <div *ngIf="isLoading">Loading...</div>
   <div *ngIf="errorMessage">{{ errorMessage }}</div>
 
   <div *ngIf="evento" class="event-detail-card">
     <h2>{{ evento.description }}</h2>
-    <p><strong>Local:</strong> {{ evento.location }}</p>
-    <p><strong>Data:</strong> {{ evento.date | date: 'dd/MM/yyyy HH:mm a' }}</p>
-    <p [class]="(evento.status == 0) ? 'Open' : (evento.status) == 1 ? 'Closed' : 'Canceled'" ><strong>Status:</strong> {{(evento.status == 0) ? 'Aberto' : (evento.status) == 1 ? 'Fechado' : 'Cancelado' }}</p>
+    <p><strong>Location:</strong> {{ evento.location }}</p>
+    <p><strong>Date:</strong> {{ evento.date | date: 'dd/MM/yyyy HH:mm a' }}</p>
+    <p [class]="(evento.status == 0) ? 'Open' : (evento.status) == 1 ? 'Closed' : 'Canceled'" ><strong>Status:</strong> {{(evento.status == 0) ? 'Open' : (evento.status) == 1 ? 'Closed' : 'Canceled' }}</p>
     <p><img *ngIf="evento.image" [src]="'http://localhost:5000/' + evento.image" alt="Event Image" class="event-image"></p>
     <!-- Botão para mostrar/esconder o componente de comentário -->
     <div class="buttons">
       <button *ngIf="user !== null" (click)="toggleMakingAComment()">
-        {{ makingAComment ? 'Cancelar Comentário' : 'Comentar Evento' }}
+        {{ makingAComment ? 'Stop commenting' : 'Comment event' }}
       </button>
       <button *ngIf="evento.status==0 && user !== null" (click)="toggleAttendEvent()" [disabled]="isLoading" 
         [ngClass]="{'attending': isAttending, 'not-attending': !isAttending}">
-  {{ isAttending ? 'Desistir' : 'Participar' }}
+  {{ isAttending ? 'Unattend' : 'Attend' }}
       </button>
-      <button routerLink="/listEvents">Voltar à lista</button>
+      <button routerLink="/listEvents">Back to List</button>
     </div>
     <!-- Componente para fazer comentário (aparece apenas quando makingAComment for true) -->
     <app-make-comment *ngIf="makingAComment" [id]="evento.id" [type]="'event'"></app-make-comment>

@@ -5,7 +5,7 @@ export interface GreenitorComplete {
     email : string
     password : string
     role : string
-    interections : number
+    interactions : number
     image : string
     badges : Badge[]
 }

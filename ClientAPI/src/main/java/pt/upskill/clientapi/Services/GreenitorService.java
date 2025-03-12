@@ -162,6 +162,11 @@ public class GreenitorService implements GreenitorDAO {
      * @return a list of all Greenitor objects
      */
     public List<Greenitor> getAllGreenitors() {
-        return greenitorRepository.findAll();
+        List<Greenitor> users = greenitorRepository.findAll();
+        for (Greenitor user : users) {
+            user.setBadges(badgeRepository.findBadgesByGreenitorId(user.getId()));
+        }
+
+        return users;
     }
 }

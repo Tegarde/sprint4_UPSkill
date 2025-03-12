@@ -3,9 +3,10 @@
     left : 0;
     top : 45px;
     bottom: 0;
-    background-color: rgb(114, 114, 114);
+    background-color: #3E9F4D;
     height: calc(100% - 46px);
-    width: 200px;
+    width: 175px;
+    display: flex;
     transition: all 0.5s ease-in-out;
 }
 
@@ -13,9 +14,9 @@
     position : absolute;
     left : 0;
     top : 45px;
-    background-color: rgb(114, 114, 114);
+    background-color: #3E9F4D;
     height: 5%;
-    width: 200px;
+    width: 175px;
     border-radius: 0 0 5px 5px;
     transition: all 0.5s ease-in-out;
 }
@@ -26,7 +27,37 @@
     font-weight: bold;
     position: absolute;
     top: 3px;
-    left: 75px;
+    left: 62px;
+}
+
+.filter-options {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 50px;
+    gap: 20px;
+}
+
+.filter-item {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    min-height: 30px;
+    padding: 5px;
+    justify-content: space-between;
+    border-radius: 8px;
+    outline: 1px solid white;
+}
+
+.filter-item label {
+    font-weight: bold;
+}
+
+.filter-item select {
+    border-radius: 5px;
+    width: 90px;
 }
 
 .toggler:hover {
@@ -40,12 +71,53 @@
     align-items: center;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+form button {
+    width: 100%;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.posts {
+    background-color: #3E9F4D;
+    padding: 20px;
+    border-radius: 8px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
 .post-table {
     width: 1000px;
+    border: 1px solid black;
 }
+
+.post-table td {
+    border: 1px solid black;
+    margin: 0;
+    background-color: #8CC592;
+}
+
+
 
 .top-row-column {
     font-weight: bold;
-    border: 1px solid black;
+    text-align: center;
+    cursor: pointer;
+    background-color: #8CC592;
+}
+
+.post-title:hover, .post-creator:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.post-title {
+    font-weight: bold;
 }
 
