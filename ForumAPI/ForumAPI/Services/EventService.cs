@@ -155,7 +155,7 @@ namespace ForumAPI.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task<bool> isAtending(int eventId, string username)
+        public async Task<bool> isAttending(int eventId, string username)
         {
             var ev = await context.Events.FirstOrDefaultAsync(e => e.Id == eventId);
             if (ev == null)
