@@ -6,7 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Data Transfer Object for registering a new user
+ * Data Transfer Object for registering a new user.
+ * This class is used to hold the necessary information for registering a new user.
  */
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,22 +16,26 @@ import lombok.Setter;
 public class RegisterUserDTO {
 
     /**
-     * Username to be registered
+     * The username of the user to be registered.
+     * This will be used as the unique identifier for the user.
      */
     private String username;
 
     /**
-     * Email to be registered
+     * The email of the user to be registered.
+     * This will be used for communication and possibly authentication.
      */
     private String email;
 
     /**
-     * Password to be registered
+     * The password of the user to be registered.
+     * This is used for authenticating the user during login.
      */
     private String password;
 
     /**
-     * User image to be registered
+     * The image URL or path associated with the user to be registered.
+     * This can be a link to the user's avatar or profile image.
      */
     private String image;
 

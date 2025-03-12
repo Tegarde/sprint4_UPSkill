@@ -6,7 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Data Transfer Object for categories
+ * Data Transfer Object (DTO) for a Category.
+ * This class represents the data associated with a category, including its description.
  */
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,5 +15,9 @@ import lombok.Setter;
 @Setter
 public class CategoryDTO {
 
+    /**
+     * Description of the category.
+     * This field provides a textual representation of what the category signifies or its purpose.
+     */
     private String description;
 }
