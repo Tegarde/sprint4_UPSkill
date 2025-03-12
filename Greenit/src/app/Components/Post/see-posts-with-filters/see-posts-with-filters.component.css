@@ -71,6 +71,10 @@
     align-items: center;
 }
 
+.all-btn:hover {
+    text-decoration: underline;
+}
+
 form {
     display: flex;
     flex-direction: column;

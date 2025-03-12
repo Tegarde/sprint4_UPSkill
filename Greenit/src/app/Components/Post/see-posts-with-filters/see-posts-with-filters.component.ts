@@ -8,12 +8,12 @@ import { TokenInfo } from '../../../Models/token-info';
 import { SignInComponent } from '../../sign-in/sign-in.component';
 import { SignInService } from '../../../Services/sign-in.service';
 import { RouterLink } from '@angular/router';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-see-posts-with-filters',
   standalone: true,
-  imports: [NgClass, NgIf, NgFor, DatePipe, RouterLink, ReactiveFormsModule],
+  imports: [NgClass, NgIf, NgFor, DatePipe, RouterLink, ReactiveFormsModule, FormsModule],
   templateUrl: './see-posts-with-filters.component.html',
   styleUrl: './see-posts-with-filters.component.css'
 })
@@ -148,5 +148,10 @@ export class SeePostsWithFiltersComponent implements OnInit {
       const createdAtDate = new Date(a.createdAt).getTime();
       return createdAtDate >= startDate && createdAtDate <= endDate;
     });
+  }
+
+  onStatusChange(id : number, status : boolean) {
+    
+    this.postService.changePostStatus(id, status).subscribe();
   }
 }

@@ -207,8 +207,8 @@ namespace ForumAPI.Controllers
         }
 
 
-        [HttpPut("{id}/status")]
-        public async Task<ActionResult> UpdatePostStatus(int id, [FromBody] bool newStatus)
+        [HttpPut("{id}/status/{newStatus}")]
+        public async Task<ActionResult> UpdatePostStatus(int id, bool newStatus)
         {
             try
             {

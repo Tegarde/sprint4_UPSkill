@@ -17,6 +17,7 @@
         <label *ngIf="user !== null && user.role === 'Moderator'" class="button" routerLink="/createEvent">Create Event</label>
         <label class="button" routerLink="listPosts">See Posts</label>
         <label routerLink="/listEvents" class="button">See Events</label>
+        <label *ngIf="user !== null" routerLink="/users" class="button">See all Users</label>
       </div>
     </div>
     <div *ngIf="isSideBarOpen | async" class="main-buttons">

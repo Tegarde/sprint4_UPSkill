@@ -95,4 +95,8 @@ export class PostService {
   getFavoritePosts(username : string) : Observable<Post[]> {
     return this.client.get<Post[]>(`${this.endpoint}/favoritePosts/${username}`);
   }
+
+  changePostStatus(id: number, status: boolean) : Observable<any> {
+    return this.client.put<any>(`${this.endpoint}/${id}/status/${status}`, {});
+  }
 }

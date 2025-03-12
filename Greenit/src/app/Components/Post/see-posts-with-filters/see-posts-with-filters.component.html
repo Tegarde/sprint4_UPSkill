@@ -3,8 +3,8 @@
     <label class="toggler" (click)="isSideBarOpen = !isSideBarOpen">Filters</label>
     <div *ngIf="isSideBarOpen" class="filter-options">
 
-      <div class="filter-item">
-        <label (click)="setShowingPosts()" style="cursor: pointer;">See all Posts</label>
+      <div style="justify-content: center;" class="filter-item">
+        <label class="all-btn" (click)="setShowingPosts()" style="cursor: pointer;">See all Posts</label>
       </div>
 
       <div class="filter-item">
@@ -43,7 +43,12 @@
         <td [routerLink]="['/profile', post.createdBy]" class="post-creator">{{post.createdBy}}</td>
         <td class="post-column">{{post.createdAt | date: 'EEEE, d MMMM, y, h:mm:ss a'}}</td>
         <td class="post-column">{{post.category}}</td>
-        <td *ngIf="user !== null && user.role === 'Moderator'" class="post-column">{{post.status ? 'Active' : 'Inactive'}}</td>
+        <td *ngIf="user !== null && user.role === 'Moderator'" class="post-column">
+          <select (change)="onStatusChange(post.id, post.status)" [(ngModel)]="post.status">
+            <option value="true">Active</option>
+            <option value="false">Inactive</option>
+          </select>
+        </td>
       </tr>
     </table>
   </div>
