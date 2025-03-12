@@ -14,6 +14,12 @@ import pt.upskill.clientapi.DTOs.*;
 import pt.upskill.clientapi.Interfaces.GreenitorDAO;
 import pt.upskill.clientapi.Mappers.GreenitorMapper;
 
+/**
+ * Controller class to manage Greenitor operations.
+ * This class handles HTTP requests related to Greenitor operations such as
+ * registering a new user, logging in, incrementing and decrementing interactions,
+ * and retrieving user data.
+ */
 @Tag(name = "Greenitor Management", description = "Operations related to Greenitors")
 @RestController
 @RequestMapping("api/greenitor")
@@ -21,10 +27,21 @@ public class GreenitorController {
 
     private final GreenitorDAO service;
 
+    /**
+     * Constructor for GreenitorController.
+     *
+     * @param service the GreenitorDAO service to handle business logic
+     */
     public GreenitorController(GreenitorDAO service) {
         this.service = service;
     }
 
+    /**
+     * Registers a new Greenitor (user).
+     *
+     * @param greenitor the data of the Greenitor to be registered
+     * @return ResponseEntity with the status of the registration
+     */
     @Operation(summary = "Register a new Greenitor", description = "Registers a new user and returns a success message.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "User registered successfully",
@@ -46,6 +63,12 @@ public class GreenitorController {
         }
     }
 
+    /**
+     * Logs in a Greenitor with the provided credentials.
+     *
+     * @param loginDTO the login credentials for the Greenitor
+     * @return ResponseEntity with the login token or error message
+     */
     @Operation(summary = "Login a Greenitor", description = "Authenticates a user based on provided credentials and returns a login token.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User logged in successfully",
@@ -70,6 +93,12 @@ public class GreenitorController {
         }
     }
 
+    /**
+     * Retrieves Greenitor data based on the username.
+     *
+     * @param username the username of the Greenitor
+     * @return ResponseEntity with the Greenitor data
+     */
     @Operation(summary = "Get Greenitor by Username", description = "Fetches user data based on the username.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User data retrieved successfully",
@@ -91,6 +120,12 @@ public class GreenitorController {
         }
     }
 
+    /**
+     * Increments the interactions of a Greenitor by their username.
+     *
+     * @param username the username of the Greenitor whose interactions will be incremented
+     * @return ResponseEntity with a success message
+     */
     @Operation(summary = "Increment Greenitor Interactions", description = "Increments the interactions for a given Greenitor by their username.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Interactions incremented successfully",
@@ -111,6 +146,12 @@ public class GreenitorController {
         }
     }
 
+    /**
+     * Decrements the interactions of a Greenitor by their username.
+     *
+     * @param username the username of the Greenitor whose interactions will be decremented
+     * @return ResponseEntity with a success message
+     */
     @Operation(summary = "Decrement Greenitor Interactions", description = "Decrements the interactions for a given Greenitor by their username.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Interactions decremented successfully",
@@ -131,6 +172,11 @@ public class GreenitorController {
         }
     }
 
+    /**
+     * Retrieves a list of all Greenitors.
+     *
+     * @return ResponseEntity with a list of all Greenitors
+     */
     @Operation(summary = "Get All Greenitors", description = "Retrieves a list of all Greenitors.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List of Greenitors retrieved successfully",

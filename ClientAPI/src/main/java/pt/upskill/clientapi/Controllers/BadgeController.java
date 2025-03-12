@@ -20,20 +20,40 @@ import pt.upskill.clientapi.Mappers.BadgeMapper;
 import pt.upskill.clientapi.Models.Badge;
 import pt.upskill.clientapi.Services.ImageClient;
 
+/**
+ * Controller responsible for managing user badges. This includes creating, retrieving,
+ * and deleting badges, as well as handling badge-related operations like managing interactions
+ * and image uploads.
+ */
 @Tag(name = "Badge Management", description = "Operations related to User Badges")
 @RestController
 @RequestMapping("api/badges")
 public class BadgeController {
 
     private final BadgeDAO service;
-    @Autowired
     private final ImageClient imageClient;
 
+    /**
+     * Constructor to initialize BadgeController.
+     *
+     * @param service The BadgeDAO service used to interact with the badge database.
+     * @param imageClient The ImageClient used to handle image uploads.
+     */
+    @Autowired
     public BadgeController(BadgeDAO service, ImageClient imageClient) {
         this.service = service;
         this.imageClient = imageClient;
     }
 
+    /**
+     * Endpoint to create a new badge. The badge includes a description, interaction count,
+     * and an associated image.
+     *
+     * @param description The description of the badge.
+     * @param interactions The interaction count required for the badge.
+     * @param image The image associated with the badge.
+     * @return A ResponseEntity containing a message and HTTP status indicating success or failure.
+     */
     @Operation(summary = "Create a new Badge", description = "Creates a new badge with a description, interactions, and an image.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Badge created successfully",
@@ -46,6 +66,7 @@ public class BadgeController {
             @RequestPart("description") String description,
             @RequestPart("interactions") String interactions,
             @RequestPart("image") MultipartFile image) {
+
         try {
             if (image.isEmpty()) {
                 return ResponseEntity.badRequest().body(new ResponseMessage("No file uploaded"));
@@ -75,6 +96,11 @@ public class BadgeController {
         }
     }
 
+    /**
+     * Endpoint to retrieve all available badges.
+     *
+     * @return A ResponseEntity containing a list of all badges or an error message if something went wrong.
+     */
     @Operation(summary = "Get all Badges", description = "Fetches a list of all available badges.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List of badges retrieved successfully",
@@ -91,6 +117,12 @@ public class BadgeController {
         }
     }
 
+    /**
+     * Endpoint to delete a badge by its description.
+     *
+     * @param description The description of the badge to be deleted.
+     * @return A ResponseEntity containing an HTTP status indicating success or failure.
+     */
     @Operation(summary = "Delete a Badge", description = "Deletes a badge by its description.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Badge deleted successfully"),

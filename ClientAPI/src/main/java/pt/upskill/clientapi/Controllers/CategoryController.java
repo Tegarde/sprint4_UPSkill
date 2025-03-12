@@ -18,6 +18,10 @@ import pt.upskill.clientapi.Models.Category;
 
 import java.util.List;
 
+/**
+ * Controller responsible for managing categories. This includes creating, retrieving,
+ * and deleting categories, along with handling category-related operations.
+ */
 @Tag(name = "Category Management", description = "Operations related to categories")
 @RestController
 @RequestMapping("api/category")
@@ -25,10 +29,21 @@ public class CategoryController {
 
     private final CategoryDAO service;
 
+    /**
+     * Constructor to initialize CategoryController.
+     *
+     * @param service The CategoryDAO service used to interact with the category data.
+     */
     public CategoryController(CategoryDAO service) {
         this.service = service;
     }
 
+    /**
+     * Endpoint to create a new category. The category includes a description.
+     *
+     * @param dto The CategoryDTO containing the description for the new category.
+     * @return A ResponseEntity containing a message and HTTP status indicating success or failure.
+     */
     @Operation(summary = "Create a new Category", description = "Creates a new category with a description.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Category created successfully",
@@ -49,6 +64,11 @@ public class CategoryController {
         }
     }
 
+    /**
+     * Endpoint to retrieve all available categories.
+     *
+     * @return A ResponseEntity containing a list of all categories, or a message indicating no categories were found.
+     */
     @Operation(summary = "Get all Categories", description = "Fetches a list of all available categories.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List of categories retrieved successfully",
@@ -68,6 +88,12 @@ public class CategoryController {
         }
     }
 
+    /**
+     * Endpoint to retrieve a category by its description.
+     *
+     * @param description The description of the category to be fetched.
+     * @return A ResponseEntity containing the category, or an error message if not found.
+     */
     @Operation(summary = "Get a Category by Description", description = "Fetches a category by its description.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Category retrieved successfully",
@@ -90,6 +116,12 @@ public class CategoryController {
         }
     }
 
+    /**
+     * Endpoint to delete a category by its description.
+     *
+     * @param description The description of the category to be deleted.
+     * @return A ResponseEntity indicating whether the deletion was successful or not.
+     */
     @Operation(summary = "Delete a Category", description = "Deletes a category by its description.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Category deleted successfully"),

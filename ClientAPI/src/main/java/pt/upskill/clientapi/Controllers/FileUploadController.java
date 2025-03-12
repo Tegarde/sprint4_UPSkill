@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import pt.upskill.clientapi.Services.ImageClient;
 
+/**
+ * Controller responsible for handling file uploads. This includes uploading a file
+ * and returning the URL of the stored file.
+ */
 @Tag(name = "File Upload Management")
 @RestController
 @RequestMapping("api/file")
@@ -23,10 +27,22 @@ public class FileUploadController {
     @Autowired
     private final ImageClient imageClient;
 
+    /**
+     * Constructor to initialize the FileUploadController with an ImageClient.
+     *
+     * @param imageClient The service responsible for storing files and returning URLs.
+     */
+    @Autowired
     public FileUploadController(ImageClient imageClient) {
         this.imageClient = imageClient;
     }
 
+    /**
+     * Endpoint to upload a file. The file is processed, and its URL is returned.
+     *
+     * @param file The file to be uploaded, passed as a MultipartFile in the request.
+     * @return A ResponseEntity containing the URL of the uploaded file or an error message if no file is uploaded.
+     */
     @Operation(summary = "Upload a file", description = "Uploads a file and returns the URL of the stored file.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "File uploaded successfully",
