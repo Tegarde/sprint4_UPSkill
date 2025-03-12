@@ -10,7 +10,77 @@
 			"name": "Greenitor",
 			"item": [
 				{
-					"name": "Get User by Username",
+					"name": "Get All Greenitors",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/greenitor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"greenitor"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/greenitor",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"greenitor"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 12:57:08 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"username\": \"moderator\",\n        \"email\": \"moderator@greenit.pt\",\n        \"image\": null,\n        \"interactions\": 0,\n        \"badges\": []\n    },\n    {\n        \"username\": \"vasco\",\n        \"email\": \"vasco@gmail.com\",\n        \"image\": \"uploads/2aac8912-384a-4804-8334-4f199097e1da.jpg\",\n        \"interactions\": 10,\n        \"badges\": [\n            {\n                \"description\": \"New Member\",\n                \"image\": \"uploads/17e3c1f5-bee6-43dd-ad6d-854c275813e8.jpg\"\n            }\n        ]\n    },\n    {\n        \"username\": \"tegarde\",\n        \"email\": \"bruno@gmail.com\",\n        \"image\": \"uploads/f83f0f0a-d7ed-40f4-901b-d68b3b431879.jpg\",\n        \"interactions\": 70,\n        \"badges\": [\n            {\n                \"description\": \"New Member\",\n                \"image\": \"uploads/17e3c1f5-bee6-43dd-ad6d-854c275813e8.jpg\"\n            },\n            {\n                \"description\": \"Environmental expert\",\n                \"image\": \"uploads/84c7be9e-b026-46d1-a271-d5d04801a666.png\"\n            }\n        ]\n    },\n    {\n        \"username\": \"testuser\",\n        \"email\": \"test@example.com\",\n        \"image\": null,\n        \"interactions\": 1,\n        \"badges\": []\n    },\n    {\n        \"username\": \"albertinho3\",\n        \"email\": \"bertinho3@gmail.com\",\n        \"image\": null,\n        \"interactions\": 0,\n        \"badges\": []\n    },\n    {\n        \"username\": \"Bruno\",\n        \"email\": \"brunao@gmail.com\",\n        \"image\": \"uploads/92f14a38-43ed-4151-b269-2b626a057796.jpg\",\n        \"interactions\": 0,\n        \"badges\": []\n    },\n    {\n        \"username\": \"ricardo\",\n        \"email\": \"ricardo@gmail.com\",\n        \"image\": null,\n        \"interactions\": 18,\n        \"badges\": [\n            {\n                \"description\": \"New Member\",\n                \"image\": \"uploads/17e3c1f5-bee6-43dd-ad6d-854c275813e8.jpg\"\n            }\n        ]\n    },\n    {\n        \"username\": \"bertil\",\n        \"email\": \"bertil@gmail.com\",\n        \"image\": null,\n        \"interactions\": 0,\n        \"badges\": []\n    },\n    {\n        \"username\": \"hello\",\n        \"email\": \"hello1234@gmail.com\",\n        \"image\": null,\n        \"interactions\": 0,\n        \"badges\": []\n    },\n    {\n        \"username\": \"hello1\",\n        \"email\": \"hello21234@gmail.com\",\n        \"image\": null,\n        \"interactions\": 0,\n        \"badges\": []\n    },\n    {\n        \"username\": \"hello2\",\n        \"email\": \"hello2\",\n        \"image\": null,\n        \"interactions\": 0,\n        \"badges\": []\n    },\n    {\n        \"username\": \"undefined\",\n        \"email\": \"bertoaberto@gmail.com\",\n        \"image\": \"uploads/eb06fd10-650d-40c6-b378-6052659df1d7.png\",\n        \"interactions\": 0,\n        \"badges\": []\n    },\n    {\n        \"username\": \"tester\",\n        \"email\": \"tester@gmail.com\",\n        \"image\": \"uploads/f83f0f0a-d7ed-40f4-901b-d68b3b431879.jpg\",\n        \"interactions\": 0,\n        \"badges\": []\n    },\n    {\n        \"username\": \"albertinho\",\n        \"email\": \"albertoaberto@gmail.com\",\n        \"image\": \"uploads/f83f0f0a-d7ed-40f4-901b-d68b3b431879.jpg\",\n        \"interactions\": 0,\n        \"badges\": []\n    },\n    {\n        \"username\": \"albertinho2\",\n        \"email\": \"bertinho2@gmail.com\",\n        \"image\": null,\n        \"interactions\": 0,\n        \"badges\": []\n    },\n    {\n        \"username\": \"1234567\",\n        \"email\": \"\",\n        \"image\": null,\n        \"interactions\": 0,\n        \"badges\": []\n    },\n    {\n        \"username\": \"caralho\",\n        \"email\": \"carlos@gmail.com\",\n        \"image\": null,\n        \"interactions\": 0,\n        \"badges\": []\n    },\n    {\n        \"username\": \"srdasdas\",\n        \"email\": \"vasdasdasd@gmail.com\",\n        \"image\": \"uploads/f83f0f0a-d7ed-40f4-901b-d68b3b431879.jpg\",\n        \"interactions\": 0,\n        \"badges\": []\n    },\n    {\n        \"username\": \"asdf\",\n        \"email\": \"bruno.oliveira.1@gmail.com\",\n        \"image\": null,\n        \"interactions\": 0,\n        \"badges\": []\n    },\n    {\n        \"username\": \"dfgdgfsf\",\n        \"email\": \"bruno.oliveira.1994.5@gmail.com\",\n        \"image\": \"uploads/f83f0f0a-d7ed-40f4-901b-d68b3b431879.jpg\",\n        \"interactions\": 0,\n        \"badges\": []\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get Greenitor by Username",
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -140,30 +210,13 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "Username",
-									"value": "albertinho2",
-									"type": "text"
-								},
-								{
-									"key": "Email",
-									"value": "bertinho2@gmail.com",
-									"type": "text"
-								},
-								{
-									"key": "Password",
-									"value": "amtbertil123",
-									"type": "text"
-								},
-								{
-									"key": "Image",
-									"type": "file",
-									"src": [],
-									"disabled": true
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"bertil\",\r\n  \"email\": \"kknknknon@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							]
+							}
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/greenitor",
@@ -180,103 +233,18 @@
 					},
 					"response": [
 						{
-							"name": "400 Bad Request User Already Exists",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "Username",
-											"value": "albertinho2",
-											"type": "text"
-										},
-										{
-											"key": "Email",
-											"value": "bertinho2@gmail.com",
-											"type": "text"
-										},
-										{
-											"key": "Password",
-											"value": "amtbertil123",
-											"type": "text"
-										},
-										{
-											"key": "Image",
-											"type": "file",
-											"src": [],
-											"disabled": true
-										}
-									]
-								},
-								"url": {
-									"raw": "http://localhost:8080/api/greenitor",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"greenitor"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Tue, 11 Mar 2025 15:38:41 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "close"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"message\": \"User with username albertinho already exists\"\n}"
-						},
-						{
 							"name": "201 Created",
 							"originalRequest": {
 								"method": "POST",
 								"header": [],
 								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "Username",
-											"value": "albertinho2",
-											"type": "text"
-										},
-										{
-											"key": "Email",
-											"value": "bertinho2@gmail.com",
-											"type": "text"
-										},
-										{
-											"key": "Password",
-											"value": "amtbertil123",
-											"type": "text"
-										},
-										{
-											"key": "Image",
-											"type": "file",
-											"src": [],
-											"disabled": true
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"bertil\",\r\n  \"email\": \"bertil@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
 										}
-									]
+									}
 								},
 								"url": {
 									"raw": "http://localhost:8080/api/greenitor",
@@ -305,7 +273,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 11 Mar 2025 15:39:52 GMT"
+									"value": "Wed, 12 Mar 2025 12:54:12 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -325,30 +293,13 @@
 								"method": "POST",
 								"header": [],
 								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "Username",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "Email",
-											"value": "bertinho2@gmail.com",
-											"type": "text"
-										},
-										{
-											"key": "Password",
-											"value": "amtbertil123",
-											"type": "text"
-										},
-										{
-											"key": "Image",
-											"type": "file",
-											"src": [],
-											"disabled": true
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"\",\r\n  \"email\": \"bertil@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
 										}
-									]
+									}
 								},
 								"url": {
 									"raw": "http://localhost:8080/api/greenitor",
@@ -377,7 +328,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 11 Mar 2025 15:40:04 GMT"
+									"value": "Wed, 12 Mar 2025 12:54:33 GMT"
 								},
 								{
 									"key": "Connection",
@@ -385,7 +336,58 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"message\": \"User with email bertinho2@gmail.com already exists\"\n}"
+							"body": "{\n    \"message\": \"User with email bertil@gmail.com already exists\"\n}"
+						},
+						{
+							"name": "400 Bad Request User Already Exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"bertil\",\r\n  \"email\": \"kknknknon@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/greenitor",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"greenitor"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 12:56:12 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User with username bertil already exists\"\n}"
 						}
 					]
 				},
@@ -1022,6 +1024,57 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"message\": \"Category Berto created successfully\"\n}"
+						},
+						{
+							"name": "404 Bad Request - Category Already Exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"description\": \"Berto\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/category",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"category"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 12:46:23 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Category with description Berto already exists\"\n}"
 						}
 					]
 				},
