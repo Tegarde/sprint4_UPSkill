@@ -3,10 +3,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ForumAPI.Data
 {
+    /// <summary>
+    /// Represents the database context for the Forum API, managing entity sets and relationships.
+    /// </summary>
     public class DataContext : DbContext
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataContext"/> class with the specified options.
+        /// </summary>
+        /// <param name="options">The database context options.</param>
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
-
 
         /// <summary>
         /// The posts in the database.
@@ -49,11 +55,11 @@ namespace ForumAPI.Data
         public DbSet<Attendance> Attendances { get; set; }
 
         /// <summary>
-        /// Configures the model builder for the database context.
+        /// Configures entity relationships and composite primary keys.
         /// </summary>
-        /// <param name="modelBuilder">The model builder to configure.</param>
+        /// <param name="modelBuilder">The model builder used for configuration.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {   
+        {
             modelBuilder.Entity<PostLike>()
                 .HasKey(pl => new { pl.PostId, pl.User });
 
