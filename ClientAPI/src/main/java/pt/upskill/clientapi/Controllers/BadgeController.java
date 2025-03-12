@@ -1,5 +1,11 @@
 package pt.upskill.clientapi.Controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,6 +20,7 @@ import pt.upskill.clientapi.Mappers.BadgeMapper;
 import pt.upskill.clientapi.Models.Badge;
 import pt.upskill.clientapi.Services.ImageClient;
 
+@Tag(name = "Badge Management", description = "Operations related to User Badges")
 @RestController
 @RequestMapping("api/badges")
 public class BadgeController {
@@ -26,19 +33,25 @@ public class BadgeController {
         this.service = service;
         this.imageClient = imageClient;
     }
+
+    @Operation(summary = "Create a new Badge", description = "Creates a new badge with a description, interactions, and an image.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Badge created successfully",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class))),
+            @ApiResponse(responseCode = "400", description = "Invalid input or missing data",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class)))
+    })
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ResponseMessage> createBadge(
             @RequestPart("description") String description,
-            @RequestPart("interactions") String interactions,  // Changed to Integer to handle null cases
+            @RequestPart("interactions") String interactions,
             @RequestPart("image") MultipartFile image) {
-
         try {
             if (image.isEmpty()) {
                 return ResponseEntity.badRequest().body(new ResponseMessage("No file uploaded"));
             }
 
-            // Convert String to int safely
-            int interactionsN = 0; // Default value
+            int interactionsN = 0;
             if (interactions != null && !interactions.isEmpty()) {
                 try {
                     interactionsN = Integer.parseInt(interactions);
@@ -47,13 +60,8 @@ public class BadgeController {
                 }
             }
 
-            // Create DTO
             BadgeDTO dto = new BadgeDTO(description, interactionsN);
-
-            // Save the image and get the URL
             String url = imageClient.saveImage(image).fileName;
-
-            // Convert DTO to entity and set image URL
             Badge newBadge = BadgeMapper.fromDTO(dto);
             newBadge.setImage(url);
             service.createBadge(newBadge);
@@ -67,6 +75,13 @@ public class BadgeController {
         }
     }
 
+    @Operation(summary = "Get all Badges", description = "Fetches a list of all available badges.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of badges retrieved successfully",
+                    content = @Content),
+            @ApiResponse(responseCode = "400", description = "Something went wrong",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class)))
+    })
     @GetMapping
     public ResponseEntity<?> getAllBadges() {
         try {
@@ -76,6 +91,14 @@ public class BadgeController {
         }
     }
 
+    @Operation(summary = "Delete a Badge", description = "Deletes a badge by its description.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Badge deleted successfully"),
+            @ApiResponse(responseCode = "404", description = "Badge not found",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class))),
+            @ApiResponse(responseCode = "400", description = "Something went wrong",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class)))
+    })
     @DeleteMapping("{description}")
     public ResponseEntity<ResponseMessage> deleteBadge(@PathVariable String description) {
         try {

@@ -1,5 +1,11 @@
 package pt.upskill.clientapi.Controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -7,11 +13,8 @@ import pt.upskill.clientapi.CustomExceptions.UserNotFoundException;
 import pt.upskill.clientapi.DTOs.*;
 import pt.upskill.clientapi.Interfaces.GreenitorDAO;
 import pt.upskill.clientapi.Mappers.GreenitorMapper;
-import pt.upskill.clientapi.Models.Token;
 
-import javax.security.auth.login.AccountNotFoundException;
-import java.util.List;
-
+@Tag(name = "Greenitor Management", description = "Operations related to Greenitors")
 @RestController
 @RequestMapping("api/greenitor")
 public class GreenitorController {
@@ -22,6 +25,15 @@ public class GreenitorController {
         this.service = service;
     }
 
+    @Operation(summary = "Register a new Greenitor", description = "Registers a new user and returns a success message.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "User registered successfully",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class))),
+            @ApiResponse(responseCode = "400", description = "Invalid input",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class))),
+            @ApiResponse(responseCode = "400", description = "Something went wrong",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class)))
+    })
     @PostMapping
     public ResponseEntity<ResponseMessage> registerUser(RegisterUserDTO greenitor) {
         try {
@@ -34,19 +46,39 @@ public class GreenitorController {
         }
     }
 
+    @Operation(summary = "Login a Greenitor", description = "Authenticates a user based on provided credentials and returns a login token.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User logged in successfully",
+                    content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized - Invalid credentials",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class))),
+            @ApiResponse(responseCode = "404", description = "User not found",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class))),
+            @ApiResponse(responseCode = "400", description = "Something went wrong",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class)))
+    })
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginDTO loginDTO) {
         try {
             return new ResponseEntity<>(service.loginUser(loginDTO), HttpStatus.OK);
         } catch (UserNotFoundException e) {
             return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.NOT_FOUND);
-        }catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.UNAUTHORIZED);
         } catch (Exception e) {
             return new ResponseEntity<>(new ResponseMessage("Something went wrong"), HttpStatus.BAD_REQUEST);
         }
     }
 
+    @Operation(summary = "Get Greenitor by Username", description = "Fetches user data based on the username.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User data retrieved successfully",
+                    content = @Content(schema = @Schema(implementation = GreenitorDTO.class))),
+            @ApiResponse(responseCode = "404", description = "User not found",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class))),
+            @ApiResponse(responseCode = "400", description = "Something went wrong",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class)))
+    })
     @GetMapping("/user/{username}")
     public ResponseEntity<?> getGreenitorByUsername(@PathVariable String username) {
         try {
@@ -59,6 +91,15 @@ public class GreenitorController {
         }
     }
 
+    @Operation(summary = "Increment Greenitor Interactions", description = "Increments the interactions for a given Greenitor by their username.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Interactions incremented successfully",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class))),
+            @ApiResponse(responseCode = "404", description = "User not found",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class))),
+            @ApiResponse(responseCode = "400", description = "Something went wrong",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class)))
+    })
     @PatchMapping("increment/{username}")
     public ResponseEntity<ResponseMessage> incrementInteractions(@PathVariable String username) {
         try {
@@ -70,6 +111,15 @@ public class GreenitorController {
         }
     }
 
+    @Operation(summary = "Decrement Greenitor Interactions", description = "Decrements the interactions for a given Greenitor by their username.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Interactions decremented successfully",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class))),
+            @ApiResponse(responseCode = "404", description = "User not found",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class))),
+            @ApiResponse(responseCode = "400", description = "Something went wrong",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class)))
+    })
     @PatchMapping("decrement/{username}")
     public ResponseEntity<ResponseMessage> decrementInteractions(@PathVariable String username) {
         try {
@@ -81,6 +131,13 @@ public class GreenitorController {
         }
     }
 
+    @Operation(summary = "Get All Greenitors", description = "Retrieves a list of all Greenitors.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of Greenitors retrieved successfully",
+                    content = @Content(schema = @Schema(implementation = GreenitorDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Something went wrong",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class)))
+    })
     @GetMapping("")
     public ResponseEntity<?> getAllGreenitors() {
         try {
