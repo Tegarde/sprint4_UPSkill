@@ -7,10 +7,12 @@
   /* Grid layout for arranging user cards */
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 40px;
     justify-content: center;
+    align-items: center; /* Align vertically */
     padding: 20px;
+    perspective: 1000px; /* Optional, can also be on .container */   
   }
   
   /* Individual card container */
@@ -18,17 +20,16 @@
     width: 240px;
     height: 300px;
     perspective: 1000px;
-    
+    position: relative;
   }
   
   /* Flipping card styles */
   .card {
-    height: 100%;
     width: 100%;
-    position: relative;
+    height: 100%;
     transition: transform 1000ms;
     transform-style: preserve-3d;
-    border-radius: 1.5rem;
+    transform-origin: center center;
   }
   
   .container:hover > .card {
@@ -38,10 +39,12 @@
   
   /* Common front and back styles */
   .front, .back {
-    height: 100%;
     width: 100%;
-    border-radius: 1.5rem;
+    height: 100%;
     position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 1.5rem;
     box-shadow: 0 0 10px 2px rgba(50, 50, 50, 0.3);
     backface-visibility: hidden;
     display: flex;
@@ -49,14 +52,17 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 15px;
-    padding: 20px;
+    gap: 10px;
+    padding: 0;
   }
   
   /* Front side with user info */
   .front {
     background: linear-gradient(-135deg, #4CAF50, #0AA4F8);
     color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
   
   /* Back side with additional details */
@@ -64,12 +70,15 @@
     background: linear-gradient(-135deg, #0AA4F8, #4CAF50);
     color: white;
     transform: rotateY(180deg);
+    position: absolute;
+    top: 0;
+    left: 0;
   }
   
   /* User profile image */
   .user-avatar {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid white;
@@ -77,13 +86,13 @@
   
   /* Username styling */
   .front-heading, .back-heading {
-    font-size: 22px;
+    font-size: 14px;
     font-weight: bold;
   }
   
   /* Smaller details like email and interactions */
   .user-details {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: normal;
     color: #f1f1f1;
   }

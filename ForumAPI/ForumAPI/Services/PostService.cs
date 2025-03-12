@@ -27,7 +27,6 @@ namespace ForumAPI.Services
             var posts = await context.Posts
                 .Include(p => p.Comments)
                 .ThenInclude(p => p.Replies)
-                .Where(p => p.Status)
                 .ToListAsync();
 
             return posts;
@@ -45,7 +44,6 @@ namespace ForumAPI.Services
                 .ThenInclude(p => p.Replies)
                 .Include(l => l.LikedBy)
                 .Include(d => d.DislikedBy)
-                .Where(p => p.Status)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (post == null)

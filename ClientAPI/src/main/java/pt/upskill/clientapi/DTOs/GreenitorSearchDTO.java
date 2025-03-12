@@ -36,9 +36,13 @@ public class GreenitorSearchDTO {
      */
     public String image;
 
+
+    public int interactions;
+
     /**
      * List of badges associated with the Greenitor.
      * This field contains the badges that the Greenitor has earned, represented by BadgeDescriptionDTO objects.
      */
+
     private List<BadgeDescriptionDTO> badges;
 }

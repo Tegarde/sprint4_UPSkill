@@ -29,7 +29,7 @@ namespace ForumAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ResponseMessage>> RegisterUser([FromForm] RegisterUserDTO greenitor)
+        public async Task<ActionResult<ResponseMessage>> RegisterUser(RegisterUserDTO greenitor)
         {
             try
             {   
@@ -53,7 +53,7 @@ namespace ForumAPI.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(400, ex.Message);
+                return StatusCode(400, "Something went wrong");
             }
         }
 

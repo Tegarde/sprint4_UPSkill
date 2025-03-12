@@ -1,7 +1,7 @@
 <div *ngIf="post" class="container">
     <div class="post">
         <div class="create-content">
-            <p [routerLink]="['/profile', post.createdBy]"><i>{{post.createdBy}} on {{post.createdAt | date: 'EEEE, d MMMM, y, h:mm:ss'}}</i></p>
+            <p [routerLink]="['/profile', post.createdBy]"><i>{{post.createdBy}} on {{post.createdAt | date: 'EEEE, d MMMM, y, h:mm:ss a'}}</i></p>
         </div>
         <div class="title-content">
             <h1>{{post.title}}</h1>

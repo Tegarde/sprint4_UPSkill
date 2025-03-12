@@ -9,13 +9,13 @@
           <div class="front">
             <img [src]="'http://localhost:5000/' + user.image" alt="User Avatar" class="user-avatar">
             <p class="front-heading">{{ user.username }}</p>
-            <p class="user-details">Click to view details</p>
+            <p class="front-heading">{{ user.email }}</p>
+            <p class="front-heading">{{user.interections}} interactions made</p>
           </div>
   
           <!-- Back Side -->
           <div class="back">
-            <p class="back-heading">{{ user.email }}</p>
-            <p [routerLink]="['/profile', user.username]">{{ user.username}} Interactions</p>
+            <p [routerLink]="['/profile', user.username]" class="user-details">Click to view details</p>
           </div>
         </div>
       </div>

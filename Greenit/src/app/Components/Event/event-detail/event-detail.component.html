@@ -5,18 +5,18 @@
   <div *ngIf="evento" class="event-detail-card">
     <h2>{{ evento.description }}</h2>
     <p><strong>Local:</strong> {{ evento.location }}</p>
-    <p><strong>Data:</strong> {{ evento.date | date: 'dd/MM/yyyy HH:mm' }}</p>
+    <p><strong>Data:</strong> {{ evento.date | date: 'dd/MM/yyyy HH:mm a' }}</p>
     <p [class]="(evento.status == 0) ? 'Open' : (evento.status) == 1 ? 'Closed' : 'Canceled'" ><strong>Status:</strong> {{(evento.status == 0) ? 'Aberto' : (evento.status) == 1 ? 'Fechado' : 'Cancelado' }}</p>
     <p><img *ngIf="evento.image" [src]="'http://localhost:5000/' + evento.image" alt="Event Image" class="event-image"></p>
     <!-- Botão para mostrar/esconder o componente de comentário -->
     <div class="buttons">
-      <button (click)="toggleMakingAComment()">
+      <button *ngIf="user !== null" (click)="toggleMakingAComment()">
         {{ makingAComment ? 'Cancelar Comentário' : 'Comentar Evento' }}
       </button>
-      <button *ngIf="evento.status==0" (click)="toggleAttendEvent()" [disabled]="isLoading" 
+      <button *ngIf="evento.status==0 && user !== null" (click)="toggleAttendEvent()" [disabled]="isLoading" 
         [ngClass]="{'attending': isAttending, 'not-attending': !isAttending}">
   {{ isAttending ? 'Desistir' : 'Participar' }}
-</button>
+      </button>
       <button routerLink="/listEvents">Voltar à lista</button>
     </div>
     <!-- Componente para fazer comentário (aparece apenas quando makingAComment for true) -->

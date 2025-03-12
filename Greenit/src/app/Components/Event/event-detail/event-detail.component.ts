@@ -6,6 +6,7 @@ import { CommonModule, DatePipe, NgFor, NgIf } from '@angular/common';
 import { MakeCommentComponent } from '../../make-comment/make-comment.component';
 import { CommentDetailsComponent } from '../../comment-details/comment-details.component';
 import { SignInService } from '../../../Services/sign-in.service';
+import { TokenInfo } from '../../../Models/token-info';
 
 @Component({
   selector: 'app-event-detail',
@@ -21,12 +22,14 @@ export class EventDetailComponent implements OnInit{
   makingAComment = false;
   username : string = '';
   isAttending = false;
+  user : TokenInfo | null = null;
 
   constructor(private route: ActivatedRoute, private eventService: EventService,  private authService : SignInService ) {}
 
   ngOnInit(): void {
     this.authService.getUserSubject().subscribe((username) => {
       this.username = username!.username;
+      this.user = username;
     });
   
     this.route.params.subscribe(params => {

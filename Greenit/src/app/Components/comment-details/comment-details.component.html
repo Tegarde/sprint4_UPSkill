@@ -1,7 +1,7 @@
 <div class="container">
     <div class="comment">
         <div class="create-content">
-            <p [routerLink]="['/profile', comment.createdBy]">{{comment.createdBy}} on {{comment.createdAt | date: 'EEEE, d MMMM, y, h:mm:ss'}}</p>
+            <p [routerLink]="['/profile', comment.createdBy]">{{comment.createdBy}} on {{comment.createdAt | date: 'EEEE, d MMMM, y, h:mm:ss a'}}</p>
         </div>
         <div class="title-content">
             <p>{{comment.content}}<p>

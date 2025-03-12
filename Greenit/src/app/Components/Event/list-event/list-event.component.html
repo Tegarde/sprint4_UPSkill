@@ -20,7 +20,7 @@
     <div *ngFor="let event of events" class="event-card">
       <h3><a [routerLink]="['/events', event.id]">{{ event.description }}</a></h3>
       <p><strong>Local:</strong> {{ event.location }}</p>
-      <p><strong>Data:</strong> {{ event.date | date: 'dd/MM/yyyy HH:mm' }}</p>
+      <p><strong>Data:</strong> {{ event.date | date: 'dd/MM/yyyy HH:mm a' }}</p>
       <p><strong>Status:</strong> {{ event.status }}</p>
     </div>
 </div>

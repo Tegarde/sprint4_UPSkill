@@ -1,6 +1,25 @@
 <div class="container">
   <nav [ngClass]="(isSideBarOpen) ? 'filters' : 'filters-closed'">
-    <label *ngIf="isSideBarOpen" class="closer" (click)="isSideBarOpen = !isSideBarOpen">X</label>
-    <label *ngIf="!isSideBarOpen" class="toggler" (click)="isSideBarOpen = !isSideBarOpen">Filters</label>
+    <label class="toggler" (click)="isSideBarOpen = !isSideBarOpen">Filters</label>
   </nav>
+
+  <div *ngIf="allPosts" class="posts">
+    <table class="post-table">
+      <tr class="top-row">
+        <td class="top-row-column">Title</td>
+        <td class="top-row-column">Posted by</td>
+        <td class="top-row-column">Posted at</td>
+        <td class="top-row-column">Category</td>
+        <td *ngIf="user !== null && user.role === 'Moderator'" class="top-row-column">Status</td>
+      </tr>
+
+      <tr *ngFor="let post of showingPosts" class="post-row">
+        <td class="post-column">{{post.title}}</td>
+        <td class="post-column">{{post.createdBy}}</td>
+        <td class="post-column">{{post.createdAt | date: 'EEEE, d MMMM, y, h:mm:ss a'}}</td>
+        <td class="post-column">{{post.category}}</td>
+        <td *ngIf="user !== null && user.role === 'Moderator'" class="post-column">{{post.status ? 'Active' : 'Inactive'}}</td>
+      </tr>
+    </table>
+  </div>
 </div>
