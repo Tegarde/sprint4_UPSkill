@@ -8,14 +8,33 @@ import pt.upskill.clientapi.Models.Badge;
 
 import java.util.List;
 
+/**
+ * Service class for handling business logic related to badges.
+ * This class implements the BadgeDAO interface and provides methods to create, retrieve, and delete badges.
+ * It interacts with the BadgeRepository to perform database operations.
+ */
 @Service
 public class BadgeService implements BadgeDAO {
     private final BadgeRepository repository;
 
+    /**
+     * Constructs a BadgeService with the provided BadgeRepository.
+     *
+     * @param repository the BadgeRepository used to interact with the database
+     */
     public BadgeService(BadgeRepository repository) {
         this.repository = repository;
     }
 
+    /**
+     * Creates a new badge.
+     * The method checks if a badge with the same description or interactions already exists.
+     * If either exists, an IllegalArgumentException is thrown.
+     *
+     * @param badge the Badge object to be created
+     * @return the created Badge object
+     * @throws IllegalArgumentException if a badge with the same description or interactions already exists
+     */
     @Override
     public Badge createBadge(Badge badge) {
         if (repository.existsByDescription(badge.getDescription())) {
@@ -27,11 +46,23 @@ public class BadgeService implements BadgeDAO {
         return repository.save(badge);
     }
 
+    /**
+     * Retrieves all badges from the database.
+     *
+     * @return a list of all Badge objects
+     */
     @Override
     public List<Badge> getAllBadges() {
         return repository.findAll();
     }
 
+    /**
+     * Deletes a badge by its description.
+     * If no badge with the given description exists, a BadgeNotFoundException is thrown.
+     *
+     * @param description the description of the badge to be deleted
+     * @throws BadgeNotFoundException if no badge with the given description exists
+     */
     @Override
     public void deleteBadgeByDescription(String description) {
         if (!repository.existsByDescription(description)) {

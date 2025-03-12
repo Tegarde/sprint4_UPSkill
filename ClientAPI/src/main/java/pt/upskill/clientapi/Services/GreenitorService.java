@@ -15,19 +15,37 @@ import pt.upskill.clientapi.Models.Token;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Service class for handling business logic related to greenitors (users).
+ * This class implements the GreenitorDAO interface and provides methods for user registration, login,
+ * managing interactions, and retrieving user details.
+ */
 @Service
 public class GreenitorService implements GreenitorDAO {
 
     private final GreenitorRepository greenitorRepository;
-
     private final BadgeRepository badgeRepository;
 
+    /**
+     * Constructs a GreenitorService with the provided GreenitorRepository and BadgeRepository.
+     *
+     * @param greenitorRepository the GreenitorRepository used to interact with the Greenitor data
+     * @param badgeRepository the BadgeRepository used to interact with the Badge data
+     */
     public GreenitorService(GreenitorRepository greenitorRepository, BadgeRepository badgeRepository) {
-        this.badgeRepository = badgeRepository;
         this.greenitorRepository = greenitorRepository;
+        this.badgeRepository = badgeRepository;
     }
 
-
+    /**
+     * Registers a new user.
+     * Checks if the email or username already exists in the repository.
+     * If they exist, an IllegalArgumentException is thrown.
+     *
+     * @param greenitor the Greenitor object to be registered
+     * @return the registered Greenitor object
+     * @throws IllegalArgumentException if the email or username already exists
+     */
     @Override
     public Greenitor registerUser(Greenitor greenitor) {
         if (greenitorRepository.existsByEmail(greenitor.getEmail())) {
@@ -40,8 +58,17 @@ public class GreenitorService implements GreenitorDAO {
         return greenitorRepository.save(greenitor);
     }
 
+    /**
+     * Logs in a user.
+     * The method validates the email and password and generates a token if valid.
+     * If the email is not found or the password is incorrect, exceptions are thrown.
+     *
+     * @param loginDTO the LoginDTO containing the user's login credentials (email and password)
+     * @return a Token object containing the username and role of the logged-in user
+     * @throws UserNotFoundException if the user with the provided email does not exist
+     * @throws IllegalArgumentException if the provided password is incorrect
+     */
     @Override
-
     public Token loginUser(LoginDTO loginDTO) {
         Greenitor greenitor = greenitorRepository.findByEmail(loginDTO.getEmail());
 
@@ -54,6 +81,14 @@ public class GreenitorService implements GreenitorDAO {
         return new Token(greenitor.getUsername(), greenitor.getRole());
     }
 
+    /**
+     * Retrieves a Greenitor object by their username.
+     * If the user does not exist, a UserNotFoundException is thrown.
+     *
+     * @param username the username of the Greenitor to be retrieved
+     * @return the Greenitor object corresponding to the username
+     * @throws UserNotFoundException if the user with the provided username does not exist
+     */
     @Override
     public Greenitor getGreenitorByUsername(String username) {
         Greenitor greenitor = greenitorRepository.findByUsername(username);
@@ -65,6 +100,14 @@ public class GreenitorService implements GreenitorDAO {
         return greenitor;
     }
 
+    /**
+     * Increments the interactions count for a Greenitor.
+     * It checks if the increment leads to unlocking any new badges based on interactions.
+     * If a badge is unlocked, it is added to the user's badges.
+     *
+     * @param username the username of the Greenitor whose interactions are to be incremented
+     * @return a ResponseMessage indicating the result of the interaction increment
+     */
     @Override
     @Transactional
     public ResponseMessage incrementInteractions(String username) {
@@ -85,6 +128,14 @@ public class GreenitorService implements GreenitorDAO {
         return new ResponseMessage("Interactions incremented");
     }
 
+    /**
+     * Decrements the interactions count for a Greenitor.
+     * It checks if the decrement leads to removing any existing badges based on interactions.
+     * If a badge is removed, it is deleted from the user's badges.
+     *
+     * @param username the username of the Greenitor whose interactions are to be decremented
+     * @return a ResponseMessage indicating the result of the interaction decrement
+     */
     @Override
     @Transactional
     public ResponseMessage decrementInteractions(String username) {
@@ -105,6 +156,11 @@ public class GreenitorService implements GreenitorDAO {
         return new ResponseMessage("Interactions decremented");
     }
 
+    /**
+     * Retrieves all Greenitors in the system.
+     *
+     * @return a list of all Greenitor objects
+     */
     public List<Greenitor> getAllGreenitors() {
         return greenitorRepository.findAll();
     }
