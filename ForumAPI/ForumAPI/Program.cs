@@ -89,7 +89,7 @@ namespace ForumAPI
                 });
 
                 // Automatically open Swagger UI when the application starts
-                OpenBrowser("http://localhost:5000/swagger/index.html"); // Adjust port if needed
+                OpenBrowser("http://localhost:5000/index.html"); // Adjust port if needed
             }
 
             // Other middleware configurations
