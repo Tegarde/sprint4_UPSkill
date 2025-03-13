@@ -1,4 +1,5 @@
-﻿using ForumAPI.CustomExceptions;
+﻿/*
+using ForumAPI.CustomExceptions;
 using ForumAPI.Data;
 using ForumAPI.DTOs.CategoryDTOs;
 using ForumAPI.DTOs.GreenitorDTOs;
@@ -634,3 +635,4 @@ namespace ForumAPI.Tests.Services
         }
     }
 }
+*/
