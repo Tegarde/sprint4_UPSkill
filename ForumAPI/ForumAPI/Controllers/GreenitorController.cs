@@ -14,6 +14,7 @@ namespace ForumAPI.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [SwaggerTag("Greenitor Management")]
     public class GreenitorController : ControllerBase
     {
         private readonly GreenitorDAO service;

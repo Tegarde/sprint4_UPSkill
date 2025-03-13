@@ -1,14 +1,23 @@
 ﻿using ForumAPI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace ForumAPI.Controllers
 {
+    /// <summary>
+    /// Controller for handling file uploads.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [SwaggerTag("File Upload Management")]
     public class FileUploadController : ControllerBase
     {
         private readonly FileUploadService fileUploadService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileUploadController"/> class.
+        /// </summary>
+        /// <param name="fileUploadService">The service responsible for handling file uploads.</param>
         public FileUploadController(FileUploadService fileUploadService)
         {
             this.fileUploadService = fileUploadService;
@@ -22,20 +31,17 @@ namespace ForumAPI.Controllers
         /// <response code="200">Returns a success message and the uploaded file's name.</response>
         /// <response code="400">If there is an error with the file upload process.</response>
         [HttpPost("upload")]
-        [ApiExplorerSettings(IgnoreApi = true)] // Swagger ignore this endpoint (Optional based on your needs)
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> UploadFile(IFormFile file)
         {
             try
             {
-                // Call the service to upload the file and get the file name.
                 string fileName = await fileUploadService.UploadFileAsync(file);
 
-                // Return a success message along with the file name
                 return Ok(new { Message = "File uploaded successfully!", FileName = fileName });
             }
             catch (Exception ex)
             {
-                // Return an error message if file upload fails
                 return BadRequest(new { Message = ex.Message });
             }
         }

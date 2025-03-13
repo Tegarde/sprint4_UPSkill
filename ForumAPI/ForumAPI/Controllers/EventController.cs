@@ -10,16 +10,22 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace ForumAPI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     /// <summary>
     /// Controller for managing events, including creating, retrieving, updating, and attending events.
     /// </summary>
+    [Route("api/[controller]")]
+    [ApiController]
+    [SwaggerTag("Event Management")]
     public class EventController : ControllerBase
     {
         private readonly EventDAO service;
         private readonly FileUploadService fileUploadService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventController"/> class.
+        /// </summary>
+        /// <param name="service">The event service for event management operations.</param>
+        /// <param name="fileUploadService">The file upload service for managing event images.</param>
         public EventController(EventDAO service, FileUploadService fileUploadService)
         {
             this.service = service;

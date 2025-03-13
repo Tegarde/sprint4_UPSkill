@@ -1,16 +1,22 @@
 ﻿using ForumAPI.DTOs.CategoryDTOs;
 using ForumAPI.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 
 namespace ForumAPI.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+    using Swashbuckle.AspNetCore.Annotations;
+
     [Route("api/[controller]")]
     [ApiController]
+    [SwaggerTag("Category Management")]
     public class CategoryController : ControllerBase
     {
         private readonly CategoryDAO service;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CategoryController"/> class.
+        /// </summary>
+        /// <param name="service">The category service.</param>
         public CategoryController(CategoryDAO service)
         {
             this.service = service;

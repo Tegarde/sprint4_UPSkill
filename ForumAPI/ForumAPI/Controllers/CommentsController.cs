@@ -9,12 +9,20 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace ForumAPI.Controllers
 {
+    /// <summary>
+    /// Controller for managing comments in the forum.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [SwaggerTag("Comment Management")]
     public class CommentsController : ControllerBase
     {
         private readonly CommentDAO service;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CommentsController"/> class.
+        /// </summary>
+        /// <param name="service">The comment service.</param>
         public CommentsController(CommentDAO service)
         {
             this.service = service;

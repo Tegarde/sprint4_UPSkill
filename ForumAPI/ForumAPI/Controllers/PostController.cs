@@ -10,13 +10,22 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace ForumAPI.Controllers
 {
+    /// <summary>
+    /// Controller for managing posts, including creating, updating, retrieving, and deleting posts.
+    /// </summary>
     [ApiController]
     [Route("api/posts")]
+    [SwaggerTag("Post Management")]
     public class PostController : ControllerBase
     {
         private readonly PostDAO service;
         private readonly FileUploadService fileUploadService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PostController"/> class.
+        /// </summary>
+        /// <param name="service">The post service for managing posts.</param>
+        /// <param name="fileUploadService">The file upload service for handling post-related images.</param>
         public PostController(PostDAO service, FileUploadService fileUploadService)
         {
             this.service = service;
