@@ -7,19 +7,31 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ForumAPI.Services
 {
+    /// <summary>
+    /// Service responsible for managing comments in the forum.
+    /// </summary>
     public class CommentService : CommentDAO
     {
-
         private readonly DataContext context;
-
         private readonly GreenitorDAO greenitorDAO;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CommentService"/> class.
+        /// </summary>
+        /// <param name="context">The database context.</param>
+        /// <param name="greenitorDAO">DAO for user interactions.</param>
         public CommentService(DataContext context, GreenitorDAO greenitorDAO)
         {
             this.context = context;
             this.greenitorDAO = greenitorDAO;
         }
 
+        /// <summary>
+        /// Adds a comment as a reply to another comment.
+        /// </summary>
+        /// <param name="comment">The comment to be added.</param>
+        /// <returns>The created comment.</returns>
+        /// <exception cref="NotFoundException">Thrown if the parent comment is not found.</exception>
         public async Task<Comment> CommentAComment(Comment comment)
         {
             var parentComment = context.Comments.FirstOrDefault(c => c.Id == comment.ParentCommentId);
@@ -30,7 +42,6 @@ namespace ForumAPI.Services
             }
 
             await greenitorDAO.GetUserByUsername(comment.CreatedBy);
-
             comment.ParentComment = parentComment;
 
             if (parentComment.ParentPostId != null)
@@ -44,16 +55,19 @@ namespace ForumAPI.Services
             }
 
             comment.CreatedAt = DateTime.UtcNow;
-
             context.Comments.Add(comment);
-
             context.SaveChanges();
-
             await greenitorDAO.IncrementUserInteractions(comment.CreatedBy);
 
             return comment;
         }
 
+        /// <summary>
+        /// Adds a comment to an event.
+        /// </summary>
+        /// <param name="comment">The comment to be added.</param>
+        /// <returns>The created comment.</returns>
+        /// <exception cref="NotFoundException">Thrown if the event is not found.</exception>
         public async Task<Comment> CommentAnEvent(Comment comment)
         {
             using var transaction = await context.Database.BeginTransactionAsync();
@@ -65,10 +79,7 @@ namespace ForumAPI.Services
                     throw new NotFoundException("Event not found");
                 }
 
-
-                //Get user from greenitorDAO
                 GreenitorDTO user = await greenitorDAO.GetUserByUsername(comment.CreatedBy);
-
                 comment.Event = ev;
                 comment.CreatedAt = DateTime.UtcNow;
                 context.Comments.Add(comment);
@@ -77,17 +88,22 @@ namespace ForumAPI.Services
 
                 transaction.Commit();
                 return comment;
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 transaction.Rollback();
                 throw ex;
             }
         }
 
+        /// <summary>
+        /// Adds a comment to a post.
+        /// </summary>
+        /// <param name="comment">The comment to be added.</param>
+        /// <returns>The created comment.</returns>
+        /// <exception cref="NotFoundException">Thrown if the post is not found.</exception>
         public async Task<Comment> CommentAPost(Comment comment)
         {
-
-
             using var transaction = await context.Database.BeginTransactionAsync();
             try
             {
@@ -98,34 +114,33 @@ namespace ForumAPI.Services
                 }
 
                 GreenitorDTO user = await greenitorDAO.GetUserByUsername(comment.CreatedBy);
-               
                 comment.Post = post;
                 comment.ParentPostId = post.Id;
-
                 comment.CreatedAt = DateTime.UtcNow;
-
                 context.Comments.Add(comment);
-
                 post.Interactions++;
 
                 await context.SaveChangesAsync();
-
                 await greenitorDAO.IncrementUserInteractions(comment.CreatedBy);
 
                 transaction.Commit();
                 return comment;
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 transaction.Rollback();
                 throw ex;
             }
         }
 
+        /// <summary>
+        /// Retrieves comment statistics for a specific user.
+        /// </summary>
+        /// <param name="username">The username of the user.</param>
+        /// <returns>The user's comment statistics.</returns>
         public async Task<GreenitorStatisticsDTO> GetCommentStatisticsByUsername(string username)
         {
-
             var comments = await context.Comments.Where(c => c.CreatedBy == username).CountAsync();
-
             var likes = await context.CommentLikes.Where(cl => cl.User == username).CountAsync();
 
             return new GreenitorStatisticsDTO
@@ -135,6 +150,13 @@ namespace ForumAPI.Services
             };
         }
 
+        /// <summary>
+        /// Likes a comment.
+        /// </summary>
+        /// <param name="commentLike">The comment like object.</param>
+        /// <returns>The created like entry.</returns>
+        /// <exception cref="NotFoundException">Thrown if the comment is not found.</exception>
+        /// <exception cref="ArgumentException">Thrown if the user has already liked the comment.</exception>
         public async Task<CommentLike> LikeComment(CommentLike commentLike)
         {
             var comment = context.Comments.FirstOrDefault(c => c.Id == commentLike.CommentId);
@@ -158,6 +180,11 @@ namespace ForumAPI.Services
             return commentLike;
         }
 
+        /// <summary>
+        /// Removes a like from a comment.
+        /// </summary>
+        /// <param name="commentLike">The comment like object.</param>
+        /// <returns>The removed like entry.</returns>
         public async Task<CommentLike> UnLikeComment(CommentLike commentLike)
         {
             var comment = context.Comments.FirstOrDefault(c => c.Id == commentLike.CommentId);
@@ -178,9 +205,13 @@ namespace ForumAPI.Services
             await context.SaveChangesAsync();
             await greenitorDAO.DecrementUserInteractions(commentLike.User);
             return like;
-
         }
 
+        /// <summary>
+        /// Retrieves the number of likes for a given comment.
+        /// </summary>
+        /// <param name="commentId">The ID of the comment.</param>
+        /// <returns>The total number of likes.</returns>
         public async Task<int> GetNumberOfLikesFromCommentId(int commentId)
         {
             var comment = await context.Comments.FirstOrDefaultAsync(c => c.Id == commentId);
@@ -189,9 +220,14 @@ namespace ForumAPI.Services
                 throw new NotFoundException("Comment not found");
             }
             return await context.CommentLikes.Where(cl => cl.CommentId == commentId).CountAsync();
-
         }
 
+        /// <summary>
+        /// Checks if a user has interacted with a comment.
+        /// </summary>
+        /// <param name="commentId">The ID of the comment.</param>
+        /// <param name="username">The username of the user.</param>
+        /// <returns>1 if the user liked the comment, 0 otherwise.</returns>
         public async Task<int> GetCommentInteractionsByUser(int commentId, string username)
         {
             var user = await greenitorDAO.GetUserByUsername(username);
@@ -214,6 +250,12 @@ namespace ForumAPI.Services
             return 0; // Retorna 0 se não houver interação
         }
 
+        /// <summary>
+        /// Retrieves a list of replies to a specific comment.
+        /// </summary>
+        /// <param name="commentId">The ID of the parent comment.</param>
+        /// <returns>A list of comments that are replies to the specified comment.</returns>
+        /// <exception cref="NotFoundException">Thrown if the specified comment is not found.</exception>
         public async Task<List<Comment>> GetCommentsByCommentId(int commentId)
         {
             var comment = await context.Comments.FirstOrDefaultAsync(c => c.Id == commentId);
@@ -221,12 +263,9 @@ namespace ForumAPI.Services
             {
                 throw new NotFoundException("Comment not found");
             }
-            return await context.Comments.Where(c => c.ParentCommentId == commentId).Include(c => c.Replies).ToListAsync();
+            return await context.Comments.Where(c => c.ParentCommentId == commentId)
+                                         .Include(c => c.Replies)
+                                         .ToListAsync();
         }
-
-
-
-
     }
 }
-
