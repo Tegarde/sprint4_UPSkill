@@ -1,4 +1,10 @@
+/**
+ * Represents a badge earned by a user.
+ */
 export interface Badge {
-    description : string
-    image : string
+    /** Description of the badge */
+    description: string;
+
+    /** URL or path to the badge image */
+    image: string;
 }

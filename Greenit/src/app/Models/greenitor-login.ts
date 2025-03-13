@@ -1,4 +1,10 @@
+/**
+ * Represents the credentials required for a user (Greenitor) to log in.
+ */
 export interface GreenitorLogin {
-    email : string
-    password : string
+    /** The email address of the user */
+    email: string;
+
+    /** The password for authentication */
+    password: string;
 }
