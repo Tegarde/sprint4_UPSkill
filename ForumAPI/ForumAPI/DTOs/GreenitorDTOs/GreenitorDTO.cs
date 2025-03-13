@@ -50,9 +50,5 @@ namespace ForumAPI.DTOs.GreenitorDTOs
             Email = email;
             Interactions = interactions;
         }
-
-        public GreenitorDTO()
-        {
-        }
     }
 }
