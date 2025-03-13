@@ -21,7 +21,7 @@
     
       <!-- 🔹 Botão de atualizar estado agora está ao lado dos outros -->
       <div class="status-button-container">
-        <button (click)="toggleStatusMenu()" class="status-btn">Atualizar Estado</button>
+        <button *ngIf="user !== null && user.role === 'Moderator'" (click)="toggleStatusMenu()" class="status-btn">Update Status</button>
     
         <!-- 🔹 Menu de opções (Dropdown) -->
         <div *ngIf="isStatusMenuOpen" class="status-dropdown">

@@ -160,3 +160,6 @@
     background-color: #f0f0f0;
   }
   
+  .event-image {
+    max-width: 400px;
+  }

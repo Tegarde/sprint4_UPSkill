@@ -1,5 +1,5 @@
 <div class="container">
-    <div routerLink="/post" [queryParams]="{id : post.id}" *ngFor="let post of posts; track post" class="post">
+    <div routerLink="/post" [queryParams]="{id : post.id}" *ngFor="let post of posts" class="post">
         <h1>{{post.title}}</h1>
         <p>{{post.createdAt | date: 'EEEE, d MMMM, y, h:mm:ss a'}}</p>
         <p [routerLink]="['/profile', post.createdBy]" class="username">{{post.createdBy}}</p>

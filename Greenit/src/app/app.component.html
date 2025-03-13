@@ -23,6 +23,11 @@
     <div *ngIf="isSideBarOpen | async" class="main-buttons">
       <label *ngIf="user !== null" (click)="logout()" class="button">Logout</label>
     </div>
+    <div *ngIf="isSideBarOpen | async" class="footer">
+      <a href="http://localhost:5000/index.html"><img style="height: 40px;" src="https://static-00.iconduck.com/assets.00/swagger-icon-2048x2048-563qbzey.png"></a>
+      <a href="https://github.com/Tegarde/sprint4_UPSkill"><img style="height: 40px;" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"></a>
+      <a href="http://localhost:8080/swagger-ui/index.html"><img style="height: 40px;" src="https://static-00.iconduck.com/assets.00/swagger-icon-2048x2048-563qbzey.png"></a>
+    </div>
   </nav>
   <div class="content">
     <router-outlet></router-outlet>

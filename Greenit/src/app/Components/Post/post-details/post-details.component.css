@@ -18,10 +18,14 @@
     padding: 10px;
     border-radius: 8px;
     margin-bottom: 10px;
+    max-width: 1000px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    word-break: break-word;  /* Break long words */
+    overflow-wrap: break-word;
+    white-space: normal;
 }
 
 .comment-section {
@@ -106,4 +110,8 @@
 
 .favorite-button:active {
     padding: 6.5px;
+}
+
+.event-image {
+    max-width: 400px;
 }

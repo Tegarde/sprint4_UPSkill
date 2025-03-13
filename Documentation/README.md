@@ -53,3 +53,7 @@
 ## Use Cases
 
 >### [See Use Cases](Use%20Cases/README.md)
+
+## Class Diagrams
+
+>### [See Class Diagrams](./Global%20Artifacts/ClassDiagrams/CD.md)
