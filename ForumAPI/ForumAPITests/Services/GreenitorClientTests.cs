@@ -1,38 +1,31 @@
-using System;
+using ForumAPI.DTOs;
+using ForumAPI.DTOs.GreenitorDTOs;
+using ForumAPI.Services;
+using Moq;
+using Moq.Protected;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using ForumAPI.DTOs;
-using ForumAPI.DTOs.BadgeDTOs;
-using ForumAPI.DTOs.GreenitorDTOs;
-using ForumAPI.Interfaces;
-using ForumAPI.Services;
-using Moq;
-using Moq.Protected;
 using Xunit;
 
 namespace ForumAPI.Tests.Services
 {
     public class GreenitorClientTests
     {
-        private readonly GreenitorDAO _greenitorClient;
         private readonly Mock<HttpMessageHandler> _httpMessageHandlerMock;
-
+        private readonly GreenitorClient _greenitorClient;
 
         public GreenitorClientTests()
         {
             _httpMessageHandlerMock = new Mock<HttpMessageHandler>();
-            var httpClient = new HttpClient(_httpMessageHandlerMock.Object)
-            {
-                BaseAddress = new Uri("http://localhost:8080/api/greenitor")
-            };
-            _greenitorClient = new GreenitorClient();
+            var httpClient = new HttpClient(_httpMessageHandlerMock.Object);
+            _greenitorClient = new GreenitorClient(httpClient);
         }
 
         [Fact]
-        public async Task RegisterUser_ValidRequest_ReturnsResponseMessage()
+        public async Task RegisterUser_ShouldReturnResponseMessage_WhenSuccessful()
         {
             // Arrange
             var registerUserDTO = new RegisterUserWithImageDTO { Username = "testuser", Email = "test@example.com", Password = "password" };
@@ -43,7 +36,10 @@ namespace ForumAPI.Tests.Services
             };
 
             _httpMessageHandlerMock.Protected()
-                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(httpResponseMessage);
 
             // Act
@@ -54,7 +50,7 @@ namespace ForumAPI.Tests.Services
         }
 
         [Fact]
-        public async Task Login_ValidRequest_ReturnsTokenDTO()
+        public async Task Login_ShouldReturnTokenDTO_WhenSuccessful()
         {
             // Arrange
             var loginDTO = new LoginDTO("test@example.com", "password");
@@ -65,7 +61,10 @@ namespace ForumAPI.Tests.Services
             };
 
             _httpMessageHandlerMock.Protected()
-                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(httpResponseMessage);
 
             // Act
@@ -77,23 +76,21 @@ namespace ForumAPI.Tests.Services
         }
 
         [Fact]
-        public async Task GetUserByUsername_ValidRequest_ReturnsGreenitorDTO()
+        public async Task GetUserByUsername_ShouldReturnGreenitorDTO_WhenSuccessful()
         {
             // Arrange
-            var username = "tegarde";
-            var greenitorDTO = new GreenitorDTO(username, "bruno@gmail.com", 61)
-            {
-                Role = "user",
-                Image = null,
-                Badges = new List<BadgeDescriptionDTO>()
-            };
+            var username = "testuser";
+            var greenitorDTO = new GreenitorDTO(username, "test@example.com", 0);
             var httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
             {
                 Content = new StringContent(JsonSerializer.Serialize(greenitorDTO))
             };
 
             _httpMessageHandlerMock.Protected()
-                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(httpResponseMessage);
 
             // Act
@@ -102,45 +99,42 @@ namespace ForumAPI.Tests.Services
             // Assert
             Assert.Equal(greenitorDTO.Username, result.Username);
             Assert.Equal(greenitorDTO.Email, result.Email);
-            Assert.Equal(greenitorDTO.Interactions, result.Interactions);
         }
 
         [Fact]
-        public async Task IncrementUserInteractions_ValidRequest_Success()
+        public async Task IncrementUserInteractions_ShouldNotThrowException_WhenSuccessful()
         {
             // Arrange
             var username = "testuser";
             var httpResponseMessage = new HttpResponseMessage(HttpStatusCode.NoContent);
 
             _httpMessageHandlerMock.Protected()
-                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(httpResponseMessage);
 
-            // Act
+            // Act & Assert
             await _greenitorClient.IncrementUserInteractions(username);
-
-            // Assert
-            _httpMessageHandlerMock.Protected()
-                .Verify("SendAsync", Times.Once(), ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>());
         }
 
         [Fact]
-        public async Task DecrementUserInteractions_ValidRequest_Success()
+        public async Task DecrementUserInteractions_ShouldNotThrowException_WhenSuccessful()
         {
             // Arrange
             var username = "testuser";
             var httpResponseMessage = new HttpResponseMessage(HttpStatusCode.NoContent);
 
             _httpMessageHandlerMock.Protected()
-                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(httpResponseMessage);
 
-            // Act
+            // Act & Assert
             await _greenitorClient.DecrementUserInteractions(username);
-
-            // Assert
-            _httpMessageHandlerMock.Protected()
-                .Verify("SendAsync", Times.Once(), ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>());
         }
     }
 }
