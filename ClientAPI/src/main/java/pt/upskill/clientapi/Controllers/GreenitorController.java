@@ -53,7 +53,7 @@ public class GreenitorController {
                     content = @Content(schema = @Schema(implementation = ResponseMessage.class)))
     })
     @PostMapping
-    public ResponseEntity<ResponseMessage> registerUser(RegisterUserDTO greenitor) {
+    public ResponseEntity<ResponseMessage> registerUser(@RequestBody RegisterUserDTO greenitor) {
         try {
             service.registerUser(GreenitorMapper.fromRegisterDTO(greenitor));
             return new ResponseEntity<>(new ResponseMessage("User registered successfully"), HttpStatus.CREATED);
