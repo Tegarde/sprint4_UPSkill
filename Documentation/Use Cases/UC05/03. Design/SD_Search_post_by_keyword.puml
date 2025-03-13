@@ -1,0 +1,32 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+title "View Favorite Posts"
+
+autonumber
+entity "User" as U
+
+box "Front-End" #lightpink
+participant "UI - Application" as UI
+participant "Post Service" as FES
+end box
+
+box "Back-End 1" #lightgreen
+participant "Post Controller" as BE1C
+participant "Post Mapper" as PM
+participant "Post Service" as BE1S
+participant "Context" as CBE1
+end box
+
+U -> UI++: Types keyword on search bar
+UI -> FES++: searchPosts(keyword)
+FES -> BE1C++: searchPosts(keyword)
+BE1C -> BE1S++: SearchPostsByKeyword(keyword)
+BE1S -> CBE1++: getPostsWith(keyword)
+CBE1 -> BE1S--: posts
+BE1S -> BE1C--: return posts
+BE1C -> PM**: ToDTO(List<post>)
+PM -> BE1C--: return PostsDTO
+BE1C -> FES--: return PostsDTO
+FES -> UI--: return PostsDTO
+UI -> U--: Display all posts with that keyword
+@enduml
