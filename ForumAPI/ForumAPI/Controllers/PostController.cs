@@ -274,8 +274,18 @@ namespace ForumAPI.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Updates the status of a post.
+        /// </summary>
+        /// <param name="id">The ID of the post to update.</param>
+        /// <param name="newStatus">The new status to assign to the post (true for active, false for inactive).</param>
+        /// <returns>An HTTP response indicating the result of the operation.</returns>
         [HttpPut("{id}/status/{newStatus}")]
+        [SwaggerOperation(Summary = "Update post status", Description = "Updates the status of a post (active/inactive).")]
+        [SwaggerResponse(200, "Post status updated successfully.", typeof(ResponseMessage))]
+        [SwaggerResponse(400, "Bad request. Error occurred while updating the post status.", typeof(ResponseMessage))]
+        [SwaggerResponse(401, "Unauthorized. User does not have permission to update this post.", typeof(ResponseMessage))]
+        [SwaggerResponse(404, "Post not found.", typeof(ResponseMessage))]
         public async Task<ActionResult> UpdatePostStatus(int id, bool newStatus)
         {
             try
