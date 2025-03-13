@@ -1,4 +1,3 @@
-/*
 using ForumAPI.CustomExceptions;
 using ForumAPI.Data;
 using ForumAPI.DTOs.GreenitorDTOs;
@@ -173,6 +172,7 @@ namespace ForumAPI.Tests.Services
             Assert.Equal(count, result);
         }
 
+        /*
         [Fact]
             public async Task CreateAttendance_ValidAttendance_ReturnsAttendance()
             {
@@ -187,7 +187,9 @@ namespace ForumAPI.Tests.Services
                 // Assert
                 Assert.Equal(attendance, result);
             }
-        
+        */
+
+        /*
         [Fact]
         public async Task CreateAttendance_EventNotFound_ThrowsNotFoundException()
         {
@@ -198,7 +200,9 @@ namespace ForumAPI.Tests.Services
             // Act & Assert
             await Assert.ThrowsAsync<NotFoundException>(() => _eventService.CreateAttendance(attendance));
         }
-        
+        */
+
+        /*
         [Fact]
         public async Task UnattendEvent_ValidAttendance_RemovesAttendance()
         {
@@ -211,7 +215,9 @@ namespace ForumAPI.Tests.Services
             await _eventService.UnattendEvent(attendance);
 
         }
+        */
 
+        /*
         [Fact]
         public async Task UnattendEvent_AttendanceNotFound_ThrowsNotFoundException()
         {
@@ -222,6 +228,7 @@ namespace ForumAPI.Tests.Services
             // Act & Assert
             await Assert.ThrowsAsync<NotFoundException>(() => _eventService.UnattendEvent(attendance));
         }
+        */
 
         [Fact]
         public async Task AddImage_ValidEvent_AddsImage()
@@ -277,4 +284,3 @@ namespace ForumAPI.Tests.Services
         }
     }
 }
-*/
