@@ -37,6 +37,7 @@
   
         <!-- Submit Button -->
         <button type="submit" [disabled]="profileForm.invalid">Update Profile</button>
+        <p *ngIf="msg">{{ msg }}</p>
       </form>
     </div>
   </div>

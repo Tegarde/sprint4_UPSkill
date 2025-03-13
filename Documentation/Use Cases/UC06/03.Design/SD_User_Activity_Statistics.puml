@@ -1,0 +1,47 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+title "User Activity Statistics"
+
+autonumber
+entity "User" as U
+
+box "Front-End" #lightpink
+participant "UI - Application" as UI
+participant "Greenitor Service" as GSA
+end box
+
+box "Back-End 1" #lightgreen
+participant "Greenitor Controller" as BE1C
+participant "Post Service" as PS1BE
+participant "Event Service" as ES1BE
+participant "Comment Service" as CS1BE
+participant "Context"
+end box
+
+U -> UI++: Request user stats
+UI -> GSA++: getUserStats(username)
+GSA -> BE1C++: getUserStats(username)
+BE1C -> PS1BE**: GetPostStatisticsByUsername(username)
+PS1BE -> "Context"++: GetPostStatisticsByUsername(username)
+BE1C -> ES1BE**: GetEventStatisticsByUsername(username)
+ES1BE -> "Context": GetEventStatisticsByUsername(username)
+BE1C -> CS1BE**: GetCommentStatisticsByUsername(username)
+CS1BE -> "Context":GetCommentStatisticsByUsername(username)
+
+"Context"-> CS1BE--: return CommentStatisticsByUser
+CS1BE -> BE1C--:  return CommentStatisticsByUser
+
+"Context" -> ES1BE: return EventsStatiscticsByUser
+ES1BE -> BE1C--: return EventsStatiscticsByUser
+
+"Context" -> PS1BE: return PostStatisticsByUser
+PS1BE -> BE1C--: return PostStatisticsByUser
+
+BE1C -> GSA--: Return UserStats
+GSA -> UI--: Return UserStats
+UI -> U--: Display stats
+
+
+
+
+@enduml
