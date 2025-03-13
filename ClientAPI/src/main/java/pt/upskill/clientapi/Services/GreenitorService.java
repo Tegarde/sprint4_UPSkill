@@ -174,22 +174,31 @@ public class GreenitorService implements GreenitorDAO {
         return users;
     }
 
-    public ResponseMessage updateGreenitor(String username, UpdateGreenitorDTO greenitor){
+    /**
+     * Updates the details of an existing Greenitor (user).
+     *
+     * @param username the username of the Greenitor to update
+     * @param greenitor the updated user information
+     * @return a ResponseMessage indicating the success of the update
+     * @throws UserNotFoundException if the user is not found
+     */
+    public ResponseMessage updateGreenitor(String username, UpdateGreenitorDTO greenitor) {
         Greenitor toUpdate = greenitorRepository.findByUsername(username);
-        if (toUpdate == null){
+        if (toUpdate == null) {
             throw new UserNotFoundException("User not found");
         }
-        if (!greenitor.getEmail().isEmpty() && !greenitor.getEmail().equals(toUpdate.getEmail())){
+
+        if (!greenitor.getEmail().isEmpty() && !greenitor.getEmail().equals(toUpdate.getEmail())) {
             toUpdate.setEmail(greenitor.getEmail());
         }
-        if(greenitor.getPassword()!=null && !greenitor.getPassword().isEmpty()){
+        if (greenitor.getPassword() != null && !greenitor.getPassword().isEmpty()) {
             toUpdate.setPassword(greenitor.getPassword());
         }
-        if(greenitor.getImage()!=null && !greenitor.getImage().isEmpty()){
+        if (greenitor.getImage() != null && !greenitor.getImage().isEmpty()) {
             toUpdate.setImage(greenitor.getImage());
         }
-        greenitorRepository.save(toUpdate);
-        return new ResponseMessage( "User successfully updated" );
 
+        greenitorRepository.save(toUpdate);
+        return new ResponseMessage("User successfully updated");
     }
 }

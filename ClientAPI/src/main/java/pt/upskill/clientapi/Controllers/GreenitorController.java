@@ -87,7 +87,7 @@ public class GreenitorController {
             return new ResponseEntity<>(service.loginUser(loginDTO), HttpStatus.OK);
         } catch (UserNotFoundException e) {
             return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.NOT_FOUND);
-        }catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.UNAUTHORIZED);
         } catch (Exception e) {
             return new ResponseEntity<>(new ResponseMessage("Something went wrong"), HttpStatus.BAD_REQUEST);
@@ -194,6 +194,22 @@ public class GreenitorController {
         }
     }
 
+    /**
+     * Updates an existing Greenitor (user) profile.
+     *
+     * @param username the username of the Greenitor to update
+     * @param greenitor the updated user details
+     * @return ResponseEntity containing a success or error message
+     */
+    @Operation(summary = "Update Greenitor profile", description = "Updates an existing user's profile details.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User updated successfully",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class))),
+            @ApiResponse(responseCode = "404", description = "User not found",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class))),
+            @ApiResponse(responseCode = "400", description = "Something went wrong",
+                    content = @Content(schema = @Schema(implementation = ResponseMessage.class)))
+    })
     @PutMapping("/{username}")
     public ResponseEntity<ResponseMessage> updateGreenitor(@PathVariable String username, @RequestBody UpdateGreenitorDTO greenitor) {
         try {
@@ -203,6 +219,6 @@ public class GreenitorController {
         } catch (Exception e) {
             return new ResponseEntity<>(new ResponseMessage("Something went wrong"), HttpStatus.BAD_REQUEST);
         }
-
-    }}
+    }
+}
 

@@ -63,5 +63,12 @@ public interface GreenitorDAO {
      */
     List<Greenitor> getAllGreenitors();
 
+    /**
+     * Updates the details of an existing Greenitor (user).
+     *
+     * @param username the username of the Greenitor to update
+     * @param greenitor the updated user information
+     * @return a ResponseMessage indicating the success of the update
+     */
     ResponseMessage updateGreenitor(String username, UpdateGreenitorDTO greenitor);
 }
