@@ -12,33 +12,56 @@ import { TokenInfo } from '../../Models/token-info';
   styleUrl: './like-dislike.component.css'
 })
 export class LikeDislikeComponent implements OnInit {
-  @Input() postId! : number
+  /** The ID of the post to like/dislike */
+  @Input() postId!: number;
 
-  username? : string;
+  /** The authenticated user's username */
+  username?: string;
 
-  user : TokenInfo | null = null;
+  /** Stores authenticated user information */
+  user: TokenInfo | null = null;
 
-  likesCount : number = 0;
-  dislikesCount : number = 0;
+  /** Number of likes for the post */
+  likesCount: number = 0;
 
+  /** Number of dislikes for the post */
+  dislikesCount: number = 0;
+
+  /** Indicates whether the user has liked the post */
   isLiked = false;
+
+  /** Indicates whether the user has disliked the post */
   isDisliked = false;
 
-  constructor(private postService : PostService, private authService : SignInService) { }
+  /**
+   * Constructor initializes required services
+   * @param postService - Service for handling post interactions
+   * @param authService - Service for managing user authentication
+   */
+  constructor(private postService: PostService, private authService: SignInService) {}
 
+  /**
+   * Lifecycle hook that runs when the component initializes
+   * - Retrieves the post's total interactions
+   * - Retrieves user-specific interaction data
+   */
   ngOnInit(): void {
     this.getPostInteractions();
     this.authService.getUserSubject().subscribe({
-      next : (user) => {
+      next: (user) => {
         this.user = user;
         this.username = user!.username;
         this.getUserInteractionsOnPost();
       }
     });
-    
   }
 
-  toggleLike() {
+  /**
+   * Toggles the like status for the post
+   * - If already liked, removes the like
+   * - If not liked, adds a like
+   */
+  toggleLike(): void {
     if (this.isLiked) {
       this.unlikeAPost();
     } else {
@@ -46,7 +69,12 @@ export class LikeDislikeComponent implements OnInit {
     }
   }
 
-  toggleDislike() {
+  /**
+   * Toggles the dislike status for the post
+   * - If already disliked, removes the dislike
+   * - If not disliked, adds a dislike
+   */
+  toggleDislike(): void {
     if (this.isDisliked) {
       this.undislikeAPost();
     } else {
@@ -54,60 +82,83 @@ export class LikeDislikeComponent implements OnInit {
     }
   }
 
-  likeAPost() {
+  /**
+   * Sends a request to like the post
+   * - Increments likes count
+   * - Removes dislike if previously disliked
+   */
+  likeAPost(): void {
     this.postService.likeAPost(this.postId, this.username!).subscribe({
-      next : () => {
-        this.likesCount ++;
+      next: () => {
+        this.likesCount++;
         if (this.isDisliked) {
           this.isDisliked = false;
-          this.dislikesCount --;
+          this.dislikesCount--;
         }
       }
     });
   }
 
-  dislikeAPost() {
+  /**
+   * Sends a request to dislike the post
+   * - Increments dislikes count
+   * - Removes like if previously liked
+   */
+  dislikeAPost(): void {
     this.postService.dislikeAPost(this.postId, this.username!).subscribe({
-      next : () => {
-        this.dislikesCount ++;
+      next: () => {
+        this.dislikesCount++;
         if (this.isLiked) {
           this.isLiked = false;
-          this.likesCount --;
+          this.likesCount--;
         }
-        
       }
     });
   }
 
-  unlikeAPost() {
+  /**
+   * Sends a request to remove the like from the post
+   * - Decrements likes count
+   */
+  unlikeAPost(): void {
     this.postService.unlikeAPost(this.postId, this.username!).subscribe({
-      next : () => {
-        this.likesCount --;
+      next: () => {
+        this.likesCount--;
       }
     });
   }
 
-  undislikeAPost() {
+  /**
+   * Sends a request to remove the dislike from the post
+   * - Decrements dislikes count
+   */
+  undislikeAPost(): void {
     this.postService.undislikeAPost(this.postId, this.username!).subscribe({
-      next : () => {
-        this.dislikesCount --;
+      next: () => {
+        this.dislikesCount--;
       }
     });
-  } 
+  }
 
-
-  
-  getPostInteractions() {
+  /**
+   * Retrieves the total number of likes and dislikes for the post
+   */
+  getPostInteractions(): void {
     this.postService.getPostInteractions(this.postId).subscribe({
-      next : (interactions) => {
+      next: (interactions) => {
         this.likesCount = interactions.likes;
         this.dislikesCount = interactions.dislikes;
       }
     });
   }
-  getUserInteractionsOnPost() {
+
+  /**
+   * Retrieves the user's interaction with the post
+   * - Updates `isLiked` or `isDisliked` based on response
+   */
+  getUserInteractionsOnPost(): void {
     this.postService.getInteractionByUser(this.postId, this.username!).subscribe({
-      next : (interaction) => {
+      next: (interaction) => {
         if (interaction.interaction == '1') {
           this.isLiked = true;
           this.isDisliked = false;

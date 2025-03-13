@@ -4,26 +4,48 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class TokenService {
-
-  constructor() { }
-
-  getToken(key:string) {
+  /**
+   * Retrieves a token from local storage
+   * @param key - The key of the token to retrieve
+   * @returns The token value or an empty string if not found
+   */
+  getToken(key: string): string {
     return localStorage.getItem(key) ?? '';
   }
 
-  hasToken(key:string) {
-    if(typeof localStorage == 'undefined') return false;
+  /**
+   * Checks if a token exists in local storage
+   * @param key - The key of the token to check
+   * @returns Boolean indicating whether the token exists
+   */
+  hasToken(key: string): boolean {
+    if (typeof localStorage === 'undefined') return false;
     return !!this.getToken(key);
   }
 
-  saveToken(key:string, token:string) {
+  /**
+   * Saves a token to local storage
+   * @param key - The key under which the token will be stored
+   * @param token - The token value to store
+   */
+  saveToken(key: string, token: string): void {
     return localStorage.setItem(key, token);
   }
 
-  deleteToken(key:string) {
+  /**
+   * Deletes a token from local storage
+   * @param key - The key of the token to remove
+   */
+  deleteToken(key: string): void {
     localStorage.removeItem(key);
   }
 
+  /**
+   * Checks if a JWT token is valid
+   * - Ensures the token exists
+   * - Decodes and verifies its expiration date
+   * @returns Boolean indicating whether the token is valid
+   */
   hasValidToken(): boolean {
     const token = this.getToken('jwtToken');
     if (!token) return false;

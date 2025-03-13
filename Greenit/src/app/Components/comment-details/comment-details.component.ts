@@ -16,20 +16,36 @@ import { TokenInfo } from '../../Models/token-info';
   styleUrl: './comment-details.component.css'
 })
 export class CommentDetailsComponent implements OnInit {
+  /** The comment object passed to the component */
   @Input() comment! : Comment;
 
+  /** Flag to control if the user is making a new comment */
   makingAComment : boolean = false;
 
+  /** Holds the authenticated user information */
   user : TokenInfo | null = null;
  
+  /** List of replies to the current comment */
   replies? : Comment[];
  
+  /**
+   * Constructor injecting the CommentService and SignInService
+   * @param commentService - Handles comment-related API calls
+   * @param authService - Manages user authentication
+   */
   constructor(private commentService : CommentService, private authService : SignInService) { }
 
- ngOnInit(): void {
-   this.authService.getUserSubject().subscribe((user) => this.user = user);
- } 
+  /**
+   * Lifecycle hook that runs when the component initializes
+   * - Subscribes to authentication changes
+   */
+  ngOnInit(): void {
+    this.authService.getUserSubject().subscribe((user) => this.user = user);
+  } 
 
+  /**
+   * Fetches replies for the current comment from the service
+   */
   showReplies() {
     this.commentService.getCommentsFromComment(this.comment.id).subscribe({
       next : (replies) => {
@@ -38,6 +54,9 @@ export class CommentDetailsComponent implements OnInit {
     })
   }
 
+  /**
+   * Toggles the `makingAComment` flag to show or hide the comment input
+   */
   toggleMakingAComment() {
     this.makingAComment = !this.makingAComment;
   }

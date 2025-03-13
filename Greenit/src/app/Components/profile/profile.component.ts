@@ -1,4 +1,4 @@
-import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { SignUpService } from '../../Services/sign-up.service';
 import { GreenitorComplete } from '../../Models/greenitor-complete';
@@ -19,15 +19,22 @@ import { ProfileUpdateComponent } from "../profile-update/profile-update.compone
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent implements OnInit {
-  user? : GreenitorComplete;
+  /** Stores user profile information */
+  user?: GreenitorComplete;
+
+  /** List of posts created by the user */
   posts: Post[] = [];
 
+  /** List of user's favorite posts */
   favoritePosts: Post[] = [];
 
-  username? : string
+  /** Username of the profile being viewed */
+  username?: string;
 
-  loggedUser : TokenInfo | null = null;
+  /** Logged-in user information */
+  loggedUser: TokenInfo | null = null;
 
+  /** Stores the user's statistics */
   stats = {
     likesInPosts: 0,
     dislikesInPosts: 0,
@@ -36,13 +43,31 @@ export class ProfileComponent implements OnInit {
     posts: 0,
     comments: 0,
     favoritePosts: 0
-  }
+  };
   
-  constructor(private authService : SignInService, private userService: SignUpService, private route : ActivatedRoute, private postService: PostService, private greenitorService: GreenitorService) { }
-  
-  
+  /**
+   * Constructor initializes required services
+   * @param authService - Service for managing user authentication
+   * @param userService - Service for retrieving user details
+   * @param route - ActivatedRoute for accessing route parameters
+   * @param postService - Service for fetching posts
+   * @param greenitorService - Service for retrieving user statistics
+   */
+  constructor(
+    private authService: SignInService, 
+    private userService: SignUpService, 
+    private route: ActivatedRoute, 
+    private postService: PostService, 
+    private greenitorService: GreenitorService
+  ) {}
 
-  ngOnInit() {
+  /**
+   * Lifecycle hook that runs when the component initializes
+   * - Retrieves username from route parameters
+   * - Fetches user details, posts, stats, and favorite posts
+   * - Retrieves logged-in user data
+   */
+  ngOnInit(): void {
     this.route.params.subscribe({
       next: (params) => {
         this.username = params['username'];
@@ -52,19 +77,25 @@ export class ProfileComponent implements OnInit {
         this.getFavoritePosts();
         this.authService.getUserSubject().subscribe(u => this.loggedUser = u);
       }
-    })
+    });
   }
 
-  getFavoritePosts() {
+  /**
+   * Fetches the user's favorite posts
+   */
+  getFavoritePosts(): void {
     this.postService.getFavoritePosts(this.username!).subscribe({
-      next : (posts) => {
+      next: (posts) => {
         this.favoritePosts = posts;
       },
-      error : (err) => console.error("Error fetching favorite posts")
-    })
+      error: (err) => console.error("Error fetching favorite posts")
+    });
   }
 
-  getUserByUsername() {
+  /**
+   * Retrieves user details by username
+   */
+  getUserByUsername(): void {
     this.userService.getUserByUsername(this.username!).subscribe({
       next: (user) => {
         this.user = user;
@@ -73,7 +104,10 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  getPostsFromUser() {
+  /**
+   * Fetches all posts created by the user
+   */
+  getPostsFromUser(): void {
     this.postService.getPostsByUser(this.username!).subscribe({
       next: (posts) => {
         this.posts = posts;
@@ -83,16 +117,15 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  getStats() {
+  /**
+   * Retrieves user statistics related to posts, comments, and event attendance
+   */
+  getStats(): void {
     this.greenitorService.getGreenitorStats(this.username!).subscribe({
-      next: (stats) => {this.stats = stats;
-
+      next: (stats) => {
+        this.stats = stats;
       },
       error: (err) => console.error("Error fetching stats:", err)
     });
   }
-
-
 }
-
-

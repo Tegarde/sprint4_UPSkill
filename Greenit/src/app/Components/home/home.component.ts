@@ -4,7 +4,7 @@ import { MonthlyListingComponent } from "../Post/monthly-listing/monthly-listing
 import { HottestPostsComponent } from "../Post/hottest-posts/hottest-posts.component";
 import { DailyListingComponent } from "../Post/daily-listing/daily-listing.component";
 import { SignInService } from '../../Services/sign-in.service';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -14,10 +14,19 @@ import { AsyncPipe, NgIf } from '@angular/common';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
-  user? : any | null = null;
+  /** Stores the authenticated user's information */
+  user?: any | null = null;
 
-  constructor(private authService : SignInService) {}
+  /**
+   * Constructor initializes authentication service
+   * @param authService - Service for handling user authentication
+   */
+  constructor(private authService: SignInService) {}
 
+  /**
+   * Lifecycle hook that runs when the component initializes
+   * - Subscribes to user authentication status and stores username
+   */
   ngOnInit(): void {
     this.authService.getUserSubject().subscribe((user) => this.user = user?.username);
   }

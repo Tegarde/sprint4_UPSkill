@@ -12,14 +12,27 @@ import { Router } from '@angular/router';
   styleUrl: './notifications.component.css'
 })
 export class NotificationsComponent implements OnInit {
-  notifications : any[] = [];
+  /** List of notifications received by the user */
+  notifications: any[] = [];
 
-  userSubject! : TokenInfo | null;
+  /** Holds authenticated user information */
+  userSubject!: TokenInfo | null;
 
+  /** Controls the visibility of the notifications dropdown */
   showNotifications = false;
 
-  constructor(private authService : SignInService, private router : Router) { }
+  /**
+   * Constructor initializes authentication and routing services
+   * @param authService - Service for managing user authentication and fetching notifications
+   * @param router - Router for navigation
+   */
+  constructor(private authService: SignInService, private router: Router) {}
 
+  /**
+   * Lifecycle hook that runs when the component initializes
+   * - Subscribes to the authenticated user data
+   * - Fetches notifications if the user is authenticated
+   */
   ngOnInit(): void {
     this.authService.getUserSubject().subscribe({
       next: (user) => {
@@ -32,19 +45,28 @@ export class NotificationsComponent implements OnInit {
     });
   }
 
-  toggleNotifications() {
+  /**
+   * Toggles the visibility of the notifications dropdown
+   */
+  toggleNotifications(): void {
     this.showNotifications = !this.showNotifications;
   }
 
-  getNotifications() {
+  /**
+   * Fetches the user's notifications from the authentication service
+   */
+  getNotifications(): void {
     this.authService.getUserNotifications().subscribe({
-      next : (notifications) => this.notifications = notifications
+      next: (notifications) => this.notifications = notifications
     });
   }
 
-  seePost(id : number) {
+  /**
+   * Navigates to a post and removes the corresponding notification
+   * @param id - The ID of the post associated with the notification
+   */
+  seePost(id: number): void {
     this.router.navigate(['/post'], { queryParams: { id: id } });
     this.notifications = this.notifications.filter(notification => notification.postId !== id);
-    
   }
 }

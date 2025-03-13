@@ -11,37 +11,65 @@ import { SignInService } from '../../Services/sign-in.service';
   styleUrl: './make-comment.component.css'
 })
 export class MakeCommentComponent implements OnInit {
-  @Input() id! : number;
+  /** The ID of the post, event, or comment that the comment is related to */
+  @Input() id!: number;
 
-  @Input() type! : string;
+  /** The type of entity being commented on ('post', 'event', or 'comment') */
+  @Input() type!: string;
 
-  username : string = '';
+  /** Stores the authenticated user's username */
+  username: string = '';
 
-  content : string = '';
+  /** The content of the comment to be submitted */
+  content: string = '';
 
-  constructor(private commentService : CommentService, private authService : SignInService) { }
+  /**
+   * Constructor initializes required services
+   * @param commentService - Service for handling comment-related API calls
+   * @param authService - Service for managing user authentication
+   */
+  constructor(private commentService: CommentService, private authService: SignInService) {}
 
-  ngOnInit() {
+  /**
+   * Lifecycle hook that runs when the component initializes
+   * - Retrieves the authenticated user's username
+   */
+  ngOnInit(): void {
     this.authService.getUserSubject().subscribe((username) => {
       this.username = username!.username;
     });
   }
 
-
-  submitComment() {
+  /**
+   * Submits a comment based on the type (post, event, or comment)
+   * - Calls the corresponding API method and reloads the page upon success
+   */
+  submitComment(): void {
     switch (this.type) {
       case 'post':
-        this.commentService.commentAPost({postId : this.id, content : this.content, createdBy : this.username}).subscribe(() => {
+        this.commentService.commentAPost({
+          postId: this.id,
+          content: this.content,
+          createdBy: this.username
+        }).subscribe(() => {
           window.location.reload();
         });
         break;
       case 'event':
-        this.commentService.commentAnEvent({eventId : this.id, content : this.content, createdBy : this.username}).subscribe(() => {
+        this.commentService.commentAnEvent({
+          eventId: this.id,
+          content: this.content,
+          createdBy: this.username
+        }).subscribe(() => {
           window.location.reload();
         });
         break;
       case 'comment':
-        this.commentService.commentAComment({parentCommentId : this.id, content : this.content, createdBy : this.username}).subscribe(() => {
+        this.commentService.commentAComment({
+          parentCommentId: this.id,
+          content: this.content,
+          createdBy: this.username
+        }).subscribe(() => {
           window.location.reload();
         });
         break;

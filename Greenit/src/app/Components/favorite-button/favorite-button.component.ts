@@ -11,33 +11,50 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './favorite-button.component.css'
 })
 export class FavoriteButtonComponent implements OnInit {
-  @Input() postId! : number;
+  /** The ID of the post to be marked as favorite */
+  @Input() postId!: number;
 
-  isFavorite : boolean = false;
+  /** Indicates whether the post is favorited by the user */
+  isFavorite: boolean = false;
 
-  username? : string;
+  /** Stores the username of the authenticated user */
+  username?: string;
 
-  constructor(private postService : PostService, private authService : SignInService) { }
+  /**
+   * Constructor initializes required services
+   * @param postService - Service for handling post interactions
+   * @param authService - Service for managing user authentication
+   */
+  constructor(private postService: PostService, private authService: SignInService) {}
 
+  /**
+   * Lifecycle hook that runs when the component initializes
+   * - Retrieves authenticated user and checks if the post is favorited
+   */
   ngOnInit(): void {
     this.authService.getUserSubject().subscribe({
-      next : (user) => {
+      next: (user) => {
         this.username = user!.username;
         this.postService.isPostFavorite(this.postId, this.username).subscribe({
           next : (isFavorite) => this.isFavorite = ((isFavorite.favorite == 0) ? false : true)
         });
       }
-    })
+    });
   }
 
-  toggleFavorite() : void {
-    if(this.isFavorite) {
+  /**
+   * Toggles the favorite status of the post
+   * - If already favorited, removes it from favorites
+   * - If not favorited, adds it to favorites
+   */
+  toggleFavorite(): void {
+    if (this.isFavorite) {
       this.postService.removeFavoritePost(this.postId, this.username!).subscribe({
-        next : () => this.isFavorite = false
+        next: () => this.isFavorite = false
       });
     } else {
       this.postService.addFavoritePost(this.postId, this.username!).subscribe({
-        next : () => this.isFavorite = true
+        next: () => this.isFavorite = true
       });
     }
   }

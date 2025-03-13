@@ -10,23 +10,36 @@ import { Router } from '@angular/router';
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.css'
 })
-
 export class SignInComponent {
-  signInForm : FormGroup;
+  /** Form group for user sign-in */
+  signInForm: FormGroup;
 
-  message? : string;
+  /** Message displayed for login success or failure */
+  message?: string;
 
-  constructor(private signInService : SignInService, private fb : FormBuilder, private router : Router) {
+  /**
+   * Constructor initializes authentication service, form builder, and router
+   * @param signInService - Service handling user authentication
+   * @param fb - FormBuilder for creating the reactive form
+   * @param router - Router for navigation after successful login
+   */
+  constructor(private signInService: SignInService, private fb: FormBuilder, private router: Router) {
     this.signInForm = this.fb.group({
-      email : ['', [Validators.required, Validators.email]],
-      password : ['', [Validators.required]]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
     });
   }
 
-  onSubmit() {
+  /**
+   * Handles form submission for user login
+   * - Validates form input
+   * - Calls authentication service
+   * - Redirects user upon successful login
+   */
+  onSubmit(): void {
     if (this.signInForm.valid) {
       this.signInService.signIn(this.signInForm.value.email, this.signInForm.value.password).subscribe({
-        next : () => {
+        next: () => {
           this.message = "User logged in successfully";
           this.signInForm.reset();
 
@@ -34,7 +47,7 @@ export class SignInComponent {
             this.router.navigate(['']);
           }, 1000);
         },
-        error : () => {
+        error: () => {
           this.message = "User login failed";
         }
       });
