@@ -19,7 +19,16 @@ namespace ForumAPI.Services
         /// </summary>
         public CategoryClient()
         {
-            this.client = new HttpClient();
+            client = new HttpClient();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CategoryClient"/> class.
+        /// </summary>
+        /// <param name="client"></param>
+        public CategoryClient(HttpClient client)
+        {
+            this.client = client;
         }
 
         /// <summary>

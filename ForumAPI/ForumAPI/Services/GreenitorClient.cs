@@ -20,20 +20,17 @@ namespace ForumAPI.Services
             client = new HttpClient();
         }
 
-<<<<<<< Updated upstream
         /// <summary>
         /// Registers a new user in the system.
         /// </summary>
         /// <param name="registerUserDTO">The user data including an image.</param>
         /// <returns>A response message indicating success or failure.</returns>
         /// <exception cref="ResponseStatusException">Thrown if registration fails.</exception>
-=======
         public GreenitorClient(HttpClient client)
         {
             this.client = client;
         }
 
->>>>>>> Stashed changes
         public async Task<ResponseMessage> RegisterUser(RegisterUserWithImageDTO registerUserDTO)
         {
             var request = await client.PostAsJsonAsync(BaseUrl, registerUserDTO);
