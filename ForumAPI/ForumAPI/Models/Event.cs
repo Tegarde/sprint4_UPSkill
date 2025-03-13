@@ -27,6 +27,9 @@ namespace ForumAPI.Models
         [MaxLength(100)]
         public string Location { get; set; }
 
+        /// <summary>
+        /// The image of the event.
+        /// </summary>
         public string? Image { get; set; }
 
         /// <summary>
@@ -41,6 +44,9 @@ namespace ForumAPI.Models
         [Required]
         public EventStatus Status { get; set; }
 
+        /// <summary>
+        /// The comments of the event.
+        /// </summary>
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
         /// <summary>

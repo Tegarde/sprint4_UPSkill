@@ -17,7 +17,6 @@ namespace ForumAPI.Models
         /// <summary>
         /// The unique identifier for the post.
         /// </summary>
-
         [ForeignKey("Post")]
         public int? PostId { get; set; }=null;
 
@@ -56,6 +55,9 @@ namespace ForumAPI.Models
         /// </summary>
         public DateTime CreatedAt { get; set; }
 
+        /// <summary>
+        /// The unique identifier for parent post.
+        /// </summary>
         public int? ParentPostId { get; set; }
 
         /// <summary>

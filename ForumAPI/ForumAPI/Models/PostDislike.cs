@@ -8,7 +8,6 @@ namespace ForumAPI.Models
     /// </summary>
     public class PostDislike
     {
-
         /// <summary>
         /// The post associated with the dislike.
         /// </summary>
@@ -26,6 +25,9 @@ namespace ForumAPI.Models
         [MaxLength(100)]
         public string User { get; set; }
 
+        /// <summary>
+        /// The date associated with the dislike.
+        /// </summary>
         public DateTime DislikedAt { get; set; }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-
 namespace ForumAPI.Models
 {   
     /// <summary>
@@ -57,6 +56,9 @@ namespace ForumAPI.Models
         [Range(0, int.MaxValue)]
         public int Interactions { get; set; }
 
+        /// <summary>
+        /// The image of the post.
+        /// </summary>
         public string? Image { get;set; }
 
         /// <summary>

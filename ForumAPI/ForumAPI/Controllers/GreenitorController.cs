@@ -227,17 +227,25 @@ namespace ForumAPI.Controllers
         }
 
         /// <summary>
-        /// Updates a user’s profile.
+        /// Updates a user's profile.
         /// </summary>
-        /// <param name="username">The username of the user to update.</param>
+        /// <param name="username">The username of the user to be updated.</param>
         /// <param name="userDTO">The updated user data.</param>
+        /// <remarks>
+        /// This endpoint allows a user to update their profile information.
+        /// </remarks>
         /// <returns>A response message indicating success or failure.</returns>
         [HttpPut("update/{username}")]
+        [SwaggerOperation(Summary = "Update user profile", Description = "Allows a user to update their profile information.")]
+        [SwaggerResponse(200, "Profile successfully updated.", typeof(ResponseMessage))]
+        [SwaggerResponse(400, "Bad request. Error updating the profile.", typeof(ResponseMessage))]
+        [SwaggerResponse(401, "Unauthorized. The user does not have permission to update this profile.", typeof(ResponseMessage))]
+        [SwaggerResponse(404, "User not found.", typeof(ResponseMessage))]
+        [SwaggerResponse(500, "Internal server error.", typeof(ResponseMessage))]
         public async Task<ActionResult<ResponseMessage>> UpdateUserProfile(string username, [FromForm] UpdateUserDTO userDTO)
         {
             try
             {
-              
                 var response = await service.UpdateUserProfile(username, userDTO);
                 return Ok(response);
             }

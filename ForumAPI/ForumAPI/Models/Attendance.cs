@@ -8,7 +8,6 @@ namespace ForumAPI.Models
     /// </summary>
     public class Attendance
     {
-
         /// <summary>
         /// The event associated with the attendance record.
         /// </summary>

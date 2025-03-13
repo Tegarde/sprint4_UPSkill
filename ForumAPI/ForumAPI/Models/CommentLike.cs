@@ -8,8 +8,6 @@ namespace ForumAPI.Models
     /// </summary>
     public class CommentLike
     {
-       
-
         /// <summary>
         /// The unique identifier for the comment associated with the like.
         /// </summary>
@@ -27,6 +25,9 @@ namespace ForumAPI.Models
         [MaxLength(100)]
         public string User { get; set; }
 
+        /// <summary>
+        /// The date associated with the like.
+        /// </summary>
         public DateTime LikedAt { get; set; }
     }
 }

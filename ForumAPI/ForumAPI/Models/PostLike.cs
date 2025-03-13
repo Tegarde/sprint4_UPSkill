@@ -25,7 +25,9 @@ namespace ForumAPI.Models
         [MaxLength(100)]
         public string User { get;set; }
 
+        /// <summary>
+        /// The date associated with the like.
+        /// </summary>
         public DateTime LikedAt { get; set; }
-
     }
 }
