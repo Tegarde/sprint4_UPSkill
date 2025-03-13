@@ -14,4 +14,8 @@ _As a user, I want to view interaction notifications for my posts, so that I can
 2. These notifications should be displayed when the user logs in, or when he refreshes the page.
 3. The user must be logged in.
 
+### Full Sequence Diagram
+
+![UC12 FSD](03.Design/See_Notifications_SD.svg)
+
 ### [Back to Use Cases](../README.md)
