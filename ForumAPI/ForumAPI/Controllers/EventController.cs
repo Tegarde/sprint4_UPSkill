@@ -168,20 +168,17 @@ namespace ForumAPI.Controllers
         /// <summary>
         /// Changes the status of an event.
         /// </summary>
-        /// <param name="id">The ID of the event to update.</param>
+        /// <param name="id">The unique identifier of the event to update.</param>
         /// <param name="status">The new status of the event.</param>
-        /// <returns>A message indicating the result of the operation.</returns>
-        /// <response code="200">Returns the status change message</response>
-        /// <response code="404">If the event with the specified ID is not found</response>
-        /// <response code="400">If there was a bad request</response>
+        /// <returns>An HTTP response indicating the result of the operation.</returns>
         [HttpPut("status/{id}")]
         [SwaggerOperation(
             Summary = "Change event status",
-            Description = "This endpoint allows changing the status of an event."
+            Description = "Updates the status of an existing event."
         )]
-        [SwaggerResponse(200, "Event status updated successfully.")]
-        [SwaggerResponse(404, "Event not found.")]
-        [SwaggerResponse(400, "Bad request.")]
+        [SwaggerResponse(200, "Event status updated successfully.", typeof(ResponseMessage))]
+        [SwaggerResponse(400, "Bad request. The provided status is invalid.", typeof(ResponseMessage))]
+        [SwaggerResponse(404, "Event not found.", typeof(ResponseMessage))]
         public ActionResult ChangeEventStatus([FromRoute] int id, [FromBody] EventStatusDTO status)
         {
             try
