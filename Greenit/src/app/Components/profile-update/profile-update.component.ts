@@ -97,17 +97,27 @@ export class ProfileUpdateComponent implements OnInit {
 
 
           this.userService.updateUser(this.username!, formData).subscribe({
-            next: () => console.log('Profile updated successfully!'),
-            error: (err) => console.error('Error updating profile', err),
+            next: () => {
+              this.msg = 'Profile updated successfully!';
+              this.profileForm.get('password')?.reset();
+              this.profileForm.get('confirmPassword')?.reset();
+              this.selectedFile = null;
+            },
+            error: (err) => this.msg = 'Error updating profile',
           });
         },
-        error: (err) => console.error('Error uploading profile picture', err),
+        error: (err) => this.msg = 'Error uploading profile picture',
       });
     } else {
       formData.append('image', '');
       this.userService.updateUser(this.username!, formData).subscribe({
-        next: () => console.log('Profile updated successfully!'),
-        error: (err) => console.error('Error updating profile', err),
+        next: () => {
+          this.msg = 'Profile updated successfully!';
+          this.profileForm.get('password')?.reset();
+          this.profileForm.get('confirmPassword')?.reset();
+          this.selectedFile = null;
+        },
+        error: (err) => this.msg = 'Error updating profile',
       });
     }
 
