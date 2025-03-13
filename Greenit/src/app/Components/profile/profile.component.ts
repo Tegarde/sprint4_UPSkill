@@ -9,11 +9,12 @@ import { GreenitorService } from '../../Services/greenitor.service';
 import { SignInService } from '../../Services/sign-in.service';
 import { ActivatedRoute } from '@angular/router';
 import { TokenInfo } from '../../Models/token-info';
+import { ProfileUpdateComponent } from "../profile-update/profile-update.component";
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule,PostListingComponent,NgFor],
+  imports: [CommonModule, PostListingComponent, NgFor, ProfileUpdateComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })

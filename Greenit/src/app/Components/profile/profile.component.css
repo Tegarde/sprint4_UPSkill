@@ -94,6 +94,14 @@ h2 {
   border-radius: 10px;
 }
 
+.profile-update {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
 .badge-list {
   display: flex;
   width: 100%;
