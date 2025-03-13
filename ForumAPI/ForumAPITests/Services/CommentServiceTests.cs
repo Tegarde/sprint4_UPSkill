@@ -1,4 +1,3 @@
-/*
 using ForumAPI.CustomExceptions;
 using ForumAPI.Data;
 using ForumAPI.DTOs.GreenitorDTOs;
@@ -43,6 +42,7 @@ namespace ForumAPI.Tests.Services
             await Assert.ThrowsAsync<NotFoundException>(() => _commentService.CommentAComment(comment));
         }
 
+        /*
         [Fact]
         public async Task CommentAComment_ShouldAddComment_WhenParentCommentFound()
         {
@@ -62,6 +62,7 @@ namespace ForumAPI.Tests.Services
             Assert.Contains(comment, _context.Comments);
             _mockGreenitorDAO.Verify(g => g.IncrementUserInteractions(It.IsAny<string>()), Times.Once);
         }
+        */
 
         [Fact]
         public async Task CommentAnEvent_ShouldThrowNotFoundException_WhenEventNotFound()
@@ -75,6 +76,7 @@ namespace ForumAPI.Tests.Services
             await Assert.ThrowsAsync<NotFoundException>(() => _commentService.CommentAnEvent(comment));
         }
         
+        /*
         [Fact]
         public async Task CommentAnEvent_ShouldAddComment_WhenEventFound()
         {
@@ -93,6 +95,7 @@ namespace ForumAPI.Tests.Services
             _mockGreenitorDAO.Verify(g => g.IncrementUserInteractions(It.IsAny<string>()), Times.Once);
             Assert.Equal(ev, result.Event);
         }
+        */
 
         [Fact]
         public async Task CommentAPost_ShouldThrowNotFoundException_WhenPostNotFound()
@@ -106,6 +109,7 @@ namespace ForumAPI.Tests.Services
             await Assert.ThrowsAsync<NotFoundException>(() => _commentService.CommentAPost(comment));
         }
 
+        /*
         [Fact]
         public async Task CommentAPost_ShouldAddComment_WhenPostFound()
         {
@@ -124,6 +128,7 @@ namespace ForumAPI.Tests.Services
             _mockGreenitorDAO.Verify(g => g.IncrementUserInteractions(It.IsAny<string>()), Times.Once);
             Assert.Equal(post, result.Post);
         }
+        */
 
         [Fact]
         public async Task GetCommentStatisticsByUsername_ShouldReturnStatistics()
@@ -170,6 +175,7 @@ namespace ForumAPI.Tests.Services
             await Assert.ThrowsAsync<ArgumentException>(() => _commentService.LikeComment(commentLike));
         }
 
+        /*
         [Fact]
         public async Task LikeComment_ShouldAddLike_WhenCommentFoundAndUserNotLiked()
         {
@@ -189,6 +195,7 @@ namespace ForumAPI.Tests.Services
             _mockGreenitorDAO.Verify(g => g.IncrementUserInteractions(It.IsAny<string>()), Times.Once);
             Assert.Equal(comment, result.Comment);
         }
+        */
 
         [Fact]
         public async Task UnLikeComment_ShouldThrowNotFoundException_WhenCommentNotFound()
@@ -216,7 +223,7 @@ namespace ForumAPI.Tests.Services
             // Act & Assert
             await Assert.ThrowsAsync<ArgumentException>(() => _commentService.UnLikeComment(commentLike));
         }
-
+        /*
         [Fact]
         public async Task UnLikeComment_ShouldRemoveLike_WhenCommentFoundAndUserLiked()
         {
@@ -236,6 +243,7 @@ namespace ForumAPI.Tests.Services
             _mockGreenitorDAO.Verify(g => g.DecrementUserInteractions(It.IsAny<string>()), Times.Once);
             Assert.Equal(commentLike, result);
         }
+        */
 
         [Fact]
         public async Task GetNumberOfLikesFromCommentId_ShouldThrowNotFoundException_WhenCommentNotFound()
@@ -279,6 +287,7 @@ namespace ForumAPI.Tests.Services
             await Assert.ThrowsAsync<UserNotFoundException>(() => _commentService.GetCommentInteractionsByUser(commentId, username));
         }
 
+        /*
         [Fact]
         public async Task GetCommentInteractionsByUser_ShouldThrowNotFoundException_WhenCommentNotFound()
         {
@@ -292,7 +301,9 @@ namespace ForumAPI.Tests.Services
             // Act & Assert
             await Assert.ThrowsAsync<NotFoundException>(() => _commentService.GetCommentInteractionsByUser(commentId, username));
         }
+        */
 
+        /*
         [Fact]
         public async Task GetCommentInteractionsByUser_ShouldReturnInteractionCount_WhenUserAndCommentFound()
         {
@@ -311,6 +322,7 @@ namespace ForumAPI.Tests.Services
             // Assert
             Assert.Equal(1, result);
         }
+        */
 
         [Fact]
         public async Task GetCommentsByCommentId_ShouldThrowNotFoundException_WhenCommentNotFound()
@@ -342,4 +354,3 @@ namespace ForumAPI.Tests.Services
         }
     }
 }
-*/
