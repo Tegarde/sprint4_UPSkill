@@ -17,4 +17,8 @@ _As a user, I want to access user activity statistics, so that I can see how I c
     - Number of comments
     - Number of interactions
 
+### Full Sequence Diagram
+
+![UC06 FSD](03.Design/SD_Full.svg)
+
 ### [Back to Use Cases](../README.md)
