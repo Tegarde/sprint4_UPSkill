@@ -1,4 +1,4 @@
-<div *ngIf="post" class="container">
+<!-- <div *ngIf="post" class="container">
     <div class="post">
         <div class="create-content">
             <p [routerLink]="['/profile', post.createdBy]"><i>{{post.createdBy}} on {{post.createdAt | date: 'EEEE, d MMMM, y, h:mm:ss a'}}</i></p>
@@ -8,6 +8,7 @@
             <p><img style="height: 300px;" *ngIf="post.image" [src]="'http://localhost:5000/' + post.image" alt="Event Image" class="event-image"></p>
             <p>{{post.content}}</p>
         </div>
+
         <div class="buttons">
             <app-like-dislike class="like-dislike" [postId]="post.id"></app-like-dislike>
             <app-favorite-button *ngIf="user !== null && user.role === 'User'" class="favorite-button" [postId]="post.id"></app-favorite-button>
@@ -19,6 +20,60 @@
         </div>
     </div>
     <div *ngFor="let comment of post!.comments; track comment" class="comments">
+        <app-comment-details [comment]="comment"></app-comment-details>
+    </div>
+</div> -->
+<div *ngIf="post" class="container">
+    <div class="content-wrapper">
+        <!-- Post Details -->
+        <div class="post">
+            <div class="create-content">
+                <p [routerLink]="['/profile', post.createdBy]">
+                    <i>{{ post.createdBy }} on {{ post.createdAt | date: 'EEEE, d MMMM, y, h:mm:ss a' }}</i>
+                </p>
+            </div>
+
+            <!-- Modo de Visualização -->
+            <div class="title-content">
+                <h1>{{ post.title }}</h1>
+                <p><img style="height: 300px;" *ngIf="post.image" [src]="'http://localhost:5000/' + post.image" alt="Event Image" class="event-image"></p>
+                <p>{{ post.content }}</p>
+
+    
+                
+            </div>
+
+            <div class="buttons">
+                
+                <app-like-dislike class="like-dislike" [postId]="post.id"></app-like-dislike>
+                <app-favorite-button *ngIf="user !== null && user.role === 'User'" class="favorite-button" [postId]="post.id"></app-favorite-button>
+                <button *ngIf="user !== null && user.username === post.createdBy" (click)="toggleEditing()" class="edit-btn">Edit Post</button>           
+            </div>
+
+            <div *ngIf="user !== null" class="comment-section">
+                <button *ngIf="!makingAComment" (click)="toggleMakingAComment()" class="comment-btn">Comment on this post</button>
+                <button *ngIf="makingAComment" (click)="toggleMakingAComment()" class="comment-btn">Stop commenting on this post</button>
+                <app-make-comment *ngIf="makingAComment" [id]="post.id" [type]="'post'"></app-make-comment>
+            </div>
+        </div>
+
+        <!-- Formulário de Edição na Lateral -->
+        <div *ngIf="editing" class="edit-container">
+            <form class="edit-content" (ngSubmit)="updatePost()">
+                <h2>Edit Post</h2>
+                <label for="title">Tittle:</label>
+                <input id="title" [(ngModel)]="editedPost.title" name="title" required />
+
+                <label for="content">Content:</label>
+                <textarea id="content" [(ngModel)]="editedPost.content" name="content" required></textarea>
+
+                <button type="submit">Save Changes</button>
+                <button type="button" (click)="toggleEditing()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <div *ngFor="let comment of post!.comments" class="comments">
         <app-comment-details [comment]="comment"></app-comment-details>
     </div>
 </div>

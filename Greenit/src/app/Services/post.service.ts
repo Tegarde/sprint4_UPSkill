@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Post } from '../Models/post';
+import { UpdatePost } from '../Models/update-post';
 
 @Injectable({
   providedIn: 'root'
@@ -99,4 +100,9 @@ export class PostService {
   changePostStatus(id: number, status: boolean) : Observable<any> {
     return this.client.put<any>(`${this.endpoint}/${id}/status/${status}`, {});
   }
+
+  updatePost(postId: number, updatedPost: UpdatePost): Observable<any> {
+    return this.client.put<any>(`${this.endpoint}/${postId}`, updatedPost);
+  }
+
 }

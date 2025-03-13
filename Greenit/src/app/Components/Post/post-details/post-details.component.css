@@ -112,6 +112,118 @@
     padding: 6.5px;
 }
 
+
 .event-image {
     max-width: 400px;
 }
+
+
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 250%;
+    
+}
+
+
+.edit-container {
+    width: 35%;
+    min-width: 300px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 20px;
+}
+
+
+.edit-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.edit-content h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #111111;
+}
+
+.edit-content label {
+    font-weight: bold;
+    color: #257e2c;
+}
+
+.edit-content input,
+.edit-content textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.edit-content textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+
+.edit-content button {
+    background-color: #8CC592;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.2s ease-in-out;
+}
+
+.edit-content button:hover {
+    background-color: #78A978;
+}
+
+.edit-content button:active {
+    background-color: #5F8C5F;
+    padding: 9.5px;
+}
+
+
+.edit-content button[type="button"] {
+    background-color: #ccc;
+    color: #333;
+}
+
+.edit-content button[type="button"]:hover {
+    background-color: #5F8C5F;
+}
+
+
+.edit-btn {
+    background-color: gray;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s ease-in-out;
+    margin-left: 10px;
+}
+
+.edit-btn:hover {
+    background-color: #8CC592;
+}
+
+.edit-btn:active {
+    background-color: #8CC592;
+    padding: 7.5px 14.5px;
+}
+
