@@ -1,5 +1,4 @@
-﻿/*
-using ForumAPI.CustomExceptions;
+﻿using ForumAPI.CustomExceptions;
 using ForumAPI.Data;
 using ForumAPI.DTOs.CategoryDTOs;
 using ForumAPI.DTOs.GreenitorDTOs;
@@ -77,6 +76,7 @@ namespace ForumAPI.Tests.Services
             await Assert.ThrowsAsync<KeyNotFoundException>(() => _postService.GetPostById(postId));
         }
 
+        /*
         [Fact]
         public async Task GetPostsByUser_ExistingUser_ReturnsPosts()
         {
@@ -93,6 +93,7 @@ namespace ForumAPI.Tests.Services
             // Assert
             Assert.Equal(posts.Count, result.Count);
         }
+        */
 
         [Fact]
         public void GetPostSortedByDate_ReturnsPostsSortedByDate()
@@ -150,6 +151,7 @@ namespace ForumAPI.Tests.Services
             Assert.Equal(posts.OrderByDescending(p => p.LikedBy.Count).First().Id, result.First().Id);
         }
 
+        /*
         [Fact]
         public async Task GetFavoritePosts_ExistingUser_ReturnsFavoritePosts()
         {
@@ -168,6 +170,7 @@ namespace ForumAPI.Tests.Services
             Assert.Single(result);
             Assert.Equal(post.Id, result.First().Id);
         }
+        */
 
         [Fact]
         public async Task GetPostsBetweenDates_ValidDates_ReturnsPosts()
@@ -201,6 +204,7 @@ namespace ForumAPI.Tests.Services
             await Assert.ThrowsAsync<ArgumentException>(() => _postService.GetPostsBetweenDates(startDate, endDate));
         }
 
+        /*
         [Fact]
         public async Task CreatePost_ValidPost_ReturnsCreatedPost()
         {
@@ -216,6 +220,7 @@ namespace ForumAPI.Tests.Services
             Assert.Equal(post, result);
             Assert.Contains(post, _context.Posts);
         }
+        */
 
         [Fact]
         public async Task UpdatePost_ValidPost_ReturnsUpdatedPost()
@@ -256,6 +261,7 @@ namespace ForumAPI.Tests.Services
             await Assert.ThrowsAsync<NotFoundException>(() => _postService.UpdatePost(postId, updatedPost));
         }
 
+        /*
         [Fact]
         public async Task AddPostToFavorites_ValidPost_ReturnsOkResult()
         {
@@ -273,7 +279,9 @@ namespace ForumAPI.Tests.Services
             // Assert
             Assert.IsType<OkResult>(result);
         }
+        */
 
+        /*
         [Fact]
         public async Task RemovePostFromFavorites_ValidPost_ReturnsOkResult()
         {
@@ -291,6 +299,7 @@ namespace ForumAPI.Tests.Services
             // Assert
             Assert.IsType<OkResult>(result);
         }
+        */
 
         [Fact]
         public async Task UpdatePostStatus_ValidStatus_UpdatesStatus()
@@ -416,6 +425,7 @@ namespace ForumAPI.Tests.Services
             Assert.Equal(posts.OrderByDescending(p => p.LikedBy.Count).First().Id, result.First().Id);
         }
 
+        /*
         [Fact]
         public async Task GetNotificationsByUser_ExistingUser_ReturnsPosts()
         {
@@ -432,6 +442,7 @@ namespace ForumAPI.Tests.Services
             // Assert
             Assert.Single(result);
         }
+        */
 
         [Fact]
         public async Task ResetPostInteractionCount_ValidPost_ResetsInteractionCount()
@@ -449,6 +460,7 @@ namespace ForumAPI.Tests.Services
             Assert.Equal(0, post.Interactions);
         }
 
+        /*
         [Fact]
         public async Task GetPostStatisticsByUsername_ExistingUser_ReturnsStatistics()
         {
@@ -465,7 +477,9 @@ namespace ForumAPI.Tests.Services
             // Assert
             Assert.Equal(1, result.Posts);
         }
+        */
 
+        /*
         [Fact]
         public async Task LikePost_ValidPost_ReturnsPostLike()
         {
@@ -484,7 +498,9 @@ namespace ForumAPI.Tests.Services
             // Assert
             Assert.Equal(postLike, result);
         }
+        */
 
+        /*
         [Fact]
         public async Task UnlikePost_ValidPost_ReturnsPostLike()
         {
@@ -504,7 +520,9 @@ namespace ForumAPI.Tests.Services
             // Assert
             Assert.Equal(postLike, result);
         }
+        */
 
+        /*
         [Fact]
         public async Task DislikePost_ValidPost_ReturnsPostDislike()
         {
@@ -523,7 +541,9 @@ namespace ForumAPI.Tests.Services
             // Assert
             Assert.Equal(postDislike, result);
         }
+        */
 
+        /*
         [Fact]
         public async Task UndislikePost_ValidPost_ReturnsPostDislike()
         {
@@ -543,7 +563,9 @@ namespace ForumAPI.Tests.Services
             // Assert
             Assert.Equal(postDislike, result);
         }
+        */
 
+        /*
         [Fact]
         public async Task GetPostInteractionsByUser_ValidPost_ReturnsInteractionType()
         {
@@ -563,6 +585,7 @@ namespace ForumAPI.Tests.Services
             // Assert
             Assert.Equal(1, result);
         }
+        */
 
         [Fact]
         public async Task GetLikesAndDislikesByPostId_ValidPost_ReturnsInteractions()
@@ -585,6 +608,8 @@ namespace ForumAPI.Tests.Services
             Assert.Equal(1, result.Dislikes);
 
         }
+
+        /*
         [Fact]
         public async Task GetPostFavoriteByUsername_ValidPost_ReturnsFavoriteStatus()
         {
@@ -604,7 +629,9 @@ namespace ForumAPI.Tests.Services
             // Assert
             Assert.Equal(1, result);
         }
+        */
 
+        /*
         [Fact]
         public async Task GetPostFavoriteByUsername_NonExistingPost_ReturnsZero()
         {
@@ -620,6 +647,7 @@ namespace ForumAPI.Tests.Services
             // Assert
             Assert.Equal(0, result);
         }
+        */
 
         [Fact]
         public async Task GetPostFavoriteByUsername_NonExistingUser_ThrowsNotFoundException()
@@ -635,4 +663,3 @@ namespace ForumAPI.Tests.Services
         }
     }
 }
-*/
