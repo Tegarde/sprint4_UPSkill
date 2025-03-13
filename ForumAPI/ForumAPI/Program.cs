@@ -4,6 +4,7 @@ using ForumAPI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
+using System.Diagnostics;
 
 namespace ForumAPI
 {
@@ -37,7 +38,17 @@ namespace ForumAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ForumAPI", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "ForumAPI (.NET)",
+                    Version = "v1",
+                    Description = "API for managing forum-related operations",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "GitHub Repository",
+                        Url = new Uri("https://github.com/Tegarde/sprint4_UPSkill")
+                    }
+                });
 
                 // Enable Swagger Annotations for controller methods
                 c.EnableAnnotations();
@@ -55,7 +66,7 @@ namespace ForumAPI
             var app = builder.Build();
 
             // Serve static files from wwwroot and uploads folder
-            app.UseStaticFiles();  // Serve files from wwwroot
+            app.UseStaticFiles();
 
             app.UseStaticFiles(new StaticFileOptions
             {
@@ -70,11 +81,15 @@ namespace ForumAPI
             // Configure the HTTP request pipeline in Development environment
             if (app.Environment.IsDevelopment())
             {
-                app.UseSwagger();  // Enable Swagger
+                app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Forum API V1");  // Link Swagger UI to the JSON file
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Forum API V1");
+                    c.RoutePrefix = string.Empty; // Sets Swagger UI as the default homepage
                 });
+
+                // Automatically open Swagger UI when the application starts
+                OpenBrowser("http://localhost:5000/swagger/index.html"); // Adjust port if needed
             }
 
             // Other middleware configurations
@@ -86,6 +101,26 @@ namespace ForumAPI
 
             // Run the application
             app.Run();
+        }
+
+        /// <summary>
+        /// Opens the Swagger UI in the default web browser when the app starts.
+        /// </summary>
+        /// <param name="url">The URL to open.</param>
+        private static void OpenBrowser(string url)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to open browser: " + ex.Message);
+            }
         }
     }
 }
