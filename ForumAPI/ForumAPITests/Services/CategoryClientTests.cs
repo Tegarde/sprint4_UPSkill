@@ -11,7 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace ForumAPITests.Services
+namespace ForumAPI.Tests.Services
 {
     public class CategoryClientTests
     {
