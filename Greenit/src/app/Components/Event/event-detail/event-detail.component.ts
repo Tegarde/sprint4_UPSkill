@@ -23,6 +23,9 @@ export class EventDetailComponent implements OnInit{
   username : string = '';
   isAttending = false;
   user : TokenInfo | null = null;
+  isStatusMenuOpen = false; // Controla se o menu está aberto
+  statuses = ['Open', 'Closed', 'Canceled']; // Opções disponíveis
+  msg: string = '';
 
   constructor(private route: ActivatedRoute, private eventService: EventService,  private authService : SignInService ) {}
 
@@ -85,4 +88,23 @@ export class EventDetailComponent implements OnInit{
       });
     }
   }
+
+  toggleStatusMenu() {
+    this.isStatusMenuOpen = !this.isStatusMenuOpen;
+  }
+  updateStatus(status: string) {
+    this.isStatusMenuOpen = false; // Fecha o menu após a seleção
+
+    this.eventService.changeEventStatus(this.evento.id, status).subscribe({
+      next: (res) => {
+        this.msg = res.message;
+        this.loadEvent(this.evento.id);
+      },
+      error: (err) => {
+        console.error('Erro ao atualizar estado do evento', err);
+        this.msg = 'Erro ao atualizar estado do evento.';
+      }
+    });
+  }
+  
 }

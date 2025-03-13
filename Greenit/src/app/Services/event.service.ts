@@ -36,4 +36,8 @@ export class EventService {
   unattendEvent(unattendEvent: AttendEvent): Observable<any> {
     return this.client.delete<any>(`${this.endpoint}/unattend`, { body: unattendEvent });
   }
+
+  changeEventStatus(eventId: number, status: string): Observable<{ message: string }> {
+    return this.client.put<{ message: string }>(`${this.endpoint}/status/${eventId}`, {status});
+  }
 }

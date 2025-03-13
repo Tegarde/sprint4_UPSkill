@@ -13,15 +13,28 @@
       <button *ngIf="user !== null" (click)="toggleMakingAComment()">
         {{ makingAComment ? 'Stop commenting' : 'Comment event' }}
       </button>
-      <button *ngIf="evento.status==0 && user !== null" (click)="toggleAttendEvent()" [disabled]="isLoading" 
+      <button *ngIf="evento.status == 0 && user !== null" (click)="toggleAttendEvent()" [disabled]="isLoading" 
         [ngClass]="{'attending': isAttending, 'not-attending': !isAttending}">
-  {{ isAttending ? 'Unattend' : 'Attend' }}
+        {{ isAttending ? 'Unattend' : 'Attend' }}
       </button>
       <button routerLink="/listEvents">Back to List</button>
+    
+      <!-- 🔹 Botão de atualizar estado agora está ao lado dos outros -->
+      <div class="status-button-container">
+        <button (click)="toggleStatusMenu()" class="status-btn">Atualizar Estado</button>
+    
+        <!-- 🔹 Menu de opções (Dropdown) -->
+        <div *ngIf="isStatusMenuOpen" class="status-dropdown">
+          <p *ngFor="let status of statuses" (click)="updateStatus(status)" class="dropdown-item">
+            {{ status }}
+          </p>
+        </div>
+      </div>
     </div>
     <!-- Componente para fazer comentário (aparece apenas quando makingAComment for true) -->
     <app-make-comment *ngIf="makingAComment" [id]="evento.id" [type]="'event'"></app-make-comment>
     
+
 
     
   </div>

@@ -176,11 +176,11 @@ namespace ForumAPI.Controllers
         [SwaggerResponse(200, "Event status updated successfully.")]
         [SwaggerResponse(404, "Event not found.")]
         [SwaggerResponse(400, "Bad request.")]
-        public ActionResult ChangeEventStatus([FromRoute] int id, [FromBody] string status)
+        public ActionResult ChangeEventStatus([FromRoute] int id, [FromBody] EventStatusDTO status)
         {
             try
             {
-                var message = service.ChangeEventStatus(id, status);
+                var message = service.ChangeEventStatus(id, status.Status);
                 return Ok(new ResponseMessage { Message = message });
             }
             catch (NotFoundException ex)
